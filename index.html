@@ -134,6 +134,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js" as="script" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js" crossorigin="anonymous"></script>
 
 <!-- Favicon — inline SVG, works in all modern browsers -->
@@ -255,7 +256,7 @@ html, body {
 
 /* ── Watch search ──────────────────────────────────────────── */
 .watch-search-section {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 .watch-search-row {
   display: flex;
@@ -469,7 +470,7 @@ html, body {
 .start-error { color: var(--bad); font-size: 13px; margin-top: 12px; display: none; }
 
 /* ── App screen ────────────────────────────────────────────── */
-#app-screen { display: none; padding: 16px 18px 32px; max-width: 1120px; margin: 0 auto; }
+#app-screen { display: none; padding: 12px 16px 24px; max-width: 1120px; margin: 0 auto; }
 
 /* Header */
 .app-header {
@@ -477,8 +478,8 @@ html, body {
   align-items: center;
   gap: 14px;
   flex-wrap: wrap;
-  padding-bottom: 14px;
-  margin-bottom: 16px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
   border-bottom: 1px solid var(--border);
 }
 .app-logo {
@@ -573,10 +574,10 @@ body.pro-mode .pro-only { display: block; }
   box-shadow: var(--shadow-sm);
   border-radius: var(--radius);
   padding: 11px 16px;
-  margin-bottom: 0;
+  margin-bottom: 6px;
   font-size: 13px;
   color: var(--text2);
-  line-height: 1.65;
+  line-height: 1.5;
   border-left: 3px solid var(--border2);
   transition: border-color 0.4s ease, background 0.3s ease;
 }
@@ -586,15 +587,15 @@ body.pro-mode .pro-only { display: block; }
 .cards {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 8px;
-  margin-bottom: 12px;
+  gap: 6px;
+  margin-bottom: 8px;
 }
 @media (max-width: 600px) { .cards { grid-template-columns: repeat(2, 1fr); } }
 .card {
   background: var(--bg4);
   box-shadow: var(--shadow-sm);
   border-radius: var(--radius);
-  padding: 14px 14px 12px;
+  padding: 10px 12px 10px;
 }
 .card-label {
   font-size: 10px;
@@ -607,7 +608,7 @@ body.pro-mode .pro-only { display: block; }
 .card-row { display: flex; align-items: baseline; gap: 3px; }
 .card-val {
   font-family: 'DM Mono', monospace;
-  font-size: 26px;
+  font-size: 22px;
   font-weight: 400;
   color: var(--text);
   letter-spacing: -0.02em;
@@ -632,8 +633,9 @@ body.pro-mode .pro-only { display: block; }
 /* Main panels */
 .panels {
   display: grid;
-  grid-template-columns: 230px minmax(0, 1fr);
-  gap: 8px;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: 6px;
+  margin-top: 6px;
 }
 @media (max-width: 700px) { .panels { grid-template-columns: 1fr; } }
 
@@ -699,15 +701,15 @@ canvas { display: block; width: 100%; }
 .waveforms { display: flex; flex-direction: column; flex: 1; }
 .wv { flex: 1; display: flex; flex-direction: column; }
 .wv + .wv { border-top: 1px solid var(--border); }
-.wv canvas { flex: 1; min-height: 100px; }
+.wv canvas { display: block; }
 
 /* Legend */
 .legend {
   background: var(--bg4);
   box-shadow: var(--shadow-sm);
   border-radius: var(--radius);
-  padding: 18px;
-  margin-top: 10px;
+  padding: 12px 16px;
+  margin-top: 6px;
 }
 .legend h3 {
   font-size: 10px;
@@ -878,9 +880,9 @@ details[open] .faq-q::after { transform: rotate(45deg); }
   background: var(--bg4);
   box-shadow: var(--shadow-sm);
   border-radius: var(--radius);
-  margin-top: 10px;
+  margin-top: 6px;
   overflow: hidden;
-  margin-bottom: 32px;
+  margin-bottom: 10px;
 }
 .ai-hdr {
   padding: 12px 16px 11px;
@@ -922,6 +924,7 @@ details[open] .faq-q::after { transform: rotate(45deg); }
   line-height: 1.6;
   padding: 0 20px;
 }
+.ai-empty em { font-style: italic; color: var(--text2); }
 .ai-msg { display: flex; flex-direction: column; gap: 4px; animation: slide-in-up 0.22s cubic-bezier(0.4,0,0.2,1) both; }
 .ai-msg-label {
   font-size: 10px;
@@ -1092,8 +1095,8 @@ details[open] .faq-q::after { transform: rotate(45deg); }
   background: var(--ok-bg); border: 1px solid var(--ok);
   border-radius: var(--radius-sm); font-size: 12px; color: var(--ok);
   line-height: 1.55;
-  animation: slide-in-down 0.22s ease both;
 }
+.noise-warning.visible { display: block; animation: slide-in-down 0.22s ease both; }
 .noise-warning strong { font-weight: 500; }
 
 /* ── Pro mode advanced panels ──────────────────────────────── */
@@ -1164,10 +1167,30 @@ details[open] .faq-q::after { transform: rotate(45deg); }
 .pos-table .pos-best { color: var(--good); }
 .pos-table .pos-worst { color: var(--bad); }
 
+
+/* ── Collapsible legend ──────────────────────────────────────── */
+.legend-toggle {
+  width: 100%; text-align: left; padding: 0;
+  background: none; border: none; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 10px; font-weight: 500; color: var(--text3);
+  text-transform: uppercase; letter-spacing: 0.09em;
+}
+.legend-toggle-arrow {
+  font-size: 14px; font-weight: 300; color: var(--text3);
+  transition: transform 0.2s;
+}
+.legend.open .legend-toggle-arrow { transform: rotate(45deg); }
+.legend-body {
+  display: none;
+}
+.legend.open .legend-body { display: block; padding-top: 14px; }
+.legend.open .legend-body { display: block; }
+
 /* ── Copy / Share action buttons ──────────────────────────── */
 .readings-actions {
   display: flex; gap: 6px; justify-content: flex-end;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 .action-btn {
   font-size: 11px; padding: 5px 11px;
@@ -1214,11 +1237,10 @@ details[open] .faq-q::after { transform: rotate(45deg); }
   background: var(--bg4);
   border: 1px solid var(--border2); border-top: none;
   border-radius: 0 0 var(--radius) var(--radius);
-  overflow: hidden; overflow-x: auto;
-  max-height: 0; opacity: 0;
-  transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.25s ease;
+  overflow-x: auto;
+  display: none;
 }
-.history-panel.open { max-height: 600px; opacity: 1; }
+.history-panel.open { display: block; }
 .history-table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 560px; }
 .history-table th {
   padding: 6px 10px; text-align: left; color: var(--text3);
@@ -1279,15 +1301,7 @@ details[open] .faq-q::after { transform: rotate(45deg); }
   font-family: 'DM Sans', sans-serif;
 }
 
-/* Suggested question chips */
-.ai-chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 16px 4px; }
-.ai-chip {
-  font-size: 12px; padding: 5px 12px; background: var(--bg);
-  border: 1px solid var(--border2); border-radius: 20px;
-  cursor: pointer; color: var(--text2); font-family: 'DM Sans', sans-serif;
-  transition: all 0.18s cubic-bezier(0.4,0,0.2,1); white-space: nowrap;
-}
-.ai-chip:hover { background: var(--bg3); color: var(--text); }
+
 </style>
 </head>
 <body>
@@ -1437,7 +1451,7 @@ details[open] .faq-q::after { transform: rotate(45deg); }
       </div>
       <div class="field">
         <label>Lift angle °</label>
-        <input type="number" id="in-la" value="52" min="10" max="90" step="1">
+        <input type="number" id="in-la" value="52" min="45" max="60" step="0.5" title="Common range: 49–53°. Values outside 45–60° are unusual.">
       </div>
       <div class="field">
         <label>Cal. offset s/d</label>
@@ -1600,7 +1614,7 @@ details[open] .faq-q::after { transform: rotate(45deg); }
         <span class="panel-name">Paperstrip</span>
         <span class="panel-hint">each dot = one tick or tock</span>
       </div>
-      <canvas id="cv-strip" height="400" role="img" aria-label="Paperstrip — live trace of tick and tock timing events"></canvas>
+      <canvas id="cv-strip" height="280" role="img" aria-label="Paperstrip — live trace of tick and tock timing events"></canvas>
       <div class="strip-btns" role="group" aria-label="Paperstrip controls">
         <button class="strip-btn" id="btn-l" aria-label="Shift trace left">←</button>
         <button class="strip-btn" id="btn-ctr" aria-label="Centre the trace">Center</button>
@@ -1617,28 +1631,32 @@ details[open] .faq-q::after { transform: rotate(45deg); }
             <span class="panel-name">Tic waveform</span>
             <span class="panel-hint">tick sound shape (averaged)</span>
           </div>
-          <canvas id="cv-tic" height="110" role="img" aria-label="Tic waveform — averaged sound shape of each tick"></canvas>
+          <canvas id="cv-tic" height="88" role="img" aria-label="Tic waveform — averaged sound shape of each tick"></canvas>
         </div>
         <div class="wv">
           <div class="panel-hdr">
             <span class="panel-name">Toc waveform</span>
             <span class="panel-hint">tock sound shape (averaged)</span>
           </div>
-          <canvas id="cv-toc" height="110" role="img" aria-label="Toc waveform — averaged sound shape of each tock"></canvas>
+          <canvas id="cv-toc" height="88" role="img" aria-label="Toc waveform — averaged sound shape of each tock"></canvas>
         </div>
         <div class="wv">
           <div class="panel-hdr">
             <span class="panel-name">Full period</span>
             <span class="panel-hint">one complete tic–toc cycle</span>
           </div>
-          <canvas id="cv-per" height="110" role="img" aria-label="Full period view — one complete tic and toc cycle"></canvas>
+          <canvas id="cv-per" height="88" role="img" aria-label="Full period view — one complete tic and toc cycle"></canvas>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="legend">
-    <h3>What do these readings mean?</h3>
+  <div class="legend" id="legend-section">
+    <button class="legend-toggle" onclick="toggleLegend()" aria-expanded="false" aria-controls="legend-body">
+      <span>What do these readings mean?</span>
+      <span class="legend-toggle-arrow">+</span>
+    </button>
+    <div class="legend-body" id="legend-body">
     <dl class="legend-grid">
       <div class="legend-item">
         <dt>Rate (s/d)</dt>
@@ -1665,6 +1683,7 @@ details[open] .faq-q::after { transform: rotate(45deg); }
         <dd>A fixed property of your movement needed for amplitude accuracy. Check your movement's datasheet. Common values: 49–53°.</dd>
       </div>
     </dl>
+    </div>
   </div>
 
   <!-- ── AI Diagnosis ─────────────────────────────────────── -->
@@ -1680,7 +1699,7 @@ details[open] .faq-q::after { transform: rotate(45deg); }
     </div>
 
     <div class="ai-messages" id="ai-messages" aria-live="polite" aria-label="AI Diagnosis conversation" role="log">
-      <div class="ai-empty" id="ai-empty">Start measuring, then tap <strong style="color:var(--text)">Diagnose my watch</strong> for an instant expert read on your results.</div>
+      <div class="ai-empty" id="ai-empty">Start measuring, then tap <em>Diagnose my watch</em> for an instant expert read on your results.</div>
     </div>
     <div class="ai-suggestions" id="ai-suggestions">
       <button class="ai-suggestion-chip" onclick="askSuggestion(this)">Why is my amplitude low?</button>
@@ -1853,8 +1872,11 @@ function setPosition(pos, btn) {
   currentPosition = pos;
   document.querySelectorAll('.pos-chip').forEach(c => c.classList.remove('active'));
   if (btn) btn.classList.add('active');
-  lastAutoSaveTs = 0; // position change = always save immediately
-  saveCurrentReading();
+  // Only save if we have a real stable reading
+  if (detector && detector.rate !== null && detector.signal >= 2) {
+    lastAutoSaveTs = 0;
+    saveCurrentReading();
+  }
 }
 
 // ── Beat Detector ────────────────────────────────────────────
@@ -2158,7 +2180,7 @@ async function startMeasuring() {
     analyzeTimer = setInterval(() => {
       detector.analyze();
       updateUI();
-      drawAllCanvases();
+      if (detector.signal > 0) drawAllCanvases();
     }, 280);
 
     // Show app screen
@@ -2193,6 +2215,14 @@ function stopMeasuring() {
   document.getElementById('start-screen').style.display = '';
   document.getElementById('start-btn').disabled = false;
   document.getElementById('start-btn').textContent = 'Allow microphone & start';
+  // Clear stale DOM state
+  ['v-rate','v-be','v-amp','v-bph'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = '—'; });
+  ['b-rate','b-be','b-amp','b-bph'].forEach(id => { const el = document.getElementById(id); if (el) { el.textContent = ''; el.style.background = ''; el.style.color = ''; } });
+  document.getElementById('health-bar').innerHTML = '<span class="listening-dots">Listening</span>';
+  const sigEl = document.getElementById('sig-bars'); if (sigEl) sigEl.innerHTML = '';
+  const sigLbl = document.getElementById('sig-label'); if (sigLbl) sigLbl.textContent = '';
+  const noiseEl = document.getElementById('noise-warning'); if (noiseEl) noiseEl.style.display = 'none';
+  ['copy-btn','save-btn','share-btn'].forEach(id => { const b = document.getElementById(id); if (b) { b.disabled = true; b.style.opacity = '0.4'; b.style.cursor = 'not-allowed'; } });
 }
 
 // ── Settings ────────────────────────────────────────────────
@@ -2202,7 +2232,10 @@ document.getElementById('sel-bph').addEventListener('change', e => {
   if (detector) { detector.bph = S.bph; detector.clearPaperstrip(); }
 });
 document.getElementById('in-la').addEventListener('change', e => {
-  S.la = parseFloat(e.target.value) || 52;
+  let v = parseFloat(e.target.value) || 52;
+  v = Math.max(45, Math.min(60, v));
+  e.target.value = v;
+  S.la = v;
   if (detector) detector.la = S.la;
 });
 document.getElementById('in-cal').addEventListener('change', e => {
@@ -2241,8 +2274,8 @@ function getStatusColors() {
   };
 }
 
-function badge(el, text, cls) {
-  const c = getStatusColors()[cls];
+function badge(el, text, cls, colors) {
+  const c = (colors || getStatusColors())[cls];
   el.textContent = text;
   el.style.background = c.bg;
   el.style.color = c.fg;
@@ -2251,17 +2284,22 @@ function badge(el, text, cls) {
 function updateUI() {
   if (!detector) return;
   const d = detector;
+  const sc = getStatusColors(); // cache once per cycle
 
-  // Signal bars + quality label + noise warning
+  // Signal bars — update in-place, avoid rebuild
   const sigEl = document.getElementById('sig-bars');
-  sigEl.innerHTML = '';
   const heights = [6, 10, 14, 18];
-  const sc = getStatusColors();
+  if (sigEl.children.length !== 4) {
+    sigEl.innerHTML = '';
+    for (let i = 0; i < 4; i++) {
+      const b = document.createElement('div');
+      b.className = 'sig-bar';
+      b.style.cssText = `height:${heights[i]}px;width:5px;border-radius:2px 2px 0 0;`;
+      sigEl.appendChild(b);
+    }
+  }
   for (let i = 0; i < 4; i++) {
-    const b = document.createElement('div');
-    b.className = 'sig-bar';
-    b.style.cssText = `height:${heights[i]}px;width:5px;border-radius:2px 2px 0 0;background:${i < d.signal ? sc.sigOn : sc.sigOff}`;
-    sigEl.appendChild(b);
+    sigEl.children[i].style.background = i < d.signal ? sc.sigOn : sc.sigOff;
   }
   const sigLabels = ['No signal', 'Weak', 'Fair', 'Good', 'Strong'];
   const sigLabelEl = document.getElementById('sig-label');
@@ -2271,13 +2309,13 @@ function updateUI() {
   const noiseEl = document.getElementById('noise-warning');
   if (noiseEl) {
     if (d.signal === 0) {
-      noiseEl.style.display = 'block';
-      noiseEl.innerHTML = '⚠ <strong>No signal detected.</strong> Try holding your watch closer to your microphone, or use a quiet room. A clip-on contact mic (~$15) dramatically improves accuracy.';
+      const newMsg = '⚠ <strong>No signal detected.</strong> Try holding your watch closer to your microphone, or use a quiet room. A clip-on contact mic (~$15) dramatically improves accuracy.';
+      if (noiseEl.innerHTML !== newMsg) { noiseEl.innerHTML = newMsg; noiseEl.className = ''; noiseEl.className = 'noise-warning visible'; }
     } else if (d.signal === 1) {
-      noiseEl.style.display = 'block';
-      noiseEl.innerHTML = '⚠ <strong>Weak signal.</strong> Readings may be unreliable. Hold the watch face-down against a hard surface near the microphone, or reduce background noise.';
+      const newMsg = '⚠ <strong>Weak signal.</strong> Readings may be unreliable. Hold the watch face-down against a hard surface near the microphone, or reduce background noise.';
+      if (noiseEl.innerHTML !== newMsg) { noiseEl.innerHTML = newMsg; noiseEl.className = ''; noiseEl.className = 'noise-warning visible'; }
     } else {
-      noiseEl.style.display = 'none';
+      noiseEl.className = 'noise-warning';
     }
   }
 
@@ -2300,14 +2338,14 @@ function updateUI() {
     ? watchProfile.rateToleranceSd : 15;
   const rCls = rateAbs <= 6 ? 'good' : rateAbs <= rateTol ? 'ok' : 'bad';
   badge(document.getElementById('b-rate'),
-    rateAbs <= 6 ? 'Excellent' : rateAbs <= rateTol ? 'Acceptable' : 'Needs regulation', rCls);
+    rateAbs <= 6 ? 'Excellent' : rateAbs <= rateTol ? 'Acceptable' : 'Needs regulation', rCls, sc);
 
   // Beat error
   if (d.beatError !== null) {
     setCardVal('v-be', d.beatError.toFixed(proMode ? 3 : 2));
     const bCls = d.beatError < 0.5 ? 'good' : d.beatError < 1.5 ? 'ok' : 'bad';
     badge(document.getElementById('b-be'),
-      d.beatError < 0.5 ? 'Excellent' : d.beatError < 1.5 ? 'Acceptable' : 'Needs adjustment', bCls);
+      d.beatError < 0.5 ? 'Excellent' : d.beatError < 1.5 ? 'Acceptable' : 'Needs adjustment', bCls, sc);
   }
 
   // Amplitude
@@ -2319,19 +2357,24 @@ function updateUI() {
       ? watchProfile.amplitudeMax : 320;
     const aCls = d.amplitude >= ampMin && d.amplitude <= ampMax ? 'good' : d.amplitude >= ampMin - 40 ? 'ok' : 'bad';
     badge(document.getElementById('b-amp'),
-      d.amplitude >= ampMin ? 'Healthy' : d.amplitude >= ampMin - 40 ? 'Low — try winding' : 'Very low', aCls);
+      d.amplitude >= ampMin ? 'Healthy' : d.amplitude >= ampMin - 40 ? 'Low — try winding' : 'Very low', aCls, sc);
   }
 
-  // Detected BPH
+  // Detected BPH — also sync dropdown if it differs
   if (d.detBPH !== null) {
     setCardVal('v-bph', d.detBPH.toLocaleString());
-    badge(document.getElementById('b-bph'), 'Confirmed', 'good');
+    badge(document.getElementById('b-bph'), 'Confirmed', 'good', sc);
     const hzEl = document.getElementById('v-hz');
     if (hzEl) hzEl.textContent = proMode ? (d.detBPH / 3600).toFixed(2) + ' Hz' : '';
+    const bphSel = document.getElementById('sel-bph');
+    if (bphSel && parseInt(bphSel.value) !== d.detBPH) {
+      const opt = [...bphSel.options].find(o => parseInt(o.value) === d.detBPH);
+      if (opt && S.bph !== d.detBPH) { bphSel.value = d.detBPH; S.bph = d.detBPH; if (detector) detector.bph = d.detBPH; }
+    }
   }
 
   // Health summary — use theme-aware colours
-  const sc2 = getStatusColors();
+  const sc2 = sc;
   const rateColor = sc2[rCls].fg;
   const beColor   = d.beatError !== null ? sc2[beClass(d.beatError)].fg : '';
   const beText = d.beatError !== null
@@ -2356,7 +2399,7 @@ function updateUI() {
       }
       const stabilityBadge = document.getElementById('pro-stability-badge');
       if (stabilityBadge) {
-        const sc3 = getStatusColors();
+        const sc3 = sc;
         const stab = d.rateStdDev < 0.5 ? 'good' : d.rateStdDev < 1.5 ? 'ok' : 'bad';
         stabilityBadge.textContent = d.rateStdDev < 0.5 ? 'Stable' : d.rateStdDev < 1.5 ? 'Moderate variance' : 'High variance';
         stabilityBadge.style.background = sc3[stab].bg;
@@ -2399,7 +2442,7 @@ function updateUI() {
   // Position prompt + auto-save
   if (d.rate !== null && d.signal >= 2) {
     stableMs += 280;
-    if (stableMs >= 28000 && !positionShown) {
+    if (stableMs >= 28000 && !positionShown && d.signal >= 3 && d.rate !== null) {
       const pp = document.getElementById('position-prompt');
       if (pp) pp.style.display = 'block';
       positionShown = true;
@@ -2819,6 +2862,7 @@ async function lookupWatch() {
 
   btn.disabled = true;
   btn.textContent = 'Looking up…';
+  input.disabled = true;
   result.style.display = 'none';
 
   try {
@@ -2845,6 +2889,7 @@ async function lookupWatch() {
   } finally {
     btn.disabled = false;
     btn.textContent = 'Look up';
+    input.disabled = false;
   }
 }
 
@@ -2915,9 +2960,15 @@ function clearWatchProfile() {
   watchProfile = null;
   const chip = document.getElementById('watch-chip');
   if (chip) chip.style.display = 'none';
-  document.getElementById('watch-profile-bar').className = 'watch-profile-bar';
+  const bar = document.getElementById('watch-profile-bar');
+  if (bar) { bar.className = 'watch-profile-bar'; bar.innerHTML = ''; }
+  // Clear both screen inputs
   const appInput = document.getElementById('watch-model-input');
   if (appInput) appInput.value = '';
+  const startInput = document.getElementById('watch-input-start');
+  if (startInput) startInput.value = '';
+  const startResult = document.getElementById('watch-result');
+  if (startResult) { startResult.style.display = 'none'; startResult.innerHTML = ''; }
   resetSuggestedQuestions();
 }
 // ── App-screen watch lookup ───────────────────────────────────
@@ -3012,6 +3063,8 @@ function diagnoseWatch() {
   }
   const prompt = `My current timegrapher readings:\n\n${summary}\n\nPlease diagnose my watch${watchLine}.`;
   runAI(prompt, 'Diagnose my watch');
+  const sugg = document.getElementById('ai-suggestions');
+  if (sugg) sugg.style.display = 'none';
 }
 
 function sendAIMessage() {
@@ -3052,6 +3105,10 @@ function runAI(apiPrompt, displayText) {
 async function streamAI(bodyEl, cursor) {
   aiStreaming = true;
   setAIDiagnoseBtn(true);
+  const aiInputEl = document.getElementById('ai-input');
+  const aiSendEl  = document.getElementById('ai-send-btn');
+  if (aiInputEl) aiInputEl.disabled = true;
+  if (aiSendEl)  aiSendEl.disabled  = true;
   let full = '';
   try {
     const res = await fetch(AI_ENDPOINT, {
@@ -3087,7 +3144,7 @@ async function streamAI(bodyEl, cursor) {
               ? DOMPurify.sanitize(mdToHtml(full), { ALLOWED_TAGS: ['p','strong','em','ul','ol','li','h3','code','br'], ALLOWED_ATTR: [] })
               : escapeHtmlFallback(full);
             bodyEl.appendChild(cursor);
-            bodyEl.closest('.ai-messages').scrollTop = 99999;
+            cursor.scrollIntoView({ block: 'nearest' });
           }
         } catch {}
       }
@@ -3100,6 +3157,13 @@ async function streamAI(bodyEl, cursor) {
   if (full) aiHistory.push({ role: 'assistant', content: full });
   aiStreaming = false;
   setAIDiagnoseBtn(false);
+  const aiInputEl2 = document.getElementById('ai-input');
+  const aiSendEl2  = document.getElementById('ai-send-btn');
+  if (aiInputEl2) { aiInputEl2.disabled = false; aiInputEl2.focus(); }
+  if (aiSendEl2)  aiSendEl2.disabled  = false;
+  // Hide suggestion chips once first exchange done
+  const suggestions = document.getElementById('ai-suggestions');
+  if (suggestions) suggestions.style.display = 'none';
 }
 
 // Fallback if DOMPurify fails to load — plain text only, no HTML
@@ -3316,6 +3380,15 @@ function saveReading() {
   }
   // Open history if closed so user sees it
   if (!historyOpen) toggleHistory();
+}
+
+// ── Legend toggle ────────────────────────────────────────────
+function toggleLegend() {
+  const el = document.getElementById('legend-section');
+  if (!el) return;
+  el.classList.toggle('open');
+  const btn = el.querySelector('.legend-toggle');
+  if (btn) btn.setAttribute('aria-expanded', el.classList.contains('open'));
 }
 
 // ── Copy readings ─────────────────────────────────────────────
@@ -3566,8 +3639,12 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('watch-input-start')?.addEventListener('keydown', e => {
     if (e.key === 'Enter') { e.preventDefault(); lookupWatch(); }
   });
-  // Init history count
-  refreshHistoryUI();
+  // Init history count — show badge immediately from localStorage
+  try {
+    const hist = JSON.parse(localStorage.getItem('tg-history') || '[]');
+    const countEl = document.getElementById('history-count');
+    if (countEl && hist.length > 0) countEl.textContent = `${hist.length} reading${hist.length !== 1 ? 's' : ''}`;
+  } catch {}
   // Show setup notice if no endpoint configured
   if (!AI_ENDPOINT) setAINotice('Set <code>AI_ENDPOINT</code> after deploying <code>worker.js</code> — see README.');
 });
