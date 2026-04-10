@@ -1,0 +1,2102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Prevent flash of wrong theme — runs before CSS paints -->
+<script>document.documentElement.setAttribute('data-theme',localStorage.getItem('tg-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'));</script>
+
+<!-- Primary SEO -->
+<title>Timegrapher AI — Free Online Watch Timegrapher</title>
+<meta name="description" content="Timegrapher AI — free browser-based mechanical watch timegrapher. Instantly measure rate (s/d), beat error (ms), amplitude and BPH using your microphone. AI-powered diagnosis included. No hardware, no account, nothing to install.">
+<meta name="keywords" content="watch timegrapher, online timegrapher, free timegrapher, mechanical watch accuracy, beat error milliseconds, watch amplitude degrees, watch rate seconds per day, BPH beats per hour, horology tool, watch regulation, timegrapher app, watch diagnosis, mechanical watch tester">
+<meta name="author" content="Timegrapher.ai">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://timegrapher.ai/">
+
+<!-- Open Graph -->
+<meta property="og:type"         content="website">
+<meta property="og:url"          content="https://timegrapher.ai/">
+<meta property="og:site_name"    content="Timegrapher.ai">
+<meta property="og:title"        content="Timegrapher AI — Free Online Watch Timegrapher">
+<meta property="og:description"  content="Measure your mechanical watch’s rate, beat error, amplitude and BPH using your computer microphone. Free, browser-based, with AI-powered diagnosis.">
+<meta property="og:image"        content="https://timegrapher.ai/og-image.png">
+<meta property="og:image:width"  content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt"    content="Timegrapher.ai showing paperstrip, waveforms and metric cards">
+<meta property="og:locale"       content="en_US">
+
+<!-- Twitter / X -->
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="Timegrapher AI — Free Online Watch Timegrapher">
+<meta name="twitter:description" content="Analyse your mechanical watch with AI-powered precision. Free, browser-based timegrapher with AI-powered diagnosis.">
+<meta name="twitter:image"       content="https://timegrapher.ai/og-image.png">
+
+<!-- Theme colour (browser chrome) -->
+<meta name="theme-color" content="#F2EDE4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141210" media="(prefers-color-scheme: dark)">
+
+<!-- Structured data: WebApplication + FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": "https://timegrapher.ai/#app",
+      "name": "Timegrapher.ai",
+      "url": "https://timegrapher.ai/",
+      "description": "Timegrapher AI is a free browser-based mechanical watch timegrapher. It measures rate in seconds per day, beat error in milliseconds, amplitude in degrees, and BPH using a computer microphone, with AI-powered watchmaker diagnosis.",
+      "applicationCategory": "UtilityApplication",
+      "applicationSubCategory": "Horology Tool",
+      "operatingSystem": "Any",
+      "browserRequirements": "Chrome 80+, Firefox 76+, or Safari 14.5+. Microphone required.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": [
+        "Rate measurement in seconds per day",
+        "Beat error measurement in milliseconds",
+        "Amplitude estimation in degrees",
+        "BPH auto-detection",
+        "Live paperstrip display",
+        "AI-powered watch diagnosis",
+        "Dark mode"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://timegrapher.ai/#website",
+      "url": "https://timegrapher.ai/",
+      "name": "Timegrapher.ai",
+      "description": "Timegrapher AI — free online watch timegrapher with AI-powered diagnosis for mechanical watches"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://timegrapher.ai/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a timegrapher?",
+          "acceptedAnswer": { "@type": "Answer", "text": "A timegrapher is an instrument that measures the performance of a mechanical watch by listening to its tick sounds. It calculates four key metrics: rate (seconds gained or lost per day), beat error (timing difference between tick and tock in milliseconds), amplitude (balance wheel swing arc in degrees), and BPH (beats per hour, the movement’s frequency)." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is beat error in a watch?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Beat error is the timing difference between the tick and tock of a mechanical watch’s escapement, measured in milliseconds. Under 0.5 ms is excellent, under 1.5 ms is acceptable for daily wear, and over 2.5 ms can cause the watch to stop. It is corrected by adjusting the pallet fork’s position relative to the balance wheel." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is amplitude in a mechanical watch?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Amplitude is the arc in degrees through which the balance wheel swings on each beat. A healthy mechanical watch shows 220–310° when fully wound. Low amplitude (below 200°) suggests the mainspring needs winding, the movement needs servicing, or there is excess friction in the train." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is a good rate for a mechanical watch?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The COSC chronometer standard requires −4 to +6 seconds per day. For everyday mechanical watches, ±15 s/d is acceptable. Beyond ±30 s/d usually warrants regulation. Rate varies by position, so testing in multiple orientations gives a fuller picture." }
+        },
+        {
+          "@type": "Question",
+          "name": "What causes a mechanical watch to run fast?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Common causes of a fast rate include: magnetisation of the movement (especially the hairspring), hairspring coils sticking together, an incorrectly set regulator index, or a worn escapement. Demagnetising is the easiest first step and safe to do at home with a demagnetiser." }
+        },
+        {
+          "@type": "Question",
+          "name": "What does BPH mean on a timegrapher?",
+          "acceptedAnswer": { "@type": "Answer", "text": "BPH stands for Beats Per Hour — the frequency of the mechanical watch movement. Common values are 18,000 (5 Hz), 21,600 (6 Hz), 28,800 (8 Hz), and 36,000 BPH (10 Hz). You must set the correct BPH on the timegrapher to match your movement for accurate amplitude readings." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is a browser-based timegrapher as accurate as a hardware timegrapher?",
+          "acceptedAnswer": { "@type": "Answer", "text": "For rate and beat error, a browser-based timegrapher with a good microphone can match hardware accuracy — the underlying algorithm is the same. The key difference is the microphone: hardware timegraphers use a contact mic clipped to the watch case for a cleaner signal. A laptop mic works well in a quiet room. For best results use a dedicated clip-on contact microphone (~$15) connected to your computer." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is lift angle and why does it matter for timegraphers?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The lift angle is a fixed mechanical property of a specific watch movement — the arc through which the pallet fork lifts the balance wheel on each beat. It typically ranges from 49° to 53°. The timegrapher uses it to convert pulse timing into amplitude in degrees. The wrong lift angle gives inaccurate amplitude, though rate and beat error are unaffected." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I improve my watch rate accuracy?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Start by demagnetising the watch — magnetisation is the most common cause of a suddenly fast rate. If that doesn’t help, the regulator index on the balance cock can be adjusted. Small movements change the rate by roughly 5–10 seconds per day. Positional errors that persist across multiple orientations usually require a watchmaker to poise the balance wheel." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between rate and beat error in a watch?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Rate measures how fast or slow the watch runs overall — expressed in seconds per day. Beat error measures the symmetry of each individual tick and tock — whether they are equally spaced. A watch can have perfect rate but poor beat error, or vice versa. High beat error stresses the movement and can cause erratic timekeeping even when the daily rate appears acceptable." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js" crossorigin="anonymous"></script>
+
+<!-- Favicon — inline SVG, works in all modern browsers -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23F2EDE4'/><rect x='12' y='3' width='8' height='5' rx='2' fill='%23A89678'/><rect x='12' y='24' width='8' height='5' rx='2' fill='%23A89678'/><circle cx='16' cy='16' r='9' fill='%23EDE6D8' stroke='%2326211A' stroke-width='1.5'/><circle cx='16' cy='16' r='7.5' fill='none' stroke='%23A89678' stroke-width='0.5'/><rect x='20.5' y='14.5' width='3' height='3' rx='1' fill='%2326211A'/><line x1='16' y1='16' x2='16' y2='10' stroke='%2326211A' stroke-width='1.5' stroke-linecap='round'/><line x1='16' y1='16' x2='19.5' y2='16' stroke='%2326211A' stroke-width='1' stroke-linecap='round'/><circle cx='16' cy='16' r='1' fill='%2326211A'/></svg>">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<!-- Web app manifest (PWA) -->
+<link rel="manifest" href="/manifest.json">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Warm beige palette */
+  --bg:        #F2EDE4;
+  --bg2:       #FAF7F2;
+  --bg3:       #EDE8DF;
+  --bg4:       #FFFFFF;
+  --border:    rgba(100, 80, 50, 0.10);
+  --border2:   rgba(100, 80, 50, 0.18);
+  --text:      #26211A;
+  --text2:     #6B6258;
+  --text3:     #A8A099;
+  --accent:    #26211A;
+  --amber:     #9A6B30;
+  --amber-bg:  rgba(154,107,48,0.10);
+  --good:      #2C7A48;
+  --good-bg:   rgba(44,122,72,0.10);
+  --ok:        #8A5A0A;
+  --ok-bg:     rgba(138,90,10,0.10);
+  --bad:       #B53232;
+  --bad-bg:    rgba(181,50,50,0.10);
+  --blue:      #2C5F8A;
+  --radius:    12px;
+  --radius-sm: 8px;
+  --shadow:    0 1px 3px rgba(80,60,30,0.08), 0 0 0 1px rgba(100,80,50,0.08);
+  --shadow-sm: 0 1px 2px rgba(80,60,30,0.06), 0 0 0 1px rgba(100,80,50,0.07);
+}
+
+[data-theme="dark"] {
+  --bg:        #141210;
+  --bg2:       #1C1814;
+  --bg3:       #242018;
+  --bg4:       #1C1814;
+  --border:    rgba(255,235,205,0.08);
+  --border2:   rgba(255,235,205,0.15);
+  --text:      #EDE6D8;         /* 15.8:1 on bg4 — AAA */
+  --text2:     #A89678;         /* 6.3:1 on bg4  — AA+ */
+  --text3:     #907862;         /* 4.6:1 on bg4  — AA  */
+  --accent:    #EDE6D8;
+  --amber:     #C8963C;
+  --amber-bg:  rgba(200,150,60,0.16);
+  --good:      #3DAF64;
+  --good-bg:   rgba(61,175,100,0.16);
+  --ok:        #C8920A;
+  --ok-bg:     rgba(200,146,10,0.16);
+  --bad:       #E05252;
+  --bad-bg:    rgba(224,82,82,0.16);
+  --blue:      #5A9AD4;
+  --shadow:    0 2px 8px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,235,205,0.07);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,235,205,0.06);
+}
+
+/* Smooth theme transition — applied only during switch via JS class */
+.theme-transitioning,
+.theme-transitioning *,
+.theme-transitioning *::before,
+.theme-transitioning *::after {
+  transition: background-color 0.22s ease, border-color 0.22s ease,
+              color 0.22s ease, box-shadow 0.22s ease !important;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  background: transparent;
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--text2);
+  flex-shrink: 0;
+}
+.theme-toggle:hover { background: var(--bg3); color: var(--text); }
+.theme-toggle svg { pointer-events: none; }
+
+/* Visible focus ring — works in both modes */
+:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Skip-to-content for keyboard users */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 12px;
+  background: var(--text);
+  color: var(--bg4);
+  padding: 8px 14px;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  z-index: 9999;
+  transition: top 0.15s;
+}
+.skip-link:focus { top: 0; }
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Start screen ──────────────────────────────────────────── */
+#start-screen {
+  background: var(--bg);
+  position: relative;
+  display: block;
+}
+.start-card {
+  background: var(--bg4);
+  box-shadow: var(--shadow);
+  border-radius: 20px;
+  padding: 48px 40px 40px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+.start-logo {
+  font-family: 'DM Mono', monospace;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.start-tagline {
+  font-size: 13px;
+  color: var(--text3);
+  margin-bottom: 36px;
+  letter-spacing: 0.01em;
+}
+.mic-icon {
+  width: 60px; height: 60px;
+  background: var(--bg);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 28px;
+  box-shadow: var(--shadow-sm);
+}
+.mic-icon svg { width: 24px; height: 24px; fill: var(--text2); }
+.start-instruction {
+  font-size: 14px;
+  color: var(--text2);
+  margin-bottom: 32px;
+  line-height: 1.65;
+}
+.start-instruction strong { color: var(--text); font-weight: 500; }
+#start-btn {
+  width: 100%;
+  padding: 13px 20px;
+  background: var(--text);
+  color: var(--bg4);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  transition: opacity 0.15s;
+}
+#start-btn:hover { opacity: 0.85; }
+#start-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.start-note {
+  font-size: 12px;
+  color: var(--text3);
+  margin-top: 16px;
+  line-height: 1.6;
+}
+.start-error { color: var(--bad); font-size: 13px; margin-top: 12px; display: none; }
+
+/* ── App screen ────────────────────────────────────────────── */
+#app-screen { display: none; padding: 16px 18px 32px; max-width: 1120px; margin: 0 auto; }
+
+/* Header */
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.app-logo {
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--text);
+  white-space: nowrap;
+}
+.app-logo span {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text3);
+  margin-left: 10px;
+  letter-spacing: 0;
+  font-family: 'DM Sans', sans-serif;
+}
+.settings { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; }
+.field { display: flex; flex-direction: column; gap: 4px; }
+.field label {
+  font-size: 10px;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+.field select, .field input[type=number] {
+  font-size: 12px;
+  font-family: 'DM Mono', monospace;
+  padding: 5px 9px;
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-sm);
+  background: var(--bg4);
+  color: var(--text);
+  width: 92px;
+  appearance: none;
+  -webkit-appearance: none;
+  box-shadow: var(--shadow-sm);
+}
+.field select:focus, .field input[type=number]:focus {
+  outline: 2px solid var(--text);
+  outline-offset: -1px;
+}
+.sig-wrap { display: flex; align-items: flex-end; gap: 3px; height: 28px; padding-bottom: 4px; }
+.sig-bar { width: 5px; border-radius: 2px 2px 0 0; transition: background 0.3s; }
+.stop-btn {
+  margin-left: auto;
+  padding: 5px 13px;
+  font-size: 12px;
+  font-family: 'DM Sans', sans-serif;
+  background: transparent;
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-sm);
+  color: var(--text2);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.stop-btn:hover { border-color: var(--bad); color: var(--bad); }
+
+/* Pro mode toggle */
+.mode-btn {
+  font-size: 10px;
+  padding: 4px 10px;
+  background: transparent;
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  cursor: pointer;
+  color: var(--text3);
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.06em;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.mode-btn:hover { color: var(--text2); border-color: var(--border2); }
+.mode-btn.is-pro { color: var(--amber); border-color: var(--amber); background: var(--amber-bg); }
+
+/* Pro mode: extra data shown only in pro mode */
+.pro-only { display: none; }
+body.pro-mode .pro-only { display: block; }
+.card-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+  margin-top: 2px;
+  letter-spacing: 0.02em;
+}
+
+/* Health summary */
+.health {
+  background: var(--bg4);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius);
+  padding: 11px 16px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.65;
+  border-left: 3px solid var(--border2);
+}
+.health strong { font-weight: 500; color: var(--text); }
+
+/* Metric cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+@media (max-width: 600px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+.card {
+  background: var(--bg4);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius);
+  padding: 14px 14px 12px;
+}
+.card-label {
+  font-size: 10px;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.card-row { display: flex; align-items: baseline; gap: 3px; }
+.card-val {
+  font-family: 'DM Mono', monospace;
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.card-unit {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text3);
+}
+.card-badge {
+  display: inline-block;
+  margin-top: 7px;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 7px;
+  border-radius: 20px;
+  letter-spacing: 0.01em;
+}
+
+/* Main panels */
+.panels {
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  gap: 8px;
+}
+@media (max-width: 700px) { .panels { grid-template-columns: 1fr; } }
+
+.panel {
+  background: var(--bg4);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.panel-hdr {
+  padding: 8px 13px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  background: var(--bg2);
+}
+.panel-name {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.panel-hint { font-size: 10px; color: var(--text3); }
+
+canvas { display: block; width: 100%; }
+
+.strip-btns {
+  display: flex;
+  gap: 5px;
+  padding: 8px 10px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+  background: var(--bg2);
+}
+.strip-btn {
+  flex: 1;
+  padding: 5px 4px;
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  background: var(--bg4);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--text2);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.12s;
+}
+.strip-btn:hover { background: var(--bg); color: var(--text); }
+.strip-btn:active { transform: scale(0.97); }
+
+.waveforms { display: flex; flex-direction: column; flex: 1; }
+.wv { flex: 1; display: flex; flex-direction: column; }
+.wv + .wv { border-top: 1px solid var(--border); }
+.wv canvas { flex: 1; min-height: 100px; }
+
+/* Legend */
+.legend {
+  background: var(--bg4);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius);
+  padding: 18px;
+  margin-top: 10px;
+}
+.legend h3 {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  margin-bottom: 14px;
+}
+.legend-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 28px; }
+@media (max-width: 500px) { .legend-grid { grid-template-columns: 1fr; } }
+.legend-item dt {
+  font-size: 12px;
+  font-weight: 500;
+  font-family: 'DM Mono', monospace;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.legend-item dd { font-size: 12px; color: var(--text2); line-height: 1.55; }
+
+/* Screen-reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Start screen landing content ──────────────────────────── */
+.start-above {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.start-h1 {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--text2);
+  letter-spacing: 0.01em;
+  margin-bottom: 4px;
+}
+.start-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+.start-pill {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  color: var(--text2);
+  white-space: nowrap;
+}
+.start-scroll-hint {
+  font-size: 12px;
+  color: var(--text3);
+  margin-top: 16px;
+  text-align: center;
+  animation: fadeUpDown 2s ease-in-out infinite;
+}
+@keyframes fadeUpDown { 0%,100%{opacity:0.4;transform:translateY(0)} 50%{opacity:0.8;transform:translateY(4px)} }
+
+.landing {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 64px 24px 80px;
+}
+.landing-metrics { margin-bottom: 64px; }
+.landing-metrics h2,
+.landing-faq h2 {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 24px;
+  text-align: center;
+}
+.landing-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+@media (max-width: 500px) { .landing-grid { grid-template-columns: 1fr; } }
+.landing-card {
+  background: var(--bg4);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+.landing-card strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 5px;
+  font-family: 'DM Mono', monospace;
+}
+.landing-card p {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.6;
+}
+.landing-faq { margin-bottom: 48px; }
+.faq-list { display: flex; flex-direction: column; }
+.faq-item {
+  border-top: 1px solid var(--border);
+  padding: 0;
+}
+.faq-item:last-child { border-bottom: 1px solid var(--border); }
+.faq-q {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  padding: 14px 0;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.faq-q::-webkit-details-marker { display: none; }
+.faq-q::after {
+  content: '+';
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--text3);
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+details[open] .faq-q::after { transform: rotate(45deg); }
+.faq-a {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.7;
+  padding-bottom: 14px;
+  margin: 0;
+}
+.landing-footer {
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+  font-size: 12px;
+  color: var(--text3);
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* Misc */
+.listening-dots::after {
+  content: '...';
+  animation: dots 1.2s steps(4, end) infinite;
+}
+@keyframes dots { 0%,100%{content:'.'} 33%{content:'..'} 66%{content:'...'} }
+
+/* ── AI Watchmaker ─────────────────────────────────────────── */
+.ai-section {
+  background: var(--bg4);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius);
+  margin-top: 10px;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+.ai-hdr {
+  padding: 12px 16px 11px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg2);
+}
+.ai-hdr-icon {
+  width: 28px; height: 28px;
+  background: var(--bg4);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.ai-hdr-icon svg { width: 14px; height: 14px; }
+.ai-title { font-size: 13px; font-weight: 500; color: var(--text); }
+.ai-sub { font-size: 11px; color: var(--text3); margin-top: 1px; }
+.ai-messages {
+  min-height: 90px;
+  max-height: 460px;
+  overflow-y: auto;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  scroll-behavior: smooth;
+}
+.ai-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+  color: var(--text3);
+  font-size: 13px;
+  text-align: center;
+  line-height: 1.6;
+  padding: 0 20px;
+}
+.ai-msg { display: flex; flex-direction: column; gap: 4px; }
+.ai-msg-label {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.ai-msg-body {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--bg2);
+  border-radius: 10px;
+  padding: 11px 14px;
+  max-width: 100%;
+}
+.ai-msg-body.user-msg {
+  background: var(--bg3);
+  color: var(--text2);
+  align-self: flex-start;
+}
+.ai-msg-body p { margin-bottom: 6px; }
+.ai-msg-body p:last-child { margin-bottom: 0; }
+.ai-msg-body strong { font-weight: 500; }
+.ai-msg-body ul, .ai-msg-body ol { padding-left: 18px; margin: 4px 0 6px; }
+.ai-msg-body li { margin-bottom: 4px; }
+.ai-msg-body h3 { font-size: 12px; font-weight: 500; margin: 10px 0 4px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.06em; }
+.ai-cursor {
+  display: inline-block;
+  width: 2px; height: 13px;
+  background: var(--text3);
+  margin-left: 2px;
+  vertical-align: middle;
+  border-radius: 1px;
+  animation: blink-cur 0.9s step-end infinite;
+}
+@keyframes blink-cur { 0%,100%{opacity:1} 50%{opacity:0} }
+.ai-footer {
+  padding: 10px 14px 12px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--bg2);
+}
+.ai-diagnose {
+  width: 100%;
+  padding: 10px 16px;
+  background: var(--text);
+  color: var(--bg4);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+.ai-diagnose:hover:not(:disabled) { opacity: 0.82; }
+.ai-diagnose:disabled { opacity: 0.35; cursor: not-allowed; }
+.ai-diagnose svg { width: 14px; height: 14px; flex-shrink: 0; }
+.ai-input-row { display: flex; gap: 6px; }
+.ai-input {
+  flex: 1;
+  font-size: 13px;
+  font-family: 'DM Sans', sans-serif;
+  padding: 8px 12px;
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-sm);
+  background: var(--bg4);
+  color: var(--text);
+  min-width: 0;
+}
+.ai-input:focus { outline: 2px solid var(--text); outline-offset: -1px; }
+.ai-input::placeholder { color: var(--text3); }
+.ai-input:disabled { opacity: 0.5; }
+.ai-send {
+  padding: 8px 14px;
+  font-size: 16px;
+  background: transparent;
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-sm);
+  color: var(--text2);
+  cursor: pointer;
+  transition: all 0.12s;
+  flex-shrink: 0;
+}
+.ai-send:hover:not(:disabled) { background: var(--bg3); color: var(--text); }
+.ai-send:disabled { opacity: 0.35; cursor: not-allowed; }
+.ai-notice {
+  font-size: 11px;
+  color: var(--text3);
+  text-align: center;
+}
+.ai-notice a { color: var(--text2); text-decoration: underline; cursor: pointer; }
+</style>
+</head>
+<body>
+<a href="#app-screen" class="skip-link">Skip to main content</a>
+
+<!-- ── Start screen ─────────────────────────────────────── -->
+<div id="start-screen">
+  <button class="theme-toggle" id="toggle-start" onclick="toggleTheme()" aria-label="Toggle dark mode" style="position:absolute;top:16px;right:16px;z-index:10;"></button>
+
+  <!-- Above the fold: app card -->
+  <div class="start-above">
+    <div class="start-card">
+      <div class="start-logo" aria-hidden="true">TIMEGRAPHER AI</div>
+      <h1 class="start-h1">Free Online Watch Timegrapher</h1>
+      <p class="start-tagline">Know your watch. Down to the millisecond.</p>
+      <div class="start-pills" aria-label="Features">
+        <span class="start-pill">Rate</span>
+        <span class="start-pill">Beat error</span>
+        <span class="start-pill">Amplitude</span>
+        <span class="start-pill">BPH detection</span>
+        <span class="start-pill">AI diagnosis</span>
+        <span class="start-pill">Free forever</span>
+      </div>
+      <div class="mic-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 1a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V5a4 4 0 0 1 4-4zm-1 13.93A7.001 7.001 0 0 1 5 8H3a9 9 0 0 0 8 8.94V20H8v2h8v-2h-3v-3.07A9 9 0 0 0 21 8h-2a7 7 0 0 1-6 6.93z"/></svg>
+      </div>
+      <p class="start-instruction">
+        Hold your watch near your microphone — or rest it <strong>face-down</strong> beside your laptop.<br>Works best in a <strong>quiet room</strong>. No hardware needed.
+      </p>
+      <button id="start-btn" onclick="startMeasuring()">Allow microphone &amp; start</button>
+      <p id="start-error" class="start-error"></p>
+      <p class="start-note">No account. No hardware. Nothing leaves your device.— Chrome, Firefox, or Safari 14.5+.</p>
+    </div>
+    <p class="start-scroll-hint" aria-hidden="true">scroll to learn more ↓</p>
+  </div>
+
+  <!-- Below the fold: SEO/AEO landing content -->
+  <div class="landing">
+    <section class="landing-metrics" aria-labelledby="what-we-measure">
+      <h2 id="what-we-measure">Four numbers that tell the whole story</h2>
+      <div class="landing-grid">
+        <article class="landing-card">
+          <strong>Rate (s/d)</strong>
+          <p>How many seconds per day your watch gains or loses. COSC standard is ±4–6 s/d. The number most people actually care about.</p>
+        </article>
+        <article class="landing-card">
+          <strong>Beat error (ms)</strong>
+          <p>The timing gap between tick and tock. Under 0.5 ms is excellent. Over 2.5 ms and your watch may stop — needs adjustment.</p>
+        </article>
+        <article class="landing-card">
+          <strong>Amplitude (°)</strong>
+          <p>How far the balance wheel swings each beat. 220–310° is healthy. Below 200° usually means the mainspring needs winding or the movement needs a service.</p>
+        </article>
+        <article class="landing-card">
+          <strong>BPH</strong>
+          <p>The heartbeat of your movement. Set this to match your calibre — common values are 18,000, 21,600, and 28,800. Timegrapher AI auto-detects it for you.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="landing-faq" aria-labelledby="faq-heading">
+      <h2 id="faq-heading">Everything you need to know</h2>
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary class="faq-q">What is a timegrapher?</summary>
+          <p class="faq-a">A timegrapher is an instrument that measures the performance of a mechanical watch by listening to its tick sounds. It calculates rate (seconds gained or lost per day), beat error (the timing difference between tick and tock in milliseconds), amplitude (balance wheel swing arc in degrees), and BPH (beats per hour — the movement’s frequency).</p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">What is beat error in a watch?</summary>
+          <p class="faq-a">Beat error is the timing difference between the tick and tock of a mechanical watch’s escapement, measured in milliseconds. Under 0.5 ms is excellent, under 1.5 ms is acceptable, and over 2.5 ms can cause the watch to stop. It is corrected by adjusting the pallet fork’s position relative to the balance wheel — usually a job for a watchmaker.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">What causes a mechanical watch to run fast or slow?</summary>
+          <p class="faq-a">A fast rate is most commonly caused by magnetisation of the movement (especially the hairspring), hairspring coils sticking together, or a regulator set too far toward the “fast” side. A slow rate is often caused by a dirty or dry movement, a weak mainspring, or friction in the gear train. Demagnetising is the easiest and safest first step for a fast watch.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">Is a browser-based timegrapher as accurate as a hardware unit?</summary>
+          <p class="faq-a">For rate and beat error, yes — the algorithm is the same. The key difference is the microphone. Hardware timegraphers use a contact microphone clipped to the watch case for a cleaner signal. A laptop’s built-in mic works well in a quiet room. For the best results, use a dedicated clip-on contact microphone (~$15) connected to your computer.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">What is amplitude and why does it matter?</summary>
+          <p class="faq-a">Amplitude is the arc in degrees through which the balance wheel swings on each beat. A healthy watch shows 220–310° when fully wound. Low amplitude (below 200°) means the mainspring may need winding, or the movement may need cleaning and lubrication. Very low amplitude (below 180°) can cause the watch to stop and usually requires professional servicing.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">What BPH should I set for my watch?</summary>
+          <p class="faq-a">Check your movement’s datasheet or calibre specification. Most modern ETA and Sellita movements run at 28,800 BPH. Vintage movements typically run at 18,000 or 21,600 BPH. If unsure, Timegrapher AI will auto-detect the BPH from the tick sounds and confirm it in the Detected BPH card.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">What is lift angle and why does it matter?</summary>
+          <p class="faq-a">The lift angle is a fixed mechanical property of a specific watch movement — the arc through which the pallet fork lifts the balance wheel on each beat. Common values are 49–53°. The timegrapher uses it to convert pulse timing into amplitude in degrees. Rate and beat error are unaffected by the lift angle setting.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">How do I improve my watch’s rate accuracy?</summary>
+          <p class="faq-a">First, demagnetise the watch — magnetisation is the most common cause of a suddenly fast rate and takes 30 seconds to fix. If the rate is still off, the regulator index (a small lever on the balance cock) can be adjusted to speed up or slow down the movement. Small adjustments move the rate by roughly 5–10 s/d. Beyond basic regulation, positional errors (the rate varying between crown-up and dial-up) usually require a watchmaker to poise the balance.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">What’s the difference between rate and beat error?</summary>
+          <p class="faq-a">Rate is how many seconds per day the watch gains or loses overall — it’s about the speed of the movement. Beat error is about the symmetry of each individual tick and tock — whether they are equally spaced in time. A watch can have a perfect rate of 0 s/d but a poor beat error, or vice versa. Both matter: high beat error stresses the movement and can cause erratic timekeeping.</p>
+        </details>
+
+      </div>
+    </section>
+
+    <footer class="landing-footer">
+      <p>© 2026 Timegrapher.ai — free, private, open to everyone. Audio stays on your device. AI requests go only to our secure backend.</p>
+    </footer>
+  </div>
+</div>
+
+<!-- ── App screen ──────────────────────────────────────────── -->
+<div id="app-screen" role="main">
+  <header class="app-header" role="banner">
+    <div class="app-logo">TIMEGRAPHER <span>AI</span></div>
+    <div class="settings">
+      <div class="field">
+        <label>BPH</label>
+        <select id="sel-bph">
+          <option value="12000">12 000 — pocket watch</option>
+          <option value="14400">14 400</option>
+          <option value="18000">18 000 — 5 Hz</option>
+          <option value="19800">19 800</option>
+          <option value="21600" selected>21 600 — 6 Hz</option>
+          <option value="25200">25 200</option>
+          <option value="28800">28 800 — 8 Hz</option>
+          <option value="36000">36 000 — 10 Hz</option>
+          <option value="43200">43 200</option>
+          <option value="72000">72 000 — hi-freq</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Lift angle °</label>
+        <input type="number" id="in-la" value="52" min="10" max="90" step="1">
+      </div>
+      <div class="field">
+        <label>Cal. offset s/d</label>
+        <input type="number" id="in-cal" value="0" min="-100" max="100" step="0.1">
+      </div>
+    </div>
+    <div class="sig-wrap" id="sig-bars"></div>
+    <button class="mode-btn" id="mode-btn" onclick="toggleProMode()" aria-label="Toggle pro mode" title="Switch between Simple and Pro display">Simple</button>
+    <button class="theme-toggle" id="toggle-app" onclick="toggleTheme()" aria-label="Toggle dark mode"></button>
+    <button class="stop-btn" onclick="stopMeasuring()">Stop</button>
+  </header>
+
+  <div class="health" id="health-bar">
+    <span class="listening-dots">Listening</span>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-label">Rate</div>
+      <div class="card-row">
+        <span class="card-val" id="v-rate">—</span>
+        <span class="card-unit"> s/d</span>
+      </div>
+      <span class="card-badge" id="b-rate"></span>
+    </div>
+    <div class="card">
+      <div class="card-label">Beat error</div>
+      <div class="card-row">
+        <span class="card-val" id="v-be">—</span>
+        <span class="card-unit"> ms</span>
+      </div>
+      <span class="card-badge" id="b-be"></span>
+    </div>
+    <div class="card">
+      <div class="card-label">Amplitude</div>
+      <div class="card-row">
+        <span class="card-val" id="v-amp">—</span>
+        <span class="card-unit"> °</span>
+      </div>
+      <span class="card-badge" id="b-amp"></span>
+    </div>
+    <div class="card">
+      <div class="card-label">Detected BPH</div>
+      <div class="card-row">
+        <span class="card-val" id="v-bph">—</span>
+      </div>
+      <div class="card-sub pro-only" id="v-hz"></div>
+      <span class="card-badge" id="b-bph"></span>
+    </div>
+  </div>
+
+  <div class="panels">
+    <!-- Paperstrip -->
+    <div class="panel">
+      <div class="panel-hdr">
+        <span class="panel-name">Paperstrip</span>
+        <span class="panel-hint">each dot = one tick or tock</span>
+      </div>
+      <canvas id="cv-strip" height="400" role="img" aria-label="Paperstrip — live trace of tick and tock timing events"></canvas>
+      <div class="strip-btns" role="group" aria-label="Paperstrip controls">
+        <button class="strip-btn" id="btn-l" aria-label="Shift trace left">←</button>
+        <button class="strip-btn" id="btn-ctr" aria-label="Centre the trace">Center</button>
+        <button class="strip-btn" id="btn-clr" aria-label="Clear the trace">Clear</button>
+        <button class="strip-btn" id="btn-r" aria-label="Shift trace right">→</button>
+      </div>
+    </div>
+
+    <!-- Waveform panels -->
+    <div class="panel">
+      <div class="waveforms">
+        <div class="wv">
+          <div class="panel-hdr">
+            <span class="panel-name">Tic waveform</span>
+            <span class="panel-hint">tick sound shape (averaged)</span>
+          </div>
+          <canvas id="cv-tic" height="110" role="img" aria-label="Tic waveform — averaged sound shape of each tick"></canvas>
+        </div>
+        <div class="wv">
+          <div class="panel-hdr">
+            <span class="panel-name">Toc waveform</span>
+            <span class="panel-hint">tock sound shape (averaged)</span>
+          </div>
+          <canvas id="cv-toc" height="110" role="img" aria-label="Toc waveform — averaged sound shape of each tock"></canvas>
+        </div>
+        <div class="wv">
+          <div class="panel-hdr">
+            <span class="panel-name">Full period</span>
+            <span class="panel-hint">one complete tic–toc cycle</span>
+          </div>
+          <canvas id="cv-per" height="110" role="img" aria-label="Full period view — one complete tic and toc cycle"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <h3>What do these readings mean?</h3>
+    <dl class="legend-grid">
+      <div class="legend-item">
+        <dt>Rate (s/d)</dt>
+        <dd>Seconds per day the watch gains (+) or loses (−). COSC chronometer standard is ±4–6 s/d. Under ±15 s/d is fine for daily wear.</dd>
+      </div>
+      <div class="legend-item">
+        <dt>Beat error (ms)</dt>
+        <dd>How unequal the tick and tock are. Under 0.5 ms is excellent; under 1.5 ms is acceptable. Over 2.5 ms can cause the watch to stop.</dd>
+      </div>
+      <div class="legend-item">
+        <dt>Amplitude (°)</dt>
+        <dd>How far the balance wheel swings each beat. 220–310° is healthy. Below 200° suggests a weak mainspring or dirty movement.</dd>
+      </div>
+      <div class="legend-item">
+        <dt>Paperstrip</dt>
+        <dd>A running trace of every tick/tock event. Vertical columns = well-regulated. Angled columns = rate error. Wide scatter = inconsistency.</dd>
+      </div>
+      <div class="legend-item">
+        <dt>BPH (beats/hour)</dt>
+        <dd>The frequency of the movement. Set this to match your movement. Common: 18 000 (5 Hz), 21 600 (6 Hz), 28 800 (8 Hz).</dd>
+      </div>
+      <div class="legend-item">
+        <dt>Lift angle (°)</dt>
+        <dd>A fixed property of your movement needed for amplitude accuracy. Check your movement's datasheet. Common values: 49–53°.</dd>
+      </div>
+    </dl>
+  </div>
+
+  <!-- ── AI Watchmaker ─────────────────────────────────────── -->
+  <div class="ai-section">
+    <div class="ai-hdr">
+      <div class="ai-hdr-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--text2)"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <div>
+        <div class="ai-title">AI Watchmaker</div>
+        <div class="ai-sub">Expert diagnosis from your readings, instantly</div>
+      </div>
+    </div>
+
+    <div class="ai-messages" id="ai-messages" aria-live="polite" aria-label="AI Watchmaker conversation" role="log">
+      <div class="ai-empty" id="ai-empty">
+        Start measuring, then tap <strong style="color:var(--text)">Diagnose my watch</strong> for an instant expert read on your results.
+      </div>
+    </div>
+
+    <div class="ai-footer">
+      <button class="ai-diagnose" id="ai-diagnose-btn" onclick="diagnoseWatch()" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+        Diagnose my watch
+      </button>
+      <div class="ai-input-row">
+        <label for="ai-input" class="sr-only">Ask a question about your watch</label>
+        <input class="ai-input" id="ai-input" type="text" placeholder="Ask anything about your watch…" maxlength="1000" autocomplete="off" aria-describedby="ai-notice">
+        <button class="ai-send" id="ai-send-btn" onclick="sendAIMessage()" aria-label="Send message">↑</button>
+      </div>
+      <div class="ai-notice" id="ai-notice"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+'use strict';
+
+// ── State ────────────────────────────────────────────────────
+const S = {
+  bph: 21600, la: 52, cal: 0,
+  traceShift: 0,
+};
+
+// ── Beat Detector ────────────────────────────────────────────
+class TGDetector {
+  constructor(sr) {
+    this.sr = sr;
+    this.bph = 21600;
+    this.la = 52;
+
+    // Circular buffer: 4 s of audio
+    this.BUF = sr * 4;
+    this.envBuf = new Float32Array(this.BUF);
+    this.wp = 0;
+    this.n = 0;
+
+    // Envelope follower state
+    this.envVal = 0;
+    this.ATTACK = Math.exp(-1 / (sr * 0.0002)); // 0.2 ms attack
+    this.DECAY  = Math.exp(-1 / (sr * 0.006));  // 6 ms decay
+
+    // Accumulated waveforms for display (35 ms window)
+    this.WF = Math.round(sr * 0.035);
+    this.WF_BEFORE = Math.round(sr * 0.015);
+    this.ticWf = new Float32Array(this.WF);
+    this.tocWf = new Float32Array(this.WF);
+    this.ticWfN = 0;
+    this.tocWfN = 0;
+    this.ticWfMax = 0;
+    this.tocWfMax = 0;
+
+    // Beat events for paperstrip (timestamp in samples from epoch)
+    this.PS = 2000;
+    this.psT = new Float64Array(this.PS);  // timestamps
+    this.psWp = 0;
+    this.psCount = 0;
+
+    // Results
+    this.rate = null;
+    this.beatError = null;
+    this.amplitude = null;
+    this.detBPH = null;
+    this.signal = 0;
+    this.maxEnv = 0;
+  }
+
+  get halfPeriod() { return this.sr * 1800 / this.bph; }
+  get fullPeriod()  { return this.sr * 3600 / this.bph; }
+
+  addChunk(chunk) {
+    for (let i = 0; i < chunk.length; i++) {
+      const s = chunk[i];
+      const abs = Math.abs(s);
+
+      // Peak-follower envelope
+      this.envVal = abs > this.envVal
+        ? this.ATTACK * this.envVal + (1 - this.ATTACK) * abs
+        : this.DECAY  * this.envVal + (1 - this.DECAY)  * abs;
+
+      this.envBuf[this.wp] = this.envVal;
+      this.wp = (this.wp + 1) % this.BUF;
+      this.n++;
+    }
+  }
+
+  analyze() {
+    if (this.n < this.sr * 1.5) return;
+
+    // Extract last 3 s of envelope
+    const len = Math.min(Math.round(this.sr * 3), this.BUF, this.n);
+    const env = new Float32Array(len);
+    for (let i = 0; i < len; i++) {
+      env[i] = this.envBuf[(this.wp - len + i + this.BUF) % this.BUF];
+    }
+
+    // Signal level
+    let mx = 0;
+    for (let i = 0; i < len; i++) if (env[i] > mx) mx = env[i];
+    this.maxEnv = mx;
+    this.signal = mx < 1e-5 ? 0 : mx < 5e-4 ? 1 : mx < 3e-3 ? 2 : mx < 1e-2 ? 3 : 4;
+    if (this.signal < 1) return;
+
+    const hp = this.halfPeriod;
+    const minDist = Math.round(hp * 0.65);
+    const threshold = mx * 0.22;
+
+    const peaks = this.findPeaks(env, threshold, minDist);
+    if (peaks.length < 4) return;
+
+    // Inter-peak intervals
+    const ivs = peaks.slice(1).map((p, i) => p - peaks[i]);
+
+    // Valid intervals: must be near halfPeriod
+    const valid = ivs.filter(iv => iv > hp * 0.65 && iv < hp * 1.35);
+    if (valid.length < 3) return;
+
+    // Median half period
+    const medHP = this.median(valid);
+
+    // Rate (s/d): deviation of measured period from expected
+    this.rate = (medHP - hp) / hp * 86400 + S.cal;
+
+    // Detected BPH (snap to nearest preset if within 5%)
+    const rawBPH = Math.round(this.sr * 1800 / medHP);
+    const presets = [12000,14400,18000,19800,21600,25200,28800,36000,43200,72000];
+    this.detBPH = presets.reduce((a, b) => Math.abs(b - rawBPH) < Math.abs(a - rawBPH) ? b : a);
+
+    // Beat error: look at alternating pairs
+    const bePairs = [];
+    for (let i = 0; i < valid.length - 1; i++) {
+      const a = valid[i], b = valid[i + 1];
+      // Each pair should sum to ~2 × medHP (one full tick-tock cycle)
+      if (Math.abs(a + b - 2 * medHP) < medHP * 0.4) {
+        bePairs.push(Math.abs(a - b));
+      }
+    }
+    if (bePairs.length > 0) {
+      // Beat error = half the alternating interval difference, in ms
+      this.beatError = this.median(bePairs) / 2 / this.sr * 1000;
+    }
+
+    // Amplitude via lift angle and pulse width
+    this._computeAmplitude(env, peaks, mx);
+
+    // Update accumulated waveforms for display
+    this._updateWaveforms(env, peaks);
+
+    // Update paperstrip events
+    this._updatePaperstrip(peaks, len);
+  }
+
+  _computeAmplitude(env, peaks, maxEnv) {
+    const halfMax = maxEnv * 0.35;
+    const pws = [];
+    for (const peak of peaks.slice(-8)) {
+      const pi = Math.round(peak);
+      if (pi < 1 || pi >= env.length - 1) continue;
+      let l = pi, r = pi;
+      while (l > 0 && env[l] > halfMax) l--;
+      while (r < env.length - 1 && env[r] > halfMax) r++;
+      if (r > l) pws.push(r - l);
+    }
+    if (pws.length === 0) return;
+    const medPW = this.median(pws);
+    const f = medPW / this.fullPeriod;
+    const sinVal = Math.sin(f * Math.PI);
+    if (sinVal > 0.02 && sinVal < 0.98) {
+      this.amplitude = Math.max(100, Math.min(380, this.la / (2 * sinVal)));
+    }
+  }
+
+  _updateWaveforms(env, peaks) {
+    if (peaks.length < 2) return;
+
+    const captureWf = (destWf, destMax, peakIdx, nRef) => {
+      const pi = Math.round(peakIdx);
+      const s = pi - this.WF_BEFORE;
+      const e = s + this.WF;
+      if (s < 0 || e > env.length) return [destWf, destMax, nRef];
+      const wf = env.slice(s, e);
+      let wfMax = 0;
+      for (let i = 0; i < wf.length; i++) if (wf[i] > wfMax) wfMax = wf[i];
+      const alpha = 1 / Math.min(nRef + 1, 20);
+      for (let i = 0; i < this.WF; i++) destWf[i] = (1 - alpha) * destWf[i] + alpha * wf[i];
+      return [destWf, Math.max(destMax * 0.99, wfMax), nRef + 1];
+    };
+
+    [this.ticWf, this.ticWfMax, this.ticWfN] = captureWf(this.ticWf, this.ticWfMax, peaks[peaks.length - 1], this.ticWfN);
+    [this.tocWf, this.tocWfMax, this.tocWfN] = captureWf(this.tocWf, this.tocWfMax, peaks[peaks.length - 2], this.tocWfN);
+  }
+
+  _updatePaperstrip(peaks, len) {
+    // Convert peak positions (samples within the env window) to global timestamps
+    const windowStart = this.n - len;
+    for (const pk of peaks.slice(-10)) {
+      const globalT = windowStart + pk;
+      // Avoid duplicating events (must be > 50ms since last)
+      const last = this.psCount > 0
+        ? this.psT[(this.psWp - 1 + this.PS) % this.PS]
+        : -1e12;
+      if (globalT - last > this.sr * 0.05) {
+        this.psT[this.psWp] = globalT;
+        this.psWp = (this.psWp + 1) % this.PS;
+        this.psCount++;
+      }
+    }
+  }
+
+  findPeaks(signal, threshold, minDist) {
+    const peaks = [];
+    let lastPeak = -minDist;
+    for (let i = 2; i < signal.length - 2; i++) {
+      if (signal[i] > threshold
+          && signal[i] >= signal[i - 1] && signal[i] >= signal[i - 2]
+          && signal[i] >= signal[i + 1] && signal[i] >= signal[i + 2]
+          && i - lastPeak >= minDist) {
+        peaks.push(i);
+        lastPeak = i;
+      }
+    }
+    return peaks;
+  }
+
+  median(arr) {
+    const s = [...arr].sort((a, b) => a - b);
+    const m = Math.floor(s.length / 2);
+    return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+  }
+
+  clearPaperstrip() {
+    this.psCount = 0;
+    this.psWp = 0;
+  }
+}
+
+// ── Audio pipeline ──────────────────────────────────────────
+let audioCtx, detector, analyzeTimer;
+let stream;
+
+async function startMeasuring() {
+  const btn = document.getElementById('start-btn');
+  const errEl = document.getElementById('start-error');
+  btn.disabled = true;
+  btn.textContent = 'Requesting microphone…';
+  errEl.style.display = 'none';
+
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({
+      audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false, latency: 0 }
+    });
+
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 44100 });
+
+    // High-pass filter: removes hum, keeps tick transients
+    const hpf = audioCtx.createBiquadFilter();
+    hpf.type = 'highpass';
+    hpf.frequency.value = 400;
+    hpf.Q.value = 0.5;
+
+    // Second HPF stage for better rejection
+    const hpf2 = audioCtx.createBiquadFilter();
+    hpf2.type = 'highpass';
+    hpf2.frequency.value = 200;
+    hpf2.Q.value = 0.5;
+
+    const source = audioCtx.createMediaStreamSource(stream);
+    source.connect(hpf);
+    hpf.connect(hpf2);
+
+    // Load worklet
+    try {
+      await audioCtx.audioWorklet.addModule('worklet.js');
+    } catch (e) {
+      // Fallback: inline worklet via blob URL (works on localhost and some hosts)
+      const code = `class TGProcessor extends AudioWorkletProcessor {
+        constructor(){super();this._h=[];this._t=0;}
+        process(i){const c=i[0]?.[0];if(c&&c.length){for(let i=0;i<c.length;i++)this._h.push(c[i]);this._t+=c.length;
+        while(this._h.length>=2048){const ch=new Float32Array(2048);for(let i=0;i<2048;i++)ch[i]=this._h[i];this._h.splice(0,2048);this.port.postMessage({chunk:ch,total:this._t});}
+        }return true;}
+      }registerProcessor('tg-processor',TGProcessor);`;
+      const blob = new Blob([code], { type: 'text/javascript' });
+      await audioCtx.audioWorklet.addModule(URL.createObjectURL(blob));
+    }
+
+    const workletNode = new AudioWorkletNode(audioCtx, 'tg-processor');
+    hpf2.connect(workletNode);
+
+    detector = new TGDetector(audioCtx.sampleRate);
+    detector.bph = S.bph;
+    detector.la = S.la;
+
+    workletNode.port.onmessage = (e) => {
+      detector.addChunk(e.data.chunk);
+    };
+
+    // Analyze every 280 ms
+    analyzeTimer = setInterval(() => {
+      detector.analyze();
+      updateUI();
+      drawAllCanvases();
+    }, 280);
+
+    // Show app screen
+    document.getElementById('start-screen').style.display = 'none';
+    document.getElementById('app-screen').style.display = 'block';
+    requestAnimationFrame(() => initCanvases()); // wait for layout before measuring canvas widths
+
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = 'Allow microphone & start';
+    errEl.style.display = 'block';
+    errEl.textContent = err.name === 'NotAllowedError'
+      ? 'Microphone access denied. Allow it in your browser settings and try again.'
+      : 'Could not access microphone: ' + err.message;
+  }
+}
+
+function stopMeasuring() {
+  clearInterval(analyzeTimer);
+  if (stream) stream.getTracks().forEach(t => t.stop());
+  if (audioCtx) audioCtx.close();
+  document.getElementById('app-screen').style.display = 'none';
+  document.getElementById('start-screen').style.display = '';
+  document.getElementById('start-btn').disabled = false;
+  document.getElementById('start-btn').textContent = 'Allow microphone & start';
+}
+
+// ── Settings ────────────────────────────────────────────────
+document.getElementById('sel-bph').addEventListener('change', e => {
+  S.bph = parseInt(e.target.value);
+  if (detector) { detector.bph = S.bph; detector.clearPaperstrip(); }
+});
+document.getElementById('in-la').addEventListener('change', e => {
+  S.la = parseFloat(e.target.value) || 52;
+  if (detector) detector.la = S.la;
+});
+document.getElementById('in-cal').addEventListener('change', e => {
+  S.cal = parseFloat(e.target.value) || 0;
+});
+document.getElementById('btn-l').addEventListener('click', () => { S.traceShift = (S.traceShift - 6 + 99999) % 99999; });
+document.getElementById('btn-r').addEventListener('click', () => { S.traceShift = (S.traceShift + 6) % 99999; });
+document.getElementById('btn-ctr').addEventListener('click', () => { S.traceShift = 0; });
+document.getElementById('btn-clr').addEventListener('click', () => { if (detector) detector.clearPaperstrip(); });
+
+// ── UI updates ──────────────────────────────────────────────
+function beClass(be) { return be < 0.5 ? 'good' : be < 1.5 ? 'ok' : 'bad'; }
+
+function isDark() {
+  return document.documentElement.getAttribute('data-theme') === 'dark';
+}
+
+function getStatusColors() {
+  const dark = isDark();
+  return {
+    good: { bg: dark ? 'rgba(61,175,100,0.18)'  : 'rgba(44,122,72,0.12)',  fg: dark ? '#3DAF64' : '#2C7A48' },
+    ok:   { bg: dark ? 'rgba(200,146,10,0.20)'  : 'rgba(138,90,10,0.12)',  fg: dark ? '#C8920A' : '#8A5A0A' },
+    bad:  { bg: dark ? 'rgba(224,82,82,0.22)'   : 'rgba(181,50,50,0.12)',  fg: dark ? '#E05252' : '#B53232' },
+    sigOn:  dark ? '#3DAF64' : '#2C7A48',
+    sigOff: dark ? 'rgba(255,235,200,0.12)' : 'rgba(100,80,50,0.15)',
+  };
+}
+
+function badge(el, text, cls) {
+  const c = getStatusColors()[cls];
+  el.textContent = text;
+  el.style.background = c.bg;
+  el.style.color = c.fg;
+}
+
+function updateUI() {
+  if (!detector) return;
+  const d = detector;
+
+  // Signal bars
+  const sigEl = document.getElementById('sig-bars');
+  sigEl.innerHTML = '';
+  const heights = [6, 10, 14, 18];
+  const sc = getStatusColors();
+  for (let i = 0; i < 4; i++) {
+    const b = document.createElement('div');
+    b.className = 'sig-bar';
+    b.style.cssText = `height:${heights[i]}px;width:5px;border-radius:2px 2px 0 0;background:${i < d.signal ? sc.sigOn : sc.sigOff}`;
+    sigEl.appendChild(b);
+  }
+
+  if (d.signal === 0) {
+    document.getElementById('health-bar').innerHTML = `<span class="listening-dots">Listening</span>`;
+    return;
+  }
+
+  if (d.rate === null) {
+    document.getElementById('health-bar').innerHTML = `<span class="listening-dots">Acquiring signal</span>`;
+    return;
+  }
+
+  // Rate
+  const rateAbs = Math.abs(d.rate);
+  const rateWord = d.rate >= 0 ? 'fast' : 'slow';
+  const rateSign = d.rate >= 0 ? '+' : '';
+  document.getElementById('v-rate').textContent = rateSign + d.rate.toFixed(proMode ? 2 : 1);
+  const rCls = rateAbs <= 6 ? 'good' : rateAbs <= 15 ? 'ok' : 'bad';
+  badge(document.getElementById('b-rate'),
+    rateAbs <= 6 ? 'Excellent' : rateAbs <= 15 ? 'Acceptable' : 'Needs regulation', rCls);
+
+  // Beat error
+  if (d.beatError !== null) {
+    document.getElementById('v-be').textContent = d.beatError.toFixed(proMode ? 3 : 2);
+    const bCls = d.beatError < 0.5 ? 'good' : d.beatError < 1.5 ? 'ok' : 'bad';
+    badge(document.getElementById('b-be'),
+      d.beatError < 0.5 ? 'Excellent' : d.beatError < 1.5 ? 'Acceptable' : 'Needs adjustment', bCls);
+  }
+
+  // Amplitude
+  if (d.amplitude !== null) {
+    document.getElementById('v-amp').textContent = proMode ? d.amplitude.toFixed(1) : Math.round(d.amplitude);
+    const aCls = d.amplitude >= 200 && d.amplitude <= 320 ? 'good' : d.amplitude >= 160 ? 'ok' : 'bad';
+    badge(document.getElementById('b-amp'),
+      d.amplitude >= 200 ? 'Healthy' : d.amplitude >= 160 ? 'Low — try winding' : 'Very low', aCls);
+  }
+
+  // Detected BPH
+  if (d.detBPH !== null) {
+    document.getElementById('v-bph').textContent = d.detBPH.toLocaleString();
+    badge(document.getElementById('b-bph'), 'Confirmed', 'good');
+    const hzEl = document.getElementById('v-hz');
+    if (hzEl) hzEl.textContent = proMode ? (d.detBPH / 3600).toFixed(2) + ' Hz' : '';
+  }
+
+  // Health summary — use theme-aware colours
+  const sc2 = getStatusColors();
+  const rateColor = sc2[rCls].fg;
+  const beColor   = d.beatError !== null ? sc2[beClass(d.beatError)].fg : '';
+  const beText = d.beatError !== null
+    ? `, beat error <strong style="color:${beColor}">${d.beatError.toFixed(proMode ? 3 : 2)} ms</strong>`
+    : '';
+  const ampText = d.amplitude !== null
+    ? `, amplitude <strong>${Math.round(d.amplitude)}°</strong>`
+    : '';
+
+  document.getElementById('health-bar').innerHTML =
+    `Your watch is running <strong style="color:${rateColor}">${rateAbs.toFixed(1)} seconds ${rateWord}</strong> per day${beText}${ampText}.`;
+
+  // Refresh AI diagnose button
+  const diagBtn = document.getElementById('ai-diagnose-btn');
+  if (diagBtn) diagBtn.disabled = aiStreaming;
+}
+
+// ── Canvas drawing ──────────────────────────────────────────
+const CV = {
+  strip: null, tic: null, toc: null, per: null,
+};
+
+function initCanvases() {
+  CV.strip = document.getElementById('cv-strip');
+  CV.tic   = document.getElementById('cv-tic');
+  CV.toc   = document.getElementById('cv-toc');
+  CV.per   = document.getElementById('cv-per');
+
+  // Set pixel widths from layout
+  [CV.tic, CV.toc, CV.per].forEach(cv => {
+    const r = cv.parentElement.getBoundingClientRect();
+    cv.width = Math.max(200, Math.round(r.width));
+  });
+  const sr = CV.strip.parentElement.getBoundingClientRect();
+  CV.strip.width = Math.max(100, Math.round(sr.width));
+}
+
+const BG  = '#0E1218';
+const GM  = '#141C18';
+const GJ  = '#1E2E24';
+const WFC = '#B8843A';
+const BLC = '#3A7AB8';
+const SBC = '#2A7038';
+const DOT = '#B8843A';
+const AXT = '#3A5248';
+
+function drawWaveformCanvas(cv, wfData, wfMax, label) {
+  if (!cv || !cv.width) return;
+  const ctx = cv.getContext('2d');
+  const w = cv.width, h = cv.height;
+
+  ctx.fillStyle = BG; ctx.fillRect(0, 0, w, h);
+
+  const ML = 15, MR = 20, SPAN = ML + MR; // ms window
+  const SH = wfData.length; // samples in waveform
+
+  // Grid
+  for (let ms = -ML; ms <= MR; ms++) {
+    const x = (ms + ML) * w / SPAN;
+    ctx.beginPath(); ctx.moveTo(x + .5, 0); ctx.lineTo(x + .5, h);
+    ctx.strokeStyle = ms % 5 === 0 ? GJ : GM;
+    ctx.lineWidth = .5; ctx.stroke();
+  }
+  ctx.beginPath(); ctx.moveTo(0, h / 2 + .5); ctx.lineTo(w, h / 2 + .5);
+  ctx.strokeStyle = GJ; ctx.lineWidth = .5; ctx.stroke();
+
+  // Waveform — folded shape (filled, upper + lower mirror)
+  const maxV = wfMax || 1e-6;
+  const SC = 0.42;
+
+  if (maxV > 1e-6) {
+    const pts = (px) => {
+      // Map px to ms position relative to center (which is WF_BEFORE samples in)
+      const sampleIdx = px / w * SH;
+      const v = Math.max(0, wfData[Math.min(Math.round(sampleIdx), SH - 1)] / maxV);
+      return v;
+    };
+
+    ctx.beginPath();
+    for (let px = 0; px < w; px++) {
+      const v = pts(px);
+      px === 0 ? ctx.moveTo(px, h / 2 - v * h * SC) : ctx.lineTo(px, h / 2 - v * h * SC);
+    }
+    for (let px = w - 1; px >= 0; px--) {
+      ctx.lineTo(px, h / 2 + pts(px) * h * SC);
+    }
+    ctx.closePath();
+    ctx.fillStyle = WFC; ctx.fill();
+  }
+
+  // Beat marker (blue line at WF_BEFORE position)
+  const detector_WF_BEFORE = detector ? detector.WF_BEFORE : Math.round(44100 * 0.015);
+  const beatX = (detector_WF_BEFORE / SH) * w;
+  ctx.beginPath(); ctx.moveTo(beatX, 0); ctx.lineTo(beatX, h);
+  ctx.strokeStyle = BLC; ctx.lineWidth = 1.5; ctx.stroke();
+
+  // Axis labels
+  ctx.fillStyle = AXT; ctx.font = '10px monospace';
+  for (let ms = -ML; ms <= MR; ms += 5) {
+    const x = (ms + ML) * w / SPAN;
+    ctx.fillText(ms.toString(), x + 2, h - 4);
+  }
+  ctx.fillText('ms', w - 22, h - 4);
+
+  // Panel label
+  ctx.fillStyle = '#6a8aaa'; ctx.font = 'bold 10px monospace';
+  ctx.fillText(label, 5, 13);
+}
+
+function drawPeriodCanvas() {
+  const cv = CV.per;
+  if (!cv || !cv.width || !detector) return;
+  const ctx = cv.getContext('2d');
+  const w = cv.width, h = cv.height;
+
+  ctx.fillStyle = BG; ctx.fillRect(0, 0, w, h);
+
+  // 16-division grid
+  for (let i = 1; i < 16; i++) {
+    const x = i * w / 16;
+    ctx.beginPath(); ctx.moveTo(x + .5, 0); ctx.lineTo(x + .5, h);
+    ctx.strokeStyle = i % 4 === 0 ? GJ : GM;
+    ctx.lineWidth = .5; ctx.stroke();
+  }
+
+  const be = detector.beatError || 0;
+  const periodMs = 3600000 / detector.bph;
+  const ticFrac = 0.02;
+  const tocFrac = 0.5 + (be / 2) / periodMs;
+
+  // Highlight regions
+  [ticFrac, tocFrac].forEach(f => {
+    ctx.fillStyle = 'rgba(74,144,217,0.08)';
+    ctx.fillRect((f - 0.06) * w, 0, 0.12 * w, h);
+  });
+
+  // Combined waveform (tic peak at ticFrac, toc peak at tocFrac)
+  const ticWf = detector.ticWf, tocWf = detector.tocWf;
+  const ticMax = detector.ticWfMax || 1e-6;
+  const tocMax = detector.tocWfMax || 1e-6;
+  const WF = detector.WF;
+  const SC = 0.38;
+
+  ctx.beginPath();
+  for (let px = 0; px < w; px++) {
+    const t = px / w;
+    const ticDist = Math.abs(t - ticFrac) * WF;
+    const tocDist = Math.abs(t - tocFrac) * WF;
+    const ticI = Math.min(Math.round(ticDist), WF - 1);
+    const tocI = Math.min(Math.round(tocDist), WF - 1);
+    const v = (ticWf[ticI] / ticMax + tocWf[tocI] / tocMax) * 0.5;
+    px === 0 ? ctx.moveTo(px, h / 2 - v * h * SC) : ctx.lineTo(px, h / 2 - v * h * SC);
+  }
+  for (let px = w - 1; px >= 0; px--) {
+    const t = px / w;
+    const ticDist = Math.abs(t - ticFrac) * WF;
+    const tocDist = Math.abs(t - tocFrac) * WF;
+    const ticI = Math.min(Math.round(ticDist), WF - 1);
+    const tocI = Math.min(Math.round(tocDist), WF - 1);
+    const v = (ticWf[ticI] / ticMax + tocWf[tocI] / tocMax) * 0.5;
+    ctx.lineTo(px, h / 2 + v * h * SC);
+  }
+  ctx.closePath(); ctx.fillStyle = WFC; ctx.fill();
+
+  // Beat markers
+  [ticFrac, tocFrac].forEach(f => {
+    ctx.beginPath(); ctx.moveTo(f * w, 0); ctx.lineTo(f * w, h);
+    ctx.strokeStyle = BLC; ctx.lineWidth = 1.5; ctx.stroke();
+  });
+
+  ctx.fillStyle = AXT; ctx.font = '10px monospace';
+  ctx.fillText('tic', ticFrac * w + 3, h - 4);
+  ctx.fillText('toc', tocFrac * w + 3, h - 4);
+  ctx.fillStyle = '#6a8aaa'; ctx.font = 'bold 10px monospace';
+  ctx.fillText('Full period', 5, 13);
+}
+
+function drawPaperstrip() {
+  const cv = CV.strip;
+  if (!cv || !cv.width || !detector) return;
+  const ctx = cv.getContext('2d');
+  const w = cv.width, h = cv.height;
+
+  ctx.fillStyle = '#08101a'; ctx.fillRect(0, 0, w, h);
+
+  const mL = Math.round(w * 0.14);
+  const mR = w - Math.round(w * 0.14);
+  const sW = mR - mL;
+  const rowH = 10;
+
+  // Grid
+  for (let y = rowH; y < h; y += rowH) {
+    ctx.beginPath(); ctx.moveTo(0, y + .5); ctx.lineTo(w, y + .5);
+    ctx.strokeStyle = y % (rowH * 6) === 0 ? GJ : '#0e1a14';
+    ctx.lineWidth = .5; ctx.stroke();
+  }
+
+  // Strip borders
+  [mL, mR].forEach(x => {
+    ctx.beginPath(); ctx.moveTo(x + .5, 0); ctx.lineTo(x + .5, h);
+    ctx.strokeStyle = SBC; ctx.lineWidth = 1; ctx.stroke();
+  });
+
+  if (detector.psCount === 0) {
+    ctx.fillStyle = AXT; ctx.font = '11px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('Waiting for beats…', w / 2, h / 2);
+    ctx.textAlign = 'left';
+    return;
+  }
+
+  // Draw dots
+  // The paperstrip maps each beat event's timing offset within its expected period
+  // to a horizontal position, and draws them top-to-bottom over time.
+  const periodSamples = detector.fullPeriod;
+  const zoom = 10; // 10× horizontal zoom
+
+  // Current time reference
+  const now = detector.n;
+  const maxAge = Math.round(periodSamples * h / rowH); // how many samples fit on screen
+
+  ctx.fillStyle = DOT;
+  const count = Math.min(detector.psCount, detector.PS);
+  for (let i = 0; i < count; i++) {
+    const idx = (detector.psWp - 1 - i + detector.PS) % detector.PS;
+    const t = detector.psT[idx];
+    if (t === 0) continue;
+    const age = now - t;
+    if (age > maxAge) break;
+
+    const row = Math.floor(age / periodSamples);
+    const y = row * rowH;
+    if (y > h) break;
+
+    // Phase within the period: offset from center, zoomed
+    const phase = ((t % periodSamples) + periodSamples) % periodSamples;
+    const baseX = (phase / periodSamples) * sW * zoom;
+    const x = mL + ((baseX + S.traceShift * zoom) % (sW * zoom)) / zoom;
+
+    if (x >= mL && x <= mR) {
+      ctx.fillRect(Math.round(x), Math.round(y), 2, 2);
+    }
+  }
+
+  // Scale label
+  const scaleMs = (periodSamples / detector.sr / zoom * 1000).toFixed(1);
+  ctx.fillStyle = '#3a6a48'; ctx.font = '10px monospace';
+  ctx.fillText(`${scaleMs} ms/div`, mL + 3, h - 5);
+}
+
+function drawAllCanvases() {
+  if (!detector) return;
+  drawWaveformCanvas(CV.tic, detector.ticWf, detector.ticWfMax, 'Tic');
+  drawWaveformCanvas(CV.toc, detector.tocWf, detector.tocWfMax, 'Toc');
+  drawPeriodCanvas();
+  drawPaperstrip();
+}
+
+// Resize canvases if window resizes
+window.addEventListener('resize', () => {
+  if (document.getElementById('app-screen').style.display !== 'none') {
+    initCanvases();
+  }
+});
+
+// ── Pro mode toggle ─────────────────────────────────────────
+let proMode = false;
+
+function toggleProMode() {
+  proMode = !proMode;
+  localStorage.setItem('tg-mode', proMode ? 'pro' : 'simple');
+  const btn = document.getElementById('mode-btn');
+  if (btn) {
+    btn.textContent = proMode ? 'Pro' : 'Simple';
+    btn.classList.toggle('is-pro', proMode);
+    btn.title = proMode ? 'Switch to Simple mode' : 'Switch to Pro mode';
+  }
+  document.body.classList.toggle('pro-mode', proMode);
+  if (detector) updateUI();
+}
+
+(function initProMode() {
+  proMode = localStorage.getItem('tg-mode') === 'pro';
+  if (proMode) {
+    document.body.classList.add('pro-mode');
+    // Button may not exist on start screen — update when app screen shows
+    const btn = document.getElementById('mode-btn');
+    if (btn) { btn.textContent = 'Pro'; btn.classList.add('is-pro'); }
+  }
+})();
+
+// ── Theme toggle ────────────────────────────────────────────
+const MOON = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+const SUN  = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('tg-theme', theme);
+  const icon = theme === 'dark' ? SUN : MOON;
+  document.querySelectorAll('.theme-toggle').forEach(b => {
+    b.innerHTML = icon;
+    b.title = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+  });
+}
+
+function toggleTheme() {
+  const html = document.documentElement;
+  html.classList.add('theme-transitioning');
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  applyTheme(next);
+  setTimeout(() => html.classList.remove('theme-transitioning'), 280);
+}
+
+(function initTheme() {
+  const saved = localStorage.getItem('tg-theme');
+  const sys   = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  applyTheme(saved || sys);
+
+  // Auto-follow OS theme changes — only if user hasn't manually overridden
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (!localStorage.getItem('tg-theme')) {
+      applyTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+})();
+
+// ── AI Watchmaker ────────────────────────────────────────────
+// Set this to your Cloudflare Worker URL after deploying worker-gemini.js
+// e.g. 'https://retomb-ai.jameswu0431.workers.dev'
+const AI_ENDPOINT = '';
+
+// Security limits
+const AI_MAX_INPUT   = 800;   // chars per user message
+const AI_MAX_TURNS   = 12;    // max conversation turns before reset
+
+const aiHistory = [];
+let aiStreaming = false;
+
+// Strip all HTML tags from a string (defence-in-depth before sending to API)
+function sanitiseInput(text) {
+  return text.replace(/<[^>]*>/g, '').replace(/[^\x20-\x7E\u00A0-\u024F\n]/g, '').trim().slice(0, AI_MAX_INPUT);
+}
+
+function readingsSummary() {
+  if (!detector || detector.signal < 1 || detector.rate === null) return null;
+  const lines = [`Rate: ${detector.rate >= 0 ? '+' : ''}${detector.rate.toFixed(1)} s/d`];
+  if (detector.beatError !== null) lines.push(`Beat error: ${detector.beatError.toFixed(2)} ms`);
+  if (detector.amplitude !== null) lines.push(`Amplitude: ${Math.round(detector.amplitude)}°`);
+  lines.push(`BPH: ${detector.bph.toLocaleString()}`);
+  lines.push(`Signal quality: ${detector.signal}/4`);
+  return lines.join('\n');
+}
+
+function diagnoseWatch() {
+  const summary = readingsSummary();
+  if (!summary || aiStreaming) return;
+  const prompt = `My current timegrapher readings:\n\n${summary}\n\nPlease diagnose my watch.`;
+  runAI(prompt, 'Diagnose my watch');
+}
+
+function sendAIMessage() {
+  const input = document.getElementById('ai-input');
+  const raw = input.value.trim();
+  if (!raw || aiStreaming) return;
+  input.value = '';
+  const text = sanitiseInput(raw);
+  if (!text) return;
+
+  // Reset if conversation is getting long
+  if (aiHistory.length >= AI_MAX_TURNS * 2) {
+    aiHistory.splice(0, 4); // drop oldest 2 turns
+  }
+
+  const summary = readingsSummary();
+  const prompt = aiHistory.length === 0 && summary
+    ? `Context — current readings:\n${summary}\n\nQuestion: ${text}`
+    : text;
+  runAI(prompt, text);
+}
+
+function runAI(apiPrompt, displayText) {
+  if (!AI_ENDPOINT) {
+    setAINotice('⚠ AI backend not configured — deploy <code>worker.js</code> and set <code>AI_ENDPOINT</code>.');
+    return;
+  }
+  setAINotice('');
+  hideAIEmpty();
+  aiHistory.push({ role: 'user', content: apiPrompt });
+  appendMsg('You', displayText, true);
+  const bodyEl = appendMsg('AI Watchmaker', '', false);
+  const cursor = Object.assign(document.createElement('span'), { className: 'ai-cursor' });
+  bodyEl.appendChild(cursor);
+  streamAI(bodyEl, cursor);
+}
+
+async function streamAI(bodyEl, cursor) {
+  aiStreaming = true;
+  setAIDiagnoseBtn(true);
+  let full = '';
+  try {
+    const res = await fetch(AI_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      // Only send messages — system prompt is enforced server-side in worker.js
+      body: JSON.stringify({ messages: aiHistory }),
+    });
+    if (!res.ok) {
+      let errMsg = 'Service error. Please try again.';
+      try { const j = await res.json(); if (j.error) errMsg = j.error; } catch {}
+      throw new Error(errMsg);
+    }
+    const reader = res.body.getReader();
+    const dec = new TextDecoder();
+    let buf = '';
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buf += dec.decode(value, { stream: true });
+      const lines = buf.split('\n');
+      buf = lines.pop();
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) continue;
+        const raw = line.slice(6).trim();
+        if (raw === '[DONE]') break;
+        try {
+          const ev = JSON.parse(raw);
+          if (ev.type === 'content_block_delta' && ev.delta?.type === 'text_delta') {
+            full += ev.delta.text;
+            // XSS protection: sanitise AI output before injecting into DOM
+            bodyEl.innerHTML = typeof DOMPurify !== 'undefined'
+              ? DOMPurify.sanitize(mdToHtml(full), { ALLOWED_TAGS: ['p','strong','em','ul','ol','li','h3','code','br'], ALLOWED_ATTR: [] })
+              : escapeHtmlFallback(full);
+            bodyEl.appendChild(cursor);
+            bodyEl.closest('.ai-messages').scrollTop = 99999;
+          }
+        } catch {}
+      }
+    }
+  } catch (err) {
+    full = err.message || 'Could not reach the AI backend.';
+    bodyEl.textContent = full; // textContent is always safe
+  }
+  cursor.remove();
+  if (full) aiHistory.push({ role: 'assistant', content: full });
+  aiStreaming = false;
+  setAIDiagnoseBtn(false);
+}
+
+// Fallback if DOMPurify fails to load — plain text only, no HTML
+function escapeHtmlFallback(text) {
+  return '<p>' + text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+             .replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>') + '</p>';
+}
+
+function appendMsg(label, text, isUser) {
+  const wrap = document.createElement('div');
+  wrap.className = 'ai-msg';
+  const lbl = Object.assign(document.createElement('div'), { className: 'ai-msg-label', textContent: label });
+  const body = document.createElement('div');
+  body.className = isUser ? 'ai-msg-body user-msg' : 'ai-msg-body';
+  if (text) body.innerHTML = typeof DOMPurify !== 'undefined'
+    ? DOMPurify.sanitize(mdToHtml(text), { ALLOWED_TAGS: ['p','strong','em','ul','ol','li','h3','code','br'], ALLOWED_ATTR: [] })
+    : escapeHtmlFallback(text);
+  wrap.appendChild(lbl);
+  wrap.appendChild(body);
+  const msgs = document.getElementById('ai-messages');
+  msgs.appendChild(wrap);
+  msgs.scrollTop = msgs.scrollHeight;
+  return body;
+}
+
+function mdToHtml(text) {
+  // Split into blocks on double newlines
+  return text.split(/\n{2,}/).map(block => {
+    const lines = block.split('\n').filter(Boolean);
+    if (lines.every(l => /^[-*•]\s/.test(l))) {
+      return '<ul>' + lines.map(l => `<li>${inlineMd(l.replace(/^[-*•]\s+/, ''))}</li>`).join('') + '</ul>';
+    }
+    if (lines.every(l => /^\d+\.\s/.test(l))) {
+      return '<ol>' + lines.map(l => `<li>${inlineMd(l.replace(/^\d+\.\s+/, ''))}</li>`).join('') + '</ol>';
+    }
+    if (lines[0]?.startsWith('### ')) return `<h3>${inlineMd(lines[0].slice(4))}</h3>`;
+    return `<p>${lines.map(inlineMd).join('<br>')}</p>`;
+  }).join('');
+}
+
+function inlineMd(t) {
+  return t
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/`(.+?)`/g, '<code>$1</code>');
+}
+
+function hideAIEmpty() {
+  const el = document.getElementById('ai-empty');
+  if (el) el.style.display = 'none';
+}
+
+function setAIDiagnoseBtn(disabled) {
+  const btn = document.getElementById('ai-diagnose-btn');
+  if (btn) btn.disabled = disabled || !detector || detector.rate === null;
+}
+
+function setAINotice(html) {
+  const el = document.getElementById('ai-notice');
+  if (el) el.innerHTML = html;
+}
+
+// Enter key sends message
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('ai-input')?.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey && !aiStreaming) { e.preventDefault(); sendAIMessage(); }
+  });
+  // Show setup notice if no endpoint configured
+  if (!AI_ENDPOINT) setAINotice('Set <code>AI_ENDPOINT</code> after deploying <code>worker.js</code> — see README.');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /worklet.js
+
+Sitemap: https://timegrapher.ai/sitemap.xml

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<title>Retomb OG Image</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  width: 1200px;
+  height: 630px;
+  background: #141210;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Warm grain texture via SVG filter */
+body::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 800px 400px at 20% 50%, rgba(180,130,60,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 600px 500px at 80% 30%, rgba(100,80,50,0.04) 0%, transparent 70%);
+}
+
+.card {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 72px 80px;
+}
+
+.logo {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: #C8963C;
+  margin-bottom: 28px;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 52px;
+  font-weight: 400;
+  color: #EDE6D8;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  max-width: 680px;
+}
+
+.sub {
+  font-size: 20px;
+  color: #907862;
+  font-weight: 300;
+  margin-bottom: 48px;
+  line-height: 1.5;
+  max-width: 560px;
+}
+
+.pills {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: rgba(200,150,60,0.12);
+  border: 1px solid rgba(200,150,60,0.25);
+  color: #C8963C;
+  letter-spacing: 0.02em;
+}
+
+/* Right side: simulated waveform / paperstrip panels */
+.panels {
+  position: absolute;
+  right: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.panel {
+  background: rgba(255,235,200,0.04);
+  border: 1px solid rgba(255,235,200,0.08);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.panel-hdr {
+  padding: 7px 12px;
+  background: rgba(255,235,200,0.03);
+  border-bottom: 1px solid rgba(255,235,200,0.06);
+  font-size: 9px;
+  font-weight: 500;
+  color: #907862;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-family: 'DM Mono', monospace;
+}
+
+.panel-canvas {
+  height: 80px;
+  position: relative;
+  background: #090f18;
+}
+
+.waveform {
+  position: absolute;
+  inset: 0;
+}
+
+/* Metric row */
+.metrics {
+  position: absolute;
+  bottom: 52px;
+  left: 80px;
+  display: flex;
+  gap: 32px;
+}
+
+.metric { display: flex; flex-direction: column; gap: 2px; }
+.metric-val {
+  font-family: 'DM Mono', monospace;
+  font-size: 22px;
+  color: #EDE6D8;
+  font-weight: 400;
+}
+.metric-label {
+  font-size: 11px;
+  color: #504840;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+/* Divider line */
+.divider {
+  position: absolute;
+  bottom: 40px;
+  left: 80px;
+  right: 400px;
+  height: 1px;
+  background: rgba(255,235,200,0.08);
+}
+
+/* Branding bottom right */
+.brand {
+  position: absolute;
+  bottom: 40px;
+  right: 60px;
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: #504840;
+  letter-spacing: 0.12em;
+}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">Retomb</div>
+  <h1>Free Online Watch Timegrapher</h1>
+  <p class="sub">Measure rate, beat error, amplitude &amp; BPH<br>using your microphone. No hardware required.</p>
+  <div class="pills">
+    <span class="pill">Rate (s/d)</span>
+    <span class="pill">Beat error</span>
+    <span class="pill">Amplitude</span>
+    <span class="pill">AI diagnosis</span>
+    <span class="pill">Free &amp; private</span>
+  </div>
+</div>
+
+<!-- Simulated instrument panels -->
+<div class="panels">
+  <div class="panel">
+    <div class="panel-hdr">Tic waveform</div>
+    <div class="panel-canvas">
+      <svg class="waveform" viewBox="0 0 300 80" preserveAspectRatio="none">
+        <!-- Grid lines -->
+        <line x1="60" y1="0" x2="60" y2="80" stroke="#1c3028" stroke-width="0.5"/>
+        <line x1="120" y1="0" x2="120" y2="80" stroke="#1c3028" stroke-width="0.5"/>
+        <line x1="180" y1="0" x2="180" y2="80" stroke="#1c3028" stroke-width="0.5"/>
+        <line x1="240" y1="0" x2="240" y2="80" stroke="#1c3028" stroke-width="0.5"/>
+        <line x1="0" y1="40" x2="300" y2="40" stroke="#1c3028" stroke-width="0.5"/>
+        <!-- Waveform peak (amber) -->
+        <path d="M 0 40 L 60 40 Q 80 40 90 38 Q 100 30 110 20 Q 118 12 120 40 Q 122 30 128 22 Q 134 16 138 40 Q 142 34 146 38 Q 150 40 300 40 L 300 40 Q 146 42 142 46 Q 138 44 134 24 Q 128 18 122 50 Q 120 40 118 68 Q 110 60 100 50 Q 90 44 80 42 Q 70 40 60 40 Z" fill="#B8843A" opacity="0.9"/>
+        <!-- Beat marker -->
+        <line x1="120" y1="0" x2="120" y2="80" stroke="#3A7AB8" stroke-width="1.5"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-hdr">Paperstrip</div>
+    <div class="panel-canvas">
+      <svg class="waveform" viewBox="0 0 300 80" preserveAspectRatio="none">
+        <rect width="300" height="80" fill="#08101a"/>
+        <!-- Grid lines -->
+        <line x1="0" y1="13" x2="300" y2="13" stroke="#1c2e22" stroke-width="0.5"/>
+        <line x1="0" y1="26" x2="300" y2="26" stroke="#1c2e22" stroke-width="0.5"/>
+        <line x1="0" y1="40" x2="300" y2="40" stroke="#243e2e" stroke-width="1"/>
+        <line x1="0" y1="53" x2="300" y2="53" stroke="#1c2e22" stroke-width="0.5"/>
+        <line x1="0" y1="66" x2="300" y2="66" stroke="#1c2e22" stroke-width="0.5"/>
+        <!-- Strip borders -->
+        <line x1="40" y1="0" x2="40" y2="80" stroke="#2d7a40" stroke-width="1"/>
+        <line x1="260" y1="0" x2="260" y2="80" stroke="#2d7a40" stroke-width="1"/>
+        <!-- Dot columns (slightly angled = slight rate) -->
+        <rect x="130" y="3"  width="2" height="2" fill="#C8963C"/>
+        <rect x="182" y="3"  width="2" height="2" fill="#C8963C"/>
+        <rect x="131" y="16" width="2" height="2" fill="#C8963C"/>
+        <rect x="183" y="16" width="2" height="2" fill="#C8963C"/>
+        <rect x="132" y="29" width="2" height="2" fill="#C8963C"/>
+        <rect x="184" y="29" width="2" height="2" fill="#C8963C"/>
+        <rect x="133" y="43" width="2" height="2" fill="#C8963C"/>
+        <rect x="185" y="43" width="2" height="2" fill="#C8963C"/>
+        <rect x="134" y="56" width="2" height="2" fill="#C8963C"/>
+        <rect x="186" y="56" width="2" height="2" fill="#C8963C"/>
+        <rect x="135" y="69" width="2" height="2" fill="#C8963C"/>
+        <rect x="187" y="69" width="2" height="2" fill="#C8963C"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- Metric sample -->
+<div class="metrics">
+  <div class="metric">
+    <span class="metric-val">+8.2</span>
+    <span class="metric-label">s/d rate</span>
+  </div>
+  <div class="metric">
+    <span class="metric-val">0.3</span>
+    <span class="metric-label">ms beat err</span>
+  </div>
+  <div class="metric">
+    <span class="metric-val">268°</span>
+    <span class="metric-label">amplitude</span>
+  </div>
+</div>
+
+<div class="divider"></div>
+<div class="brand">timegrapher.ai</div>
+
+<!--
+  HOW TO GENERATE og-image.png:
+  1. Open this file in Chrome
+  2. Set browser window to exactly 1200 × 630px
+  3. Screenshot the page (or use DevTools → Capture screenshot)
+  4. Save as og-image.png in the tg-timer folder
+
+  Or use a headless tool:
+    npx puppeteer-screenshot og-image.html --width 1200 --height 630 --output og-image.png
+-->
+</body>
+</html>

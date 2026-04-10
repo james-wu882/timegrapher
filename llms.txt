@@ -1,0 +1,42 @@
+# Timegrapher.ai
+
+> Free browser-based mechanical watch timegrapher. Measures rate, beat error, amplitude, and BPH using microphone input. Includes AI-powered diagnosis.
+
+Timegrapher.ai is a single-page web application that functions as a digital timegrapher for mechanical watches. It requires no installation and no account — users allow microphone access in their browser and hold or place their watch near the microphone to receive measurements.
+
+## What it measures
+
+- **Rate (seconds per day)**: How many seconds per day the watch gains (+) or loses (−). COSC chronometer standard is −4 to +6 s/d. ±15 s/d is acceptable for everyday wear.
+- **Beat error (milliseconds)**: The timing difference between the tick and tock of the escapement. Under 0.5 ms is excellent; over 2.5 ms can cause the watch to stop.
+- **Amplitude (degrees)**: The arc through which the balance wheel swings on each beat. 220–310° is healthy; below 200° suggests a mainspring or servicing issue.
+- **BPH (beats per hour)**: The frequency of the movement. Common values: 18,000 (5 Hz), 21,600 (6 Hz), 28,800 (8 Hz), 36,000 (10 Hz).
+
+## How it works
+
+1. The browser captures microphone audio at 44,100 Hz via the Web Audio API.
+2. A high-pass filter removes low-frequency noise while preserving tick transients.
+3. A peak-follower envelope detector identifies beat events.
+4. Rate, beat error, amplitude, and BPH are derived using the same algorithm as the open-source tg-timer project by Marcello Mamino.
+5. Waveforms (tic, toc, and full period) are accumulated and displayed on canvas elements.
+6. A scrolling paperstrip shows the historical trace of beat timing.
+
+## AI diagnosis
+
+Users can tap "Diagnose my watch" to send their current readings to a secure AI backend. The AI provides:
+- A plain-English verdict on the watch's condition
+- Likely causes of any out-of-range readings
+- Actionable recommendations (noting what is safe DIY vs needs a watchmaker)
+
+The AI only discusses mechanical watches and horology. All guardrails are enforced server-side.
+
+## Technical notes
+
+- No data is stored or transmitted except AI diagnosis requests (which go to a Cloudflare Worker proxy).
+- The app works offline once loaded (except for the AI feature).
+- Requires: Chrome 80+, Firefox 76+, or Safari 14.5+.
+- A dedicated contact microphone improves signal quality significantly over a built-in laptop mic.
+
+## Optional links
+
+- App: https://timegrapher.ai/
+- Sitemap: https://timegrapher.ai/sitemap.xml
