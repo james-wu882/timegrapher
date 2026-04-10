@@ -244,6 +244,7 @@
 
 html, body {
   height: 100%;
+  scroll-behavior: smooth;
   background: var(--bg);
   color: var(--text);
   font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
@@ -286,7 +287,7 @@ html, body {
   border-radius: var(--radius-sm);
   cursor: pointer;
   white-space: nowrap;
-  transition: opacity 0.15s;
+  transition: opacity 0.2s ease;
   flex-shrink: 0;
 }
 .watch-search-btn:hover { opacity: 0.82; }
@@ -394,11 +395,10 @@ html, body {
   cursor: pointer;
   color: var(--text2);
   font-family: 'DM Sans', sans-serif;
-  transition: all 0.15s;
+  transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
   white-space: nowrap;
 }
 .ai-suggestion-chip:hover { background: var(--bg); color: var(--text); border-color: var(--text3); }
-
 
 #start-screen {
   background: var(--bg);
@@ -456,7 +456,7 @@ html, body {
   font-family: 'DM Sans', sans-serif;
   cursor: pointer;
   letter-spacing: 0.01em;
-  transition: opacity 0.15s;
+  transition: opacity 0.2s ease;
 }
 #start-btn:hover { opacity: 0.85; }
 #start-btn:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -524,7 +524,7 @@ html, body {
   outline-offset: -1px;
 }
 .sig-wrap { display: flex; align-items: flex-end; gap: 3px; height: 28px; padding-bottom: 4px; }
-.sig-bar { width: 5px; border-radius: 2px 2px 0 0; transition: background 0.3s; }
+.sig-bar { width: 5px; border-radius: 2px 2px 0 0; transition: height 0.3s cubic-bezier(0.4,0,0.2,1), background 0.3s ease; }
 .stop-btn {
   margin-left: auto;
   padding: 5px 13px;
@@ -535,7 +535,7 @@ html, body {
   border-radius: var(--radius-sm);
   color: var(--text2);
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
 }
 .stop-btn:hover { border-color: var(--bad); color: var(--bad); }
 
@@ -550,7 +550,7 @@ html, body {
   color: var(--text3);
   font-family: 'DM Mono', monospace;
   letter-spacing: 0.06em;
-  transition: all 0.15s;
+  transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
   white-space: nowrap;
 }
 .mode-btn:hover { color: var(--text2); border-color: var(--border2); }
@@ -573,11 +573,12 @@ body.pro-mode .pro-only { display: block; }
   box-shadow: var(--shadow-sm);
   border-radius: var(--radius);
   padding: 11px 16px;
-  margin-bottom: 12px;
+  margin-bottom: 0;
   font-size: 13px;
   color: var(--text2);
   line-height: 1.65;
   border-left: 3px solid var(--border2);
+  transition: border-color 0.4s ease, background 0.3s ease;
 }
 .health strong { font-weight: 500; color: var(--text); }
 
@@ -625,6 +626,7 @@ body.pro-mode .pro-only { display: block; }
   padding: 2px 7px;
   border-radius: 20px;
   letter-spacing: 0.01em;
+  transition: background 0.4s ease, color 0.4s ease;
 }
 
 /* Main panels */
@@ -682,10 +684,17 @@ canvas { display: block; width: 100%; }
   cursor: pointer;
   color: var(--text2);
   box-shadow: var(--shadow-sm);
-  transition: all 0.12s;
+  transition: all 0.18s cubic-bezier(0.4,0,0.2,1);
 }
 .strip-btn:hover { background: var(--bg); color: var(--text); }
 .strip-btn:active { transform: scale(0.97); }
+.action-btn:active { transform: scale(0.96); }
+.watch-search-btn:active { transform: scale(0.97); }
+.ai-diagnose:active:not(:disabled) { transform: scale(0.99); }
+.ai-send:active:not(:disabled) { transform: scale(0.96); }
+.pos-chip:active { transform: scale(0.95); }
+.ai-chip:active, .ai-suggestion-chip:active { transform: scale(0.96); }
+.share-download-btn:active { transform: scale(0.98); }
 
 .waveforms { display: flex; flex-direction: column; flex: 1; }
 .wv { flex: 1; display: flex; flex-direction: column; }
@@ -846,6 +855,7 @@ details[open] .faq-q::after { transform: rotate(45deg); }
   line-height: 1.7;
   padding-bottom: 14px;
   margin: 0;
+  animation: slide-in-down 0.22s ease both;
 }
 .landing-footer {
   border-top: 1px solid var(--border);
@@ -912,7 +922,7 @@ details[open] .faq-q::after { transform: rotate(45deg); }
   line-height: 1.6;
   padding: 0 20px;
 }
-.ai-msg { display: flex; flex-direction: column; gap: 4px; }
+.ai-msg { display: flex; flex-direction: column; gap: 4px; animation: slide-in-up 0.22s cubic-bezier(0.4,0,0.2,1) both; }
 .ai-msg-label {
   font-size: 10px;
   font-weight: 500;
@@ -950,6 +960,10 @@ details[open] .faq-q::after { transform: rotate(45deg); }
   animation: blink-cur 0.9s step-end infinite;
 }
 @keyframes blink-cur { 0%,100%{opacity:1} 50%{opacity:0} }
+@keyframes val-update { 0%{opacity:0.4;transform:translateY(2px)} 100%{opacity:1;transform:translateY(0)} }
+@keyframes slide-in-down { 0%{opacity:0;transform:translateY(-6px)} 100%{opacity:1;transform:translateY(0)} }
+@keyframes slide-in-up { 0%{opacity:0;transform:translateY(6px)} 100%{opacity:1;transform:translateY(0)} }
+@keyframes fade-in { 0%{opacity:0} 100%{opacity:1} }
 .ai-footer {
   padding: 10px 14px 12px;
   border-top: 1px solid var(--border);
@@ -969,7 +983,7 @@ details[open] .faq-q::after { transform: rotate(45deg); }
   font-weight: 500;
   font-family: 'DM Sans', sans-serif;
   cursor: pointer;
-  transition: opacity 0.15s;
+  transition: opacity 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1001,7 +1015,7 @@ details[open] .faq-q::after { transform: rotate(45deg); }
   border-radius: var(--radius-sm);
   color: var(--text2);
   cursor: pointer;
-  transition: all 0.12s;
+  transition: all 0.18s cubic-bezier(0.4,0,0.2,1);
   flex-shrink: 0;
 }
 .ai-send:hover:not(:disabled) { background: var(--bg3); color: var(--text); }
@@ -1030,7 +1044,7 @@ details[open] .faq-q::after { transform: rotate(45deg); }
   padding: 9px 14px; font-size: 12px; font-weight: 500;
   font-family: 'DM Sans', sans-serif; background: var(--text);
   color: var(--bg4); border: none; border-radius: var(--radius-sm);
-  cursor: pointer; white-space: nowrap; transition: opacity 0.15s; flex-shrink: 0;
+  cursor: pointer; white-space: nowrap; transition: opacity 0.2s ease; flex-shrink: 0;
 }
 .watch-search-btn:hover:not(:disabled) { opacity: 0.82; }
 .watch-search-btn:disabled { opacity: 0.45; cursor: not-allowed; }
@@ -1062,11 +1076,9 @@ details[open] .faq-q::after { transform: rotate(45deg); }
 .watch-chip-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: 'DM Mono', monospace; }
 .watch-chip-clear {
   background: none; border: none; cursor: pointer; color: var(--text3);
-  font-size: 14px; line-height: 1; padding: 0 2px; flex-shrink: 0; transition: color 0.12s;
+  font-size: 14px; line-height: 1; padding: 0 2px; flex-shrink: 0; transition: color 0.18s ease;
 }
 .watch-chip-clear:hover { color: var(--bad); }
-
-
 
 /* ── Noise floor / signal quality ─────────────────────────── */
 .signal-quality {
@@ -1075,18 +1087,20 @@ details[open] .faq-q::after { transform: rotate(45deg); }
 }
 .signal-quality-label { font-family: 'DM Sans', sans-serif; }
 .noise-warning {
-  margin-bottom: 10px; padding: 9px 13px;
+  display: none;
+  margin-bottom: 8px; padding: 9px 13px;
   background: var(--ok-bg); border: 1px solid var(--ok);
   border-radius: var(--radius-sm); font-size: 12px; color: var(--ok);
-  line-height: 1.55; display: none;
+  line-height: 1.55;
+  animation: slide-in-down 0.22s ease both;
 }
 .noise-warning strong { font-weight: 500; }
-
 
 /* ── Pro mode advanced panels ──────────────────────────────── */
 .pro-panel {
   background: var(--bg4); border: 1px solid var(--border2);
   border-radius: var(--radius); margin-bottom: 10px; overflow: hidden;
+  animation: fade-in 0.3s ease both;
 }
 .pro-panel-hdr {
   padding: 7px 14px; background: var(--bg2);
@@ -1107,6 +1121,7 @@ details[open] .faq-q::after { transform: rotate(45deg); }
   border-bottom: 1px solid var(--border);
 }
 .pro-stat:nth-child(3n){ border-right: none; }
+@media(max-width:500px){ .pro-stat:nth-child(3n){ border-right: 1px solid var(--border); } .pro-stat:nth-child(2n){ border-right: none; } }
 .pro-stat-label {
   font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em;
   color: var(--text3); font-weight: 500; margin-bottom: 4px;
@@ -1158,7 +1173,7 @@ details[open] .faq-q::after { transform: rotate(45deg); }
   font-size: 11px; padding: 5px 11px;
   background: var(--bg4); border: 1px solid var(--border2);
   border-radius: var(--radius-sm); cursor: pointer; color: var(--text2);
-  font-family: 'DM Sans', sans-serif; transition: all 0.12s;
+  font-family: 'DM Sans', sans-serif; transition: all 0.18s cubic-bezier(0.4,0,0.2,1);
   display: inline-flex; align-items: center; gap: 5px;
 }
 .action-btn:hover { background: var(--bg3); color: var(--text); }
@@ -1168,6 +1183,7 @@ details[open] .faq-q::after { transform: rotate(45deg); }
 .position-prompt {
   background: var(--bg4); border: 1px solid var(--border2);
   border-radius: var(--radius); padding: 10px 14px; margin-bottom: 10px;
+  animation: slide-in-down 0.28s cubic-bezier(0.4,0,0.2,1) both;
 }
 .position-prompt-label {
   font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em;
@@ -1178,7 +1194,7 @@ details[open] .faq-q::after { transform: rotate(45deg); }
   font-size: 12px; padding: 4px 11px; border-radius: 20px;
   background: var(--bg3); border: 1px solid var(--border2);
   cursor: pointer; color: var(--text2); font-family: 'DM Sans', sans-serif;
-  transition: all 0.12s;
+  transition: all 0.18s cubic-bezier(0.4,0,0.2,1);
 }
 .pos-chip:hover { background: var(--bg); color: var(--text); }
 .pos-chip.active { background: var(--amber-bg); border-color: var(--amber); color: var(--amber); }
@@ -1190,16 +1206,19 @@ details[open] .faq-q::after { transform: rotate(45deg); }
   background: var(--bg4); border: 1px solid var(--border2); border-radius: var(--radius);
   cursor: pointer; font-size: 12px; color: var(--text2);
   display: flex; justify-content: space-between; align-items: center;
-  font-family: 'DM Sans', sans-serif; transition: background 0.12s;
+  font-family: 'DM Sans', sans-serif; transition: background 0.2s ease;
 }
 .history-toggle:hover { background: var(--bg3); }
 .history-toggle.open { border-radius: var(--radius) var(--radius) 0 0; }
 .history-panel {
-  display: none; background: var(--bg4);
+  background: var(--bg4);
   border: 1px solid var(--border2); border-top: none;
-  border-radius: 0 0 var(--radius) var(--radius); overflow-x: auto;
+  border-radius: 0 0 var(--radius) var(--radius);
+  overflow: hidden; overflow-x: auto;
+  max-height: 0; opacity: 0;
+  transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.25s ease;
 }
-.history-panel.open { display: block; }
+.history-panel.open { max-height: 600px; opacity: 1; }
 .history-table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 560px; }
 .history-table th {
   padding: 6px 10px; text-align: left; color: var(--text3);
@@ -1221,10 +1240,20 @@ details[open] .faq-q::after { transform: rotate(45deg); }
 /* ── Share card modal ──────────────────────────────────────── */
 .share-modal {
   display: none; position: fixed; inset: 0;
-  background: rgba(0,0,0,0.55); z-index: 1000;
+  background: rgba(0,0,0,0); z-index: 1000;
   align-items: center; justify-content: center; padding: 20px;
+  transition: background 0.25s ease;
 }
-.share-modal.open { display: flex; }
+.share-modal.open { display: flex; background: rgba(0,0,0,0.55); }
+.share-modal .share-modal-box {
+  transform: scale(0.94) translateY(8px);
+  opacity: 0;
+  transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), opacity 0.22s ease;
+}
+.share-modal.open .share-modal-box {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
 .share-modal-box {
   background: var(--bg4); border-radius: 16px; padding: 20px;
   max-width: 500px; width: 100%;
@@ -1240,7 +1269,7 @@ details[open] .faq-q::after { transform: rotate(45deg); }
   flex: 1; padding: 9px; background: var(--text); color: var(--bg4);
   border: none; border-radius: var(--radius-sm); cursor: pointer;
   font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 500;
-  transition: opacity 0.15s;
+  transition: opacity 0.2s ease;
 }
 .share-download-btn:hover { opacity: 0.82; }
 .share-close-btn {
@@ -1256,7 +1285,7 @@ details[open] .faq-q::after { transform: rotate(45deg); }
   font-size: 12px; padding: 5px 12px; background: var(--bg);
   border: 1px solid var(--border2); border-radius: 20px;
   cursor: pointer; color: var(--text2); font-family: 'DM Sans', sans-serif;
-  transition: all 0.12s; white-space: nowrap;
+  transition: all 0.18s cubic-bezier(0.4,0,0.2,1); white-space: nowrap;
 }
 .ai-chip:hover { background: var(--bg3); color: var(--text); }
 </style>
@@ -1449,6 +1478,10 @@ details[open] .faq-q::after { transform: rotate(45deg); }
   </div>
   <div class="noise-warning" id="noise-warning">⚠ <strong>No signal detected.</strong> Try holding your watch closer to your microphone, or use a quiet room. A clip-on contact mic ($15) dramatically improves accuracy.</div>
   <div class="readings-actions" id="readings-actions">
+    <button class="action-btn" id="save-btn" onclick="saveReading()" title="Save reading to history">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+      Save reading
+    </button>
     <button class="action-btn" id="copy-btn" onclick="copyReadings()" title="Copy readings to clipboard">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
       Copy
@@ -1493,7 +1526,6 @@ details[open] .faq-q::after { transform: rotate(45deg); }
       <span class="card-badge" id="b-bph"></span>
     </div>
   </div>
-
 
   <!-- ── Pro mode: advanced stats ─────────────────────────── -->
   <div class="pro-panel pro-only" id="pro-stats-panel">
@@ -1648,9 +1680,7 @@ details[open] .faq-q::after { transform: rotate(45deg); }
     </div>
 
     <div class="ai-messages" id="ai-messages" aria-live="polite" aria-label="AI Diagnosis conversation" role="log">
-      <div class="ai-empty" id="ai-empty">
-        Start measuring, then tap <strong style="color:var(--text)">Diagnose my watch</strong> for an instant expert read on your results.
-      </div>
+      <div class="ai-empty" id="ai-empty">Start measuring, then tap <strong style="color:var(--text)">Diagnose my watch</strong> for an instant expert read on your results.</div>
     </div>
     <div class="ai-suggestions" id="ai-suggestions">
       <button class="ai-suggestion-chip" onclick="askSuggestion(this)">Why is my amplitude low?</button>
@@ -1701,6 +1731,9 @@ details[open] .faq-q::after { transform: rotate(45deg); }
 <script>
 'use strict';
 
+// ── Config ───────────────────────────────────────────────────
+const AI_ENDPOINT = 'https://timegrapher.jameswu0431.workers.dev';
+
 // ── Utilities ────────────────────────────────────────────────
 function escHtml(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -1711,16 +1744,8 @@ function applyWatchProfile(p) {
   const bar = document.getElementById('watch-profile-bar');
   const uncertain = p.uncertain || [];
 
-  // Apply specs to controls where confident
-  if (p.bph && !uncertain.includes('bph')) {
-    const sel = document.getElementById('sel-bph');
-    const opt = [...sel.options].find(o => Number(o.value) === p.bph);
-    if (opt) { sel.value = p.bph; S.bph = p.bph; if (detector) detector.bph = p.bph; }
-  }
-  if (p.liftAngle && !uncertain.includes('liftAngle')) {
-    const la = document.getElementById('in-la');
-    if (la) { la.value = p.liftAngle; S.la = p.liftAngle; if (detector) detector.la = p.liftAngle; }
-  }
+  // Apply specs to controls (shared logic with start-screen lookup)
+  applyWatchSpecs(p);
 
   updateSuggestedQuestions(p);
   updateWatchChip(p);
@@ -1770,6 +1795,7 @@ function applyWatchProfile(p) {
     ${hasUncertain ? `<div class="watch-profile-warning">⚠ Some specs couldn't be verified (${p.uncertain.join(', ')}). Fields shown as — can be set manually above.</div>` : ''}
     ${p.notes ? `<div class="watch-profile-warning" style="background:var(--amber-bg);color:var(--amber);">ℹ ${escHtml(p.notes)}</div>` : ''}
   `;
+  bar.style.animation = 'slide-in-down 0.25s cubic-bezier(0.4,0,0.2,1) both';
   bar.className = 'watch-profile-bar visible';
 }
 
@@ -1821,13 +1847,14 @@ function askSuggestion(btn) {
 let currentPosition = 'Dial up';
 let stableMs = 0;
 let positionShown = false;
+let lastAutoSaveTs = 0;
 
 function setPosition(pos, btn) {
   currentPosition = pos;
   document.querySelectorAll('.pos-chip').forEach(c => c.classList.remove('active'));
   if (btn) btn.classList.add('active');
-  lastAutoSaveTs = 0; // bypass debounce — position change should always save
-  maybeAutoSave();
+  lastAutoSaveTs = 0; // position change = always save immediately
+  saveCurrentReading();
 }
 
 // ── Beat Detector ────────────────────────────────────────────
@@ -1948,7 +1975,6 @@ class TGDetector {
         this.rateHistory.reduce((a,b)=>a+(b-_m)**2,0) / this.rateHistory.length
       );
     }
-
 
     // Detected BPH (snap to nearest preset if within 5%)
     const rawBPH = Math.round(this.sr * 1800 / medHP);
@@ -2136,8 +2162,13 @@ async function startMeasuring() {
     }, 280);
 
     // Show app screen
-    document.getElementById('start-screen').style.display = 'none';
-    document.getElementById('app-screen').style.display = 'block';
+    const ss = document.getElementById('start-screen');
+    ss.style.transition = 'opacity 0.25s ease';
+    ss.style.opacity = '0';
+    setTimeout(() => { ss.style.display = 'none'; ss.style.opacity = ''; ss.style.transition = ''; }, 240);
+    const as = document.getElementById('app-screen');
+    as.style.opacity = '0'; as.style.display = 'block';
+    requestAnimationFrame(() => { as.style.transition = 'opacity 0.3s ease'; as.style.opacity = '1'; setTimeout(() => { as.style.transition = ''; }, 320); });
     updateWatchChip(watchProfile); // carry watch profile across to app header
     requestAnimationFrame(() => initCanvases()); // wait for layout before measuring canvas widths
 
@@ -2152,8 +2183,7 @@ async function startMeasuring() {
 }
 
 function stopMeasuring() {
-  saveCurrentReading();
-  stableMs = 0; positionShown = false;
+  stableMs = 0; positionShown = false; lastAutoSaveTs = 0;
   const pp = document.getElementById('position-prompt');
   if (pp) pp.style.display = 'none';
   clearInterval(analyzeTimer);
@@ -2184,6 +2214,16 @@ document.getElementById('btn-ctr').addEventListener('click', () => { S.traceShif
 document.getElementById('btn-clr').addEventListener('click', () => { if (detector) detector.clearPaperstrip(); });
 
 // ── UI updates ──────────────────────────────────────────────
+function setCardVal(id, val) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (el.textContent === String(val)) return; // no change
+  el.style.animation = 'none';
+  el.offsetHeight; // reflow
+  el.style.animation = 'val-update 0.25s cubic-bezier(0.4,0,0.2,1) both';
+  el.textContent = val;
+}
+
 function beClass(be) { return be < 0.5 ? 'good' : be < 1.5 ? 'ok' : 'bad'; }
 
 function isDark() {
@@ -2255,7 +2295,7 @@ function updateUI() {
   const rateAbs = Math.abs(d.rate);
   const rateWord = d.rate >= 0 ? 'fast' : 'slow';
   const rateSign = d.rate >= 0 ? '+' : '';
-  document.getElementById('v-rate').textContent = rateSign + d.rate.toFixed(proMode ? 2 : 1);
+  setCardVal('v-rate', rateSign + d.rate.toFixed(proMode ? 2 : 1));
   const rateTol = watchProfile && watchProfile.rateToleranceSd && !(watchProfile.uncertain||[]).includes('rateToleranceSd')
     ? watchProfile.rateToleranceSd : 15;
   const rCls = rateAbs <= 6 ? 'good' : rateAbs <= rateTol ? 'ok' : 'bad';
@@ -2264,7 +2304,7 @@ function updateUI() {
 
   // Beat error
   if (d.beatError !== null) {
-    document.getElementById('v-be').textContent = d.beatError.toFixed(proMode ? 3 : 2);
+    setCardVal('v-be', d.beatError.toFixed(proMode ? 3 : 2));
     const bCls = d.beatError < 0.5 ? 'good' : d.beatError < 1.5 ? 'ok' : 'bad';
     badge(document.getElementById('b-be'),
       d.beatError < 0.5 ? 'Excellent' : d.beatError < 1.5 ? 'Acceptable' : 'Needs adjustment', bCls);
@@ -2272,7 +2312,7 @@ function updateUI() {
 
   // Amplitude
   if (d.amplitude !== null) {
-    document.getElementById('v-amp').textContent = proMode ? d.amplitude.toFixed(1) : Math.round(d.amplitude);
+    setCardVal('v-amp', proMode ? d.amplitude.toFixed(1) : Math.round(d.amplitude));
     const ampMin = watchProfile && watchProfile.amplitudeMin && !(watchProfile.uncertain||[]).includes('amplitudeMin')
       ? watchProfile.amplitudeMin : 200;
     const ampMax = watchProfile && watchProfile.amplitudeMax && !(watchProfile.uncertain||[]).includes('amplitudeMax')
@@ -2284,7 +2324,7 @@ function updateUI() {
 
   // Detected BPH
   if (d.detBPH !== null) {
-    document.getElementById('v-bph').textContent = d.detBPH.toLocaleString();
+    setCardVal('v-bph', d.detBPH.toLocaleString());
     badge(document.getElementById('b-bph'), 'Confirmed', 'good');
     const hzEl = document.getElementById('v-hz');
     if (hzEl) hzEl.textContent = proMode ? (d.detBPH / 3600).toFixed(2) + ' Hz' : '';
@@ -2304,7 +2344,6 @@ function updateUI() {
   document.getElementById('health-bar').innerHTML =
     `Your watch is running <strong style="color:${rateColor}">${rateAbs.toFixed(1)} seconds ${rateWord}</strong> per day${beText}${ampText}.`;
 
-
   // ── Pro mode advanced stats ───────────────────────────────
   if (proMode) {
     // Rate stability
@@ -2315,13 +2354,13 @@ function updateUI() {
         const stab = d.rateStdDev < 0.5 ? 'good' : d.rateStdDev < 1.5 ? 'ok' : 'bad';
         sdEl.className = 'pro-stat-val pro-stat-' + stab;
       }
-      const badge = document.getElementById('pro-stability-badge');
-      if (badge) {
+      const stabilityBadge = document.getElementById('pro-stability-badge');
+      if (stabilityBadge) {
         const sc3 = getStatusColors();
         const stab = d.rateStdDev < 0.5 ? 'good' : d.rateStdDev < 1.5 ? 'ok' : 'bad';
-        badge.textContent = d.rateStdDev < 0.5 ? 'Stable' : d.rateStdDev < 1.5 ? 'Moderate variance' : 'High variance';
-        badge.style.background = sc3[stab].bg;
-        badge.style.color = sc3[stab].fg;
+        stabilityBadge.textContent = d.rateStdDev < 0.5 ? 'Stable' : d.rateStdDev < 1.5 ? 'Moderate variance' : 'High variance';
+        stabilityBadge.style.background = sc3[stab].bg;
+        stabilityBadge.style.color = sc3[stab].fg;
       }
     }
     // Half period
@@ -2346,13 +2385,16 @@ function updateUI() {
     const trendCount = document.getElementById('trend-count');
     if (trendCount) trendCount.textContent = d.rateHistory.length;
     drawRateTrend();
-    // Position table
-    renderPositionTable();
   }
 
-  // Refresh AI diagnose button
+  // Refresh AI diagnose button + action buttons
   const diagBtn = document.getElementById('ai-diagnose-btn');
   if (diagBtn) diagBtn.disabled = aiStreaming;
+  const hasReading = d.rate !== null;
+  ['copy-btn','save-btn','share-btn'].forEach(id => {
+    const b = document.getElementById(id);
+    if (b) { b.disabled = !hasReading; b.style.opacity = hasReading ? '' : '0.4'; b.style.cursor = hasReading ? '' : 'not-allowed'; }
+  });
 
   // Position prompt + auto-save
   if (d.rate !== null && d.signal >= 2) {
@@ -2362,7 +2404,10 @@ function updateUI() {
       if (pp) pp.style.display = 'block';
       positionShown = true;
     }
-    if (stableMs >= 30000 && stableMs % 30000 < 280) maybeAutoSave();
+    // Auto-save when stable for 15s and rate variance is low
+    if (stableMs >= 15000 && stableMs % 15000 < 280) {
+      if (d.rateStdDev === null || d.rateStdDev < 1.5) maybeAutoSave();
+    }
   } else {
     stableMs = 0;
   }
@@ -2388,14 +2433,14 @@ function initCanvases() {
   CV.strip.width = Math.max(100, Math.round(sr.width));
 }
 
-const BG  = '#0E1218';
-const GM  = '#141C18';
-const GJ  = '#1E2E24';
-const WFC = '#B8843A';
-const BLC = '#3A7AB8';
-const SBC = '#2A7038';
-const DOT = '#B8843A';
-const AXT = '#3A5248';
+const BG  = '#0D0B09';
+const GM  = 'rgba(255,240,215,0.04)';
+const GJ  = 'rgba(255,240,215,0.10)';
+const WFC = '#C8923A';
+const BLC = 'rgba(140,190,240,0.80)';
+const SBC = 'rgba(215,190,150,0.22)';
+const DOT = '#C8923A';
+const AXT = 'rgba(210,185,148,0.38)';
 
 function drawWaveformCanvas(cv, wfData, wfMax, label) {
   if (!cv || !cv.width) return;
@@ -2404,60 +2449,77 @@ function drawWaveformCanvas(cv, wfData, wfMax, label) {
 
   ctx.fillStyle = BG; ctx.fillRect(0, 0, w, h);
 
-  const ML = 15, MR = 20, SPAN = ML + MR; // ms window
-  const SH = wfData.length; // samples in waveform
-
-  // Grid
-  for (let ms = -ML; ms <= MR; ms++) {
-    const x = (ms + ML) * w / SPAN;
-    ctx.beginPath(); ctx.moveTo(x + .5, 0); ctx.lineTo(x + .5, h);
-    ctx.strokeStyle = ms % 5 === 0 ? GJ : GM;
-    ctx.lineWidth = .5; ctx.stroke();
-  }
-  ctx.beginPath(); ctx.moveTo(0, h / 2 + .5); ctx.lineTo(w, h / 2 + .5);
-  ctx.strokeStyle = GJ; ctx.lineWidth = .5; ctx.stroke();
-
-  // Waveform — folded shape (filled, upper + lower mirror)
-  const maxV = wfMax || 1e-6;
+  const ML = 15, MR = 20, SPAN = ML + MR;
+  const SH = wfData.length;
   const SC = 0.42;
 
+  // Subtle grid — major lines only at 5ms intervals
+  ctx.lineWidth = 0.5;
+  for (let ms = -ML; ms <= MR; ms++) {
+    if (ms % 5 !== 0) continue;
+    const x = (ms + ML) * w / SPAN;
+    ctx.beginPath(); ctx.moveTo(x + .5, 0); ctx.lineTo(x + .5, h);
+    ctx.strokeStyle = ms === 0 ? 'rgba(255,240,215,0.18)' : GJ;
+    ctx.stroke();
+  }
+  // Centreline
+  ctx.beginPath(); ctx.moveTo(0, h / 2 + .5); ctx.lineTo(w, h / 2 + .5);
+  ctx.strokeStyle = 'rgba(255,240,215,0.08)'; ctx.stroke();
+
+  const maxV = wfMax || 1e-6;
   if (maxV > 1e-6) {
-    const pts = (px) => {
-      // Map px to ms position relative to center (which is WF_BEFORE samples in)
-      const sampleIdx = px / w * SH;
-      const v = Math.max(0, wfData[Math.min(Math.round(sampleIdx), SH - 1)] / maxV);
+    const pts = px => {
+      const v = Math.max(0, wfData[Math.min(Math.round(px / w * SH), SH - 1)] / maxV);
       return v;
     };
+
+    // Gradient fill — bright top, fades to transparent at centre
+    const grad = ctx.createLinearGradient(0, h / 2 - h * SC, 0, h / 2);
+    grad.addColorStop(0,   'rgba(210,148,54,0.82)');
+    grad.addColorStop(0.6, 'rgba(210,148,54,0.38)');
+    grad.addColorStop(1,   'rgba(210,148,54,0.06)');
 
     ctx.beginPath();
     for (let px = 0; px < w; px++) {
       const v = pts(px);
       px === 0 ? ctx.moveTo(px, h / 2 - v * h * SC) : ctx.lineTo(px, h / 2 - v * h * SC);
     }
-    for (let px = w - 1; px >= 0; px--) {
-      ctx.lineTo(px, h / 2 + pts(px) * h * SC);
-    }
+    for (let px = w - 1; px >= 0; px--) ctx.lineTo(px, h / 2 + pts(px) * h * SC);
     ctx.closePath();
-    ctx.fillStyle = WFC; ctx.fill();
+    ctx.fillStyle = grad; ctx.fill();
+
+    // Crisp highlight line on upper edge
+    ctx.beginPath();
+    for (let px = 0; px < w; px++) {
+      const y = h / 2 - pts(px) * h * SC;
+      px === 0 ? ctx.moveTo(px, y) : ctx.lineTo(px, y);
+    }
+    ctx.strokeStyle = 'rgba(230,165,70,0.75)';
+    ctx.lineWidth = 1; ctx.lineJoin = 'round'; ctx.stroke();
   }
 
-  // Beat marker (blue line at WF_BEFORE position)
+  // Beat marker with subtle glow
   const detector_WF_BEFORE = detector ? detector.WF_BEFORE : Math.round(44100 * 0.015);
   const beatX = (detector_WF_BEFORE / SH) * w;
+  ctx.save();
+  ctx.shadowColor = 'rgba(140,190,240,0.45)';
+  ctx.shadowBlur = 5;
   ctx.beginPath(); ctx.moveTo(beatX, 0); ctx.lineTo(beatX, h);
-  ctx.strokeStyle = BLC; ctx.lineWidth = 1.5; ctx.stroke();
+  ctx.strokeStyle = BLC; ctx.lineWidth = 1; ctx.stroke();
+  ctx.restore();
 
   // Axis labels
-  ctx.fillStyle = AXT; ctx.font = '10px monospace';
+  ctx.fillStyle = AXT; ctx.font = '9px system-ui, sans-serif';
   for (let ms = -ML; ms <= MR; ms += 5) {
     const x = (ms + ML) * w / SPAN;
-    ctx.fillText(ms.toString(), x + 2, h - 4);
+    ctx.fillText(ms === 0 ? '0' : ms.toString(), x + 2, h - 3);
   }
-  ctx.fillText('ms', w - 22, h - 4);
+  ctx.fillText('ms', w - 20, h - 3);
 
-  // Panel label
-  ctx.fillStyle = '#6a8aaa'; ctx.font = 'bold 10px monospace';
-  ctx.fillText(label, 5, 13);
+  // Panel label — top left, refined
+  ctx.fillStyle = 'rgba(140,190,240,0.55)';
+  ctx.font = '10px system-ui, sans-serif';
+  ctx.fillText(label, 8, 13);
 }
 
 function drawPeriodCanvas() {
@@ -2481,51 +2543,66 @@ function drawPeriodCanvas() {
   const ticFrac = 0.02;
   const tocFrac = 0.5 + (be / 2) / periodMs;
 
-  // Highlight regions
+  // Soft highlight regions
   [ticFrac, tocFrac].forEach(f => {
-    ctx.fillStyle = 'rgba(74,144,217,0.08)';
-    ctx.fillRect((f - 0.06) * w, 0, 0.12 * w, h);
+    const hGrad = ctx.createLinearGradient((f-0.08)*w, 0, (f+0.08)*w, 0);
+    hGrad.addColorStop(0,   'rgba(140,190,240,0.00)');
+    hGrad.addColorStop(0.5, 'rgba(140,190,240,0.07)');
+    hGrad.addColorStop(1,   'rgba(140,190,240,0.00)');
+    ctx.fillStyle = hGrad;
+    ctx.fillRect((f - 0.08) * w, 0, 0.16 * w, h);
   });
 
-  // Combined waveform (tic peak at ticFrac, toc peak at tocFrac)
+  // Combined waveform
   const ticWf = detector.ticWf, tocWf = detector.tocWf;
   const ticMax = detector.ticWfMax || 1e-6;
   const tocMax = detector.tocWfMax || 1e-6;
   const WF = detector.WF;
   const SC = 0.38;
 
+  const getV = px => {
+    const t = px / w;
+    const tI = Math.min(Math.round(Math.abs(t-ticFrac)*WF), WF-1);
+    const cI = Math.min(Math.round(Math.abs(t-tocFrac)*WF), WF-1);
+    return (ticWf[tI]/ticMax + tocWf[cI]/tocMax) * 0.5;
+  };
+
+  // Gradient fill
+  const pGrad = ctx.createLinearGradient(0, h/2 - h*SC, 0, h/2);
+  pGrad.addColorStop(0,   'rgba(210,148,54,0.80)');
+  pGrad.addColorStop(0.6, 'rgba(210,148,54,0.35)');
+  pGrad.addColorStop(1,   'rgba(210,148,54,0.05)');
+
   ctx.beginPath();
   for (let px = 0; px < w; px++) {
-    const t = px / w;
-    const ticDist = Math.abs(t - ticFrac) * WF;
-    const tocDist = Math.abs(t - tocFrac) * WF;
-    const ticI = Math.min(Math.round(ticDist), WF - 1);
-    const tocI = Math.min(Math.round(tocDist), WF - 1);
-    const v = (ticWf[ticI] / ticMax + tocWf[tocI] / tocMax) * 0.5;
-    px === 0 ? ctx.moveTo(px, h / 2 - v * h * SC) : ctx.lineTo(px, h / 2 - v * h * SC);
+    const v = getV(px);
+    px === 0 ? ctx.moveTo(px, h/2 - v*h*SC) : ctx.lineTo(px, h/2 - v*h*SC);
   }
-  for (let px = w - 1; px >= 0; px--) {
-    const t = px / w;
-    const ticDist = Math.abs(t - ticFrac) * WF;
-    const tocDist = Math.abs(t - tocFrac) * WF;
-    const ticI = Math.min(Math.round(ticDist), WF - 1);
-    const tocI = Math.min(Math.round(tocDist), WF - 1);
-    const v = (ticWf[ticI] / ticMax + tocWf[tocI] / tocMax) * 0.5;
-    ctx.lineTo(px, h / 2 + v * h * SC);
-  }
-  ctx.closePath(); ctx.fillStyle = WFC; ctx.fill();
+  for (let px = w-1; px >= 0; px--) ctx.lineTo(px, h/2 + getV(px)*h*SC);
+  ctx.closePath(); ctx.fillStyle = pGrad; ctx.fill();
 
-  // Beat markers
+  // Highlight edge line
+  ctx.beginPath();
+  for (let px = 0; px < w; px++) {
+    const y = h/2 - getV(px)*h*SC;
+    px === 0 ? ctx.moveTo(px,y) : ctx.lineTo(px,y);
+  }
+  ctx.strokeStyle = 'rgba(230,165,70,0.6)'; ctx.lineWidth = 1; ctx.stroke();
+
+  // Beat markers with glow
+  ctx.save();
+  ctx.shadowColor = 'rgba(140,190,240,0.45)'; ctx.shadowBlur = 5;
   [ticFrac, tocFrac].forEach(f => {
-    ctx.beginPath(); ctx.moveTo(f * w, 0); ctx.lineTo(f * w, h);
-    ctx.strokeStyle = BLC; ctx.lineWidth = 1.5; ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(f*w, 0); ctx.lineTo(f*w, h);
+    ctx.strokeStyle = BLC; ctx.lineWidth = 1; ctx.stroke();
   });
+  ctx.restore();
 
-  ctx.fillStyle = AXT; ctx.font = '10px monospace';
-  ctx.fillText('tic', ticFrac * w + 3, h - 4);
-  ctx.fillText('toc', tocFrac * w + 3, h - 4);
-  ctx.fillStyle = '#6a8aaa'; ctx.font = 'bold 10px monospace';
-  ctx.fillText('Full period', 5, 13);
+  ctx.fillStyle = AXT; ctx.font = '9px system-ui, sans-serif';
+  ctx.fillText('tic', ticFrac * w + 4, h - 3);
+  ctx.fillText('toc', tocFrac * w + 4, h - 3);
+  ctx.fillStyle = 'rgba(140,190,240,0.55)'; ctx.font = '10px system-ui, sans-serif';
+  ctx.fillText('Full period', 8, 13);
 }
 
 function drawPaperstrip() {
@@ -2534,7 +2611,7 @@ function drawPaperstrip() {
   const ctx = cv.getContext('2d');
   const w = cv.width, h = cv.height;
 
-  ctx.fillStyle = '#08101a'; ctx.fillRect(0, 0, w, h);
+  ctx.fillStyle = BG; ctx.fillRect(0, 0, w, h);
 
   const mL = Math.round(w * 0.14);
   const mR = w - Math.round(w * 0.14);
@@ -2544,18 +2621,18 @@ function drawPaperstrip() {
   // Grid
   for (let y = rowH; y < h; y += rowH) {
     ctx.beginPath(); ctx.moveTo(0, y + .5); ctx.lineTo(w, y + .5);
-    ctx.strokeStyle = y % (rowH * 6) === 0 ? GJ : '#0e1a14';
+    ctx.strokeStyle = y % (rowH * 6) === 0 ? GJ : GM;
     ctx.lineWidth = .5; ctx.stroke();
   }
 
   // Strip borders
   [mL, mR].forEach(x => {
     ctx.beginPath(); ctx.moveTo(x + .5, 0); ctx.lineTo(x + .5, h);
-    ctx.strokeStyle = SBC; ctx.lineWidth = 1; ctx.stroke();
+    ctx.strokeStyle = SBC; ctx.lineWidth = 0.75; ctx.stroke();
   });
 
   if (detector.psCount === 0) {
-    ctx.fillStyle = AXT; ctx.font = '11px monospace';
+    ctx.fillStyle = AXT; ctx.font = '11px system-ui, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('Waiting for beats…', w / 2, h / 2);
     ctx.textAlign = 'left';
@@ -2572,8 +2649,8 @@ function drawPaperstrip() {
   const now = detector.n;
   const maxAge = Math.round(periodSamples * h / rowH); // how many samples fit on screen
 
-  ctx.fillStyle = DOT;
   const count = Math.min(detector.psCount, detector.PS);
+  // Fade older dots slightly
   for (let i = 0; i < count; i++) {
     const idx = (detector.psWp - 1 - i + detector.PS) % detector.PS;
     const t = detector.psT[idx];
@@ -2585,20 +2662,25 @@ function drawPaperstrip() {
     const y = row * rowH;
     if (y > h) break;
 
-    // Phase within the period: offset from center, zoomed
     const phase = ((t % periodSamples) + periodSamples) % periodSamples;
     const baseX = (phase / periodSamples) * sW * zoom;
     const x = mL + ((baseX + S.traceShift * zoom) % (sW * zoom)) / zoom;
 
     if (x >= mL && x <= mR) {
-      ctx.fillRect(Math.round(x), Math.round(y), 2, 2);
+      // Circular dot, recent ones brighter
+      const ageFrac = Math.min(age / maxAge, 1);
+      const alpha = 0.95 - ageFrac * 0.55;
+      ctx.fillStyle = `rgba(200,145,58,${alpha.toFixed(2)})`;
+      ctx.beginPath();
+      ctx.arc(Math.round(x) + 0.5, Math.round(y) + 1.5, 1.2, 0, Math.PI * 2);
+      ctx.fill();
     }
   }
 
   // Scale label
   const scaleMs = (periodSamples / detector.sr / zoom * 1000).toFixed(1);
-  ctx.fillStyle = '#3a6a48'; ctx.font = '10px monospace';
-  ctx.fillText(`${scaleMs} ms/div`, mL + 3, h - 5);
+  ctx.fillStyle = AXT; ctx.font = '9px system-ui, sans-serif';
+  ctx.fillText(`${scaleMs} ms/div`, mL + 4, h - 4);
 }
 
 function drawAllCanvases() {
@@ -2728,21 +2810,16 @@ async function lookupWatch() {
   }
 }
 
+// applyWatchSpecs — shared control-update logic used by both start + app screen
 function applyWatchSpecs(p) {
   const uncertain = p.uncertain || [];
-  // BPH
   if (p.bph && !uncertain.includes('bph')) {
     const sel = document.getElementById('sel-bph');
     if (sel) {
-      let closest = null, closestDiff = Infinity;
-      for (const opt of sel.options) {
-        const diff = Math.abs(parseInt(opt.value) - p.bph);
-        if (diff < closestDiff) { closestDiff = diff; closest = opt; }
-      }
-      if (closest) { closest.selected = true; S.bph = parseInt(sel.value); if (detector) detector.bph = S.bph; }
+      const opt = [...sel.options].find(o => Number(o.value) === p.bph);
+      if (opt) { sel.value = p.bph; S.bph = p.bph; if (detector) detector.bph = p.bph; stableMs = 0; }
     }
   }
-  // Lift angle
   if (p.liftAngle && !uncertain.includes('liftAngle')) {
     const la = document.getElementById('in-la');
     if (la) { la.value = p.liftAngle; S.la = p.liftAngle; if (detector) detector.la = S.la; }
@@ -2810,6 +2887,7 @@ async function lookupWatchApp() {
   if (!AI_ENDPOINT) {
     const bar = document.getElementById('watch-profile-bar');
     bar.innerHTML = `<span style="color:var(--text2);font-size:12px;">AI backend not configured.</span>`;
+    bar.style.animation = 'slide-in-down 0.25s cubic-bezier(0.4,0,0.2,1) both';
     bar.className = 'watch-profile-bar visible';
     return;
   }
@@ -2833,6 +2911,7 @@ async function lookupWatchApp() {
 
     if (!data.recognized) {
       bar.innerHTML = `<span style="color:var(--text2);font-size:12px;">⚠ Watch not recognised — configure BPH and lift angle manually.</span>`;
+      bar.style.animation = 'slide-in-down 0.25s cubic-bezier(0.4,0,0.2,1) both';
       bar.className = 'watch-profile-bar visible';
       watchProfile = null;
       return;
@@ -2843,27 +2922,12 @@ async function lookupWatchApp() {
 
   } catch {
     bar.innerHTML = `<span style="color:var(--bad);font-size:12px;">Lookup failed — check your connection.</span>`;
+    bar.style.animation = 'slide-in-down 0.25s cubic-bezier(0.4,0,0.2,1) both';
     bar.className = 'watch-profile-bar visible';
   } finally {
     if (btn) { btn.disabled = false; btn.textContent = 'Look up'; }
   }
 }
-
-
-
-function sendChip(btn) {
-  const text = btn.textContent;
-  const input = document.getElementById('ai-input');
-  if (input) { input.value = text; sendAIMessage(); }
-  // Hide chips after first use so they don't clutter the chat
-  const chips = document.getElementById('ai-chips');
-  if (chips) chips.style.display = 'none';
-}
-
-// ── AI Diagnosis ─────────────────────────────────────────────
-// Set this to your Cloudflare Worker URL after deploying worker-gemini.js
-// e.g. 'https://retomb-ai.jameswu0431.workers.dev'
-const AI_ENDPOINT = 'https://timegrapher.jameswu0431.workers.dev';
 
 // Security limits
 const AI_MAX_INPUT   = 800;   // chars per user message
@@ -3060,8 +3124,6 @@ function setAINotice(html) {
   if (el) el.innerHTML = html;
 }
 
-
-
 // ── Rate trend canvas ─────────────────────────────────────────
 function drawRateTrend() {
   const cv = document.getElementById('cv-rate-trend');
@@ -3165,6 +3227,21 @@ function renderPositionTable() {
       </tr></thead>
       <tbody>${trs}</tbody>
     </table>`;
+}
+
+// ── Save reading (manual) ─────────────────────────────────────
+function saveReading() {
+  if (!detector || detector.rate === null) return;
+  saveCurrentReading();
+  const btn = document.getElementById('save-btn');
+  if (btn) {
+    const orig = btn.innerHTML;
+    btn.classList.add('copied');
+    btn.textContent = '✓ Saved';
+    setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = orig; }, 2000);
+  }
+  // Open history if closed so user sees it
+  if (!historyOpen) toggleHistory();
 }
 
 // ── Copy readings ─────────────────────────────────────────────
@@ -3312,7 +3389,6 @@ function downloadShareCard() {
 const TG_HISTORY_KEY = 'tg-history';
 const TG_HISTORY_MAX = 20;
 let historyOpen = false;
-let lastAutoSaveTs = 0;
 
 function maybeAutoSave() {
   const now = Date.now();
@@ -3340,6 +3416,7 @@ function saveCurrentReading() {
   if (hist.length > TG_HISTORY_MAX) hist = hist.slice(0, TG_HISTORY_MAX);
   try { localStorage.setItem(TG_HISTORY_KEY, JSON.stringify(hist)); } catch {}
   refreshHistoryUI();
+  if (proMode) renderPositionTable();
 }
 
 function toggleHistory() {
