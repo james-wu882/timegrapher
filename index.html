@@ -252,7 +252,154 @@ html, body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ── Start screen ──────────────────────────────────────────── */
+/* ── Watch search ──────────────────────────────────────────── */
+.watch-search-section {
+  margin-bottom: 10px;
+}
+.watch-search-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.watch-search-input {
+  flex: 1;
+  font-size: 13px;
+  font-family: 'DM Sans', sans-serif;
+  padding: 8px 13px;
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-sm);
+  background: var(--bg4);
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+  min-width: 0;
+}
+.watch-search-input::placeholder { color: var(--text3); }
+.watch-search-input:focus { outline: 2px solid var(--text); outline-offset: -1px; }
+.watch-search-btn {
+  padding: 8px 16px;
+  font-size: 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  background: var(--text);
+  color: var(--bg4);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
+}
+.watch-search-btn:hover { opacity: 0.82; }
+.watch-search-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.watch-profile-bar {
+  display: none;
+  margin-top: 8px;
+  background: var(--bg4);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-sm);
+  padding: 9px 13px;
+  font-size: 12px;
+  gap: 12px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.watch-profile-bar.visible { display: flex; }
+.watch-profile-name {
+  font-weight: 500;
+  color: var(--text);
+  font-size: 13px;
+  flex: 1;
+  min-width: 140px;
+}
+.watch-profile-name span {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text3);
+  margin-top: 1px;
+  font-family: 'DM Mono', monospace;
+}
+.watch-profile-specs {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.watch-profile-spec {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.watch-profile-spec-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text3);
+  font-weight: 500;
+}
+.watch-profile-spec-val {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--text);
+}
+.watch-profile-spec-val.uncertain {
+  color: var(--text3);
+  font-style: italic;
+}
+.watch-profile-warning {
+  width: 100%;
+  font-size: 11px;
+  color: var(--ok);
+  background: var(--ok-bg);
+  border-radius: 6px;
+  padding: 6px 10px;
+  line-height: 1.5;
+}
+.watch-profile-confidence {
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 20px;
+  font-weight: 500;
+  white-space: nowrap;
+  align-self: flex-start;
+}
+.conf-high   { background: var(--good-bg); color: var(--good); }
+.conf-medium { background: var(--ok-bg);   color: var(--ok);   }
+.conf-low    { background: var(--bad-bg);  color: var(--bad);  }
+.watch-clear-btn {
+  background: transparent;
+  border: none;
+  color: var(--text3);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0 2px;
+  line-height: 1;
+  align-self: flex-start;
+}
+.watch-clear-btn:hover { color: var(--text); }
+
+/* ── Suggested questions ───────────────────────────────────── */
+.ai-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px 14px 6px;
+}
+.ai-suggestion-chip {
+  font-size: 12px;
+  padding: 5px 11px;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  cursor: pointer;
+  color: var(--text2);
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.ai-suggestion-chip:hover { background: var(--bg); color: var(--text); border-color: var(--text3); }
+
+
 #start-screen {
   background: var(--bg);
   position: relative;
@@ -865,6 +1012,186 @@ details[open] .faq-q::after { transform: rotate(45deg); }
   text-align: center;
 }
 .ai-notice a { color: var(--text2); text-decoration: underline; cursor: pointer; }
+
+/* ── Watch model search ──────────────────────────────────────── */
+.watch-search-wrap { margin-bottom: 20px; text-align: left; }
+.watch-search-label { font-size: 12px; color: var(--text2); font-weight: 500; display: block; margin-bottom: 7px; }
+.watch-search-label span { font-weight: 400; color: var(--text3); }
+.watch-search-row { display: flex; gap: 6px; }
+.watch-input {
+  flex: 1; font-size: 13px; font-family: 'DM Sans', sans-serif;
+  padding: 9px 12px; border: 1px solid var(--border2);
+  border-radius: var(--radius-sm); background: var(--bg);
+  color: var(--text); min-width: 0;
+}
+.watch-input:focus { outline: 2px solid var(--text); outline-offset: -1px; }
+.watch-input::placeholder { color: var(--text3); }
+.watch-search-btn {
+  padding: 9px 14px; font-size: 12px; font-weight: 500;
+  font-family: 'DM Sans', sans-serif; background: var(--text);
+  color: var(--bg4); border: none; border-radius: var(--radius-sm);
+  cursor: pointer; white-space: nowrap; transition: opacity 0.15s; flex-shrink: 0;
+}
+.watch-search-btn:hover:not(:disabled) { opacity: 0.82; }
+.watch-search-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.watch-result {
+  margin-top: 10px; border: 1px solid var(--border2);
+  border-radius: var(--radius-sm); background: var(--bg); padding: 10px 12px;
+}
+.watch-result-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px; }
+.watch-result-info { display: flex; flex-direction: column; gap: 1px; }
+.watch-result-name { font-size: 13px; font-weight: 500; color: var(--text); }
+.watch-result-movement { font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; }
+.watch-conf-badge { font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 20px; background: var(--bg3); flex-shrink: 0; }
+.watch-specs-row { display: flex; flex-wrap: wrap; gap: 5px; }
+.spec-pill {
+  font-size: 11px; padding: 2px 8px; border-radius: 20px;
+  background: var(--bg3); color: var(--text2);
+  font-family: 'DM Mono', monospace; border: 1px solid var(--border);
+}
+.spec-pill-unknown { opacity: 0.45; }
+.watch-uncertain-note { font-size: 11px; color: var(--ok); margin-top: 8px; line-height: 1.55; }
+.watch-not-found { font-size: 12px; color: var(--text3); display: block; text-align: center; padding: 6px 0; }
+
+/* Watch chip in app header */
+.watch-chip {
+  align-items: center; gap: 5px; font-size: 11px; color: var(--text2);
+  background: var(--bg); border: 1px solid var(--border2);
+  border-radius: 20px; padding: 3px 6px 3px 10px; white-space: nowrap; max-width: 170px;
+}
+.watch-chip-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: 'DM Mono', monospace; }
+.watch-chip-clear {
+  background: none; border: none; cursor: pointer; color: var(--text3);
+  font-size: 14px; line-height: 1; padding: 0 2px; flex-shrink: 0; transition: color 0.12s;
+}
+.watch-chip-clear:hover { color: var(--bad); }
+
+
+
+/* ── Noise floor / signal quality ─────────────────────────── */
+.signal-quality {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 11px; color: var(--text3);
+}
+.signal-quality-label { font-family: 'DM Sans', sans-serif; }
+.noise-warning {
+  margin-bottom: 10px; padding: 9px 13px;
+  background: var(--ok-bg); border: 1px solid var(--ok);
+  border-radius: var(--radius-sm); font-size: 12px; color: var(--ok);
+  line-height: 1.55; display: none;
+}
+.noise-warning strong { font-weight: 500; }
+
+/* ── Copy / Share action buttons ──────────────────────────── */
+.readings-actions {
+  display: flex; gap: 6px; justify-content: flex-end;
+  margin-bottom: 8px;
+}
+.action-btn {
+  font-size: 11px; padding: 5px 11px;
+  background: var(--bg4); border: 1px solid var(--border2);
+  border-radius: var(--radius-sm); cursor: pointer; color: var(--text2);
+  font-family: 'DM Sans', sans-serif; transition: all 0.12s;
+  display: inline-flex; align-items: center; gap: 5px;
+}
+.action-btn:hover { background: var(--bg3); color: var(--text); }
+.action-btn.copied { color: var(--good); border-color: var(--good); background: var(--good-bg); }
+
+/* ── Position prompt ───────────────────────────────────────── */
+.position-prompt {
+  background: var(--bg4); border: 1px solid var(--border2);
+  border-radius: var(--radius); padding: 10px 14px; margin-bottom: 10px;
+}
+.position-prompt-label {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text3); font-weight: 500; margin-bottom: 8px;
+}
+.pos-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.pos-chip {
+  font-size: 12px; padding: 4px 11px; border-radius: 20px;
+  background: var(--bg3); border: 1px solid var(--border2);
+  cursor: pointer; color: var(--text2); font-family: 'DM Sans', sans-serif;
+  transition: all 0.12s;
+}
+.pos-chip:hover { background: var(--bg); color: var(--text); }
+.pos-chip.active { background: var(--amber-bg); border-color: var(--amber); color: var(--amber); }
+
+/* ── Session history ───────────────────────────────────────── */
+.history-section { margin-top: 10px; margin-bottom: 32px; }
+.history-toggle {
+  width: 100%; text-align: left; padding: 9px 14px;
+  background: var(--bg4); border: 1px solid var(--border2); border-radius: var(--radius);
+  cursor: pointer; font-size: 12px; color: var(--text2);
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: 'DM Sans', sans-serif; transition: background 0.12s;
+}
+.history-toggle:hover { background: var(--bg3); }
+.history-toggle.open { border-radius: var(--radius) var(--radius) 0 0; }
+.history-panel {
+  display: none; background: var(--bg4);
+  border: 1px solid var(--border2); border-top: none;
+  border-radius: 0 0 var(--radius) var(--radius); overflow-x: auto;
+}
+.history-panel.open { display: block; }
+.history-table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 560px; }
+.history-table th {
+  padding: 6px 10px; text-align: left; color: var(--text3);
+  font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--border); background: var(--bg2); font-size: 9px;
+}
+.history-table td {
+  padding: 7px 10px; border-bottom: 1px solid var(--border);
+  color: var(--text2); font-family: 'DM Mono', monospace;
+}
+.history-table tr:last-child td { border-bottom: none; }
+.history-empty { padding: 16px; text-align: center; color: var(--text3); font-size: 12px; }
+.history-clear-btn {
+  font-size: 11px; background: none; border: none; color: var(--text3);
+  cursor: pointer; padding: 8px 12px; font-family: 'DM Sans', sans-serif;
+}
+.history-clear-btn:hover { color: var(--bad); }
+
+/* ── Share card modal ──────────────────────────────────────── */
+.share-modal {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.55); z-index: 1000;
+  align-items: center; justify-content: center; padding: 20px;
+}
+.share-modal.open { display: flex; }
+.share-modal-box {
+  background: var(--bg4); border-radius: 16px; padding: 20px;
+  max-width: 500px; width: 100%;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+}
+.share-modal-title {
+  font-size: 14px; font-weight: 500; margin-bottom: 12px; color: var(--text);
+}
+.share-canvas-wrap { border-radius: 10px; overflow: hidden; margin-bottom: 12px; }
+#share-canvas { display: block; width: 100%; height: auto; }
+.share-actions { display: flex; gap: 8px; }
+.share-download-btn {
+  flex: 1; padding: 9px; background: var(--text); color: var(--bg4);
+  border: none; border-radius: var(--radius-sm); cursor: pointer;
+  font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 500;
+  transition: opacity 0.15s;
+}
+.share-download-btn:hover { opacity: 0.82; }
+.share-close-btn {
+  padding: 9px 16px; background: transparent;
+  border: 1px solid var(--border2); border-radius: var(--radius-sm);
+  cursor: pointer; font-size: 13px; color: var(--text2);
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* Suggested question chips */
+.ai-chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 16px 4px; }
+.ai-chip {
+  font-size: 12px; padding: 5px 12px; background: var(--bg);
+  border: 1px solid var(--border2); border-radius: 20px;
+  cursor: pointer; color: var(--text2); font-family: 'DM Sans', sans-serif;
+  transition: all 0.12s; white-space: nowrap;
+}
+.ai-chip:hover { background: var(--bg3); color: var(--text); }
 </style>
 </head>
 <body>
@@ -894,9 +1221,18 @@ details[open] .faq-q::after { transform: rotate(45deg); }
       <p class="start-instruction">
         Hold your watch near your microphone — or rest it <strong>face-down</strong> beside your laptop.<br>Works best in a <strong>quiet room</strong>. No hardware needed.
       </p>
+      <!-- Watch model lookup -->
+      <div class="watch-search-wrap">
+        <label class="watch-search-label" for="watch-input-start">What watch are you measuring? <span>(optional — auto-fills settings)</span></label>
+        <div class="watch-search-row">
+          <input class="watch-input" id="watch-input-start" type="text" placeholder="e.g. Seiko SKX007, Rolex Submariner…" maxlength="100" autocomplete="off">
+          <button class="watch-search-btn" id="watch-search-btn" onclick="lookupWatch()">Look up</button>
+        </div>
+        <div id="watch-result" style="display:none"></div>
+      </div>
       <button id="start-btn" onclick="startMeasuring()">Allow microphone &amp; start</button>
       <p id="start-error" class="start-error"></p>
-      <p class="start-note">No account. No hardware. Nothing leaves your device.— Chrome, Firefox, or Safari 14.5+.</p>
+      <p class="start-note">No account. No hardware. Nothing leaves your device — Chrome, Firefox, or Safari 14.5+.</p>
     </div>
     <p class="start-scroll-hint" aria-hidden="true">scroll to learn more ↓</p>
   </div>
@@ -1012,14 +1348,48 @@ details[open] .faq-q::after { transform: rotate(45deg); }
         <input type="number" id="in-cal" value="0" min="-100" max="100" step="0.1">
       </div>
     </div>
-    <div class="sig-wrap" id="sig-bars"></div>
+    <div id="watch-chip" class="watch-chip" style="display:none">
+      <span class="watch-chip-name" id="watch-chip-name"></span>
+      <button onclick="clearWatchProfile()" class="watch-chip-clear" aria-label="Clear watch profile">×</button>
+    </div>
+    <div class="signal-quality">
+      <div class="sig-wrap" id="sig-bars"></div>
+      <span class="signal-quality-label" id="sig-label"></span>
+    </div>
     <button class="mode-btn" id="mode-btn" onclick="toggleProMode()" aria-label="Toggle pro mode" title="Switch between Simple and Pro display">Simple</button>
     <button class="theme-toggle" id="toggle-app" onclick="toggleTheme()" aria-label="Toggle dark mode"></button>
     <button class="stop-btn" onclick="stopMeasuring()">Stop</button>
   </header>
 
+  <div class="watch-search-section">
+    <div class="watch-search-row">
+      <input
+        class="watch-search-input"
+        id="watch-model-input"
+        type="text"
+        placeholder="What watch are you measuring? e.g. Seiko SKX007, Rolex Submariner, Omega Speedmaster…"
+        maxlength="150"
+        autocomplete="off"
+        aria-label="Watch model search"
+      >
+      <button class="watch-search-btn" id="watch-search-btn-app" onclick="lookupWatchApp()">Look up</button>
+    </div>
+    <div class="watch-profile-bar" id="watch-profile-bar" role="status" aria-live="polite"></div>
+  </div>
+
   <div class="health" id="health-bar">
     <span class="listening-dots">Listening</span>
+  </div>
+  <div class="noise-warning" id="noise-warning">⚠ <strong>No signal detected.</strong> Try holding your watch closer to your microphone, or use a quiet room. A clip-on contact mic ($15) dramatically improves accuracy.</div>
+  <div class="readings-actions" id="readings-actions">
+    <button class="action-btn" id="copy-btn" onclick="copyReadings()" title="Copy readings to clipboard">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copy
+    </button>
+    <button class="action-btn" id="share-btn" onclick="openShareCard()" title="Share as image card">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      Share
+    </button>
   </div>
 
   <div class="cards">
@@ -1054,6 +1424,19 @@ details[open] .faq-q::after { transform: rotate(45deg); }
       </div>
       <div class="card-sub pro-only" id="v-hz"></div>
       <span class="card-badge" id="b-bph"></span>
+    </div>
+  </div>
+
+  <!-- Position testing prompt -->
+  <div class="position-prompt" id="position-prompt" style="display:none">
+    <div class="position-prompt-label">Compare across positions — label this reading</div>
+    <div class="pos-chips">
+      <button class="pos-chip active" onclick="setPosition('Dial up', this)">Dial up</button>
+      <button class="pos-chip" onclick="setPosition('Dial down', this)">Dial down</button>
+      <button class="pos-chip" onclick="setPosition('Crown up', this)">Crown up</button>
+      <button class="pos-chip" onclick="setPosition('Crown down', this)">Crown down</button>
+      <button class="pos-chip" onclick="setPosition('Crown left', this)">Crown left</button>
+      <button class="pos-chip" onclick="setPosition('Crown right', this)">Crown right</button>
     </div>
   </div>
 
@@ -1148,6 +1531,12 @@ details[open] .faq-q::after { transform: rotate(45deg); }
         Start measuring, then tap <strong style="color:var(--text)">Diagnose my watch</strong> for an instant expert read on your results.
       </div>
     </div>
+    <div class="ai-suggestions" id="ai-suggestions">
+      <button class="ai-suggestion-chip" onclick="askSuggestion(this)">Why is my amplitude low?</button>
+      <button class="ai-suggestion-chip" onclick="askSuggestion(this)">What does beat error mean?</button>
+      <button class="ai-suggestion-chip" onclick="askSuggestion(this)">When should I regulate?</button>
+      <button class="ai-suggestion-chip" onclick="askSuggestion(this)">Is my watch magnetised?</button>
+    </div>
 
     <div class="ai-footer">
       <button class="ai-diagnose" id="ai-diagnose-btn" onclick="diagnoseWatch()" disabled>
@@ -1163,16 +1552,162 @@ details[open] .faq-q::after { transform: rotate(45deg); }
     </div>
   </div>
 
+  <!-- Session history -->
+  <div class="history-section" id="history-section">
+    <button class="history-toggle" id="history-toggle" onclick="toggleHistory()">
+      <span>Reading history</span>
+      <span id="history-count" style="color:var(--text3);font-size:11px;font-family:'DM Mono',monospace">0 readings</span>
+    </button>
+    <div class="history-panel" id="history-panel"></div>
+  </div>
+
+</div>
+
+<!-- Share card modal -->
+<div class="share-modal" id="share-modal" onclick="if(event.target===this)closeShareModal()">
+  <div class="share-modal-box">
+    <div class="share-modal-title">Share your reading</div>
+    <div class="share-canvas-wrap">
+      <canvas id="share-canvas" width="480" height="260"></canvas>
+    </div>
+    <div class="share-actions">
+      <button class="share-download-btn" onclick="downloadShareCard()">↓ Download image</button>
+      <button class="share-close-btn" onclick="closeShareModal()">Close</button>
+    </div>
+  </div>
 </div>
 
 <script>
 'use strict';
+
+// ── Utilities ────────────────────────────────────────────────
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── Apply watch profile to app-screen controls + profile bar ─
+function applyWatchProfile(p) {
+  const bar = document.getElementById('watch-profile-bar');
+  const uncertain = p.uncertain || [];
+
+  // Apply specs to controls where confident
+  if (p.bph && !uncertain.includes('bph')) {
+    const sel = document.getElementById('sel-bph');
+    const opt = [...sel.options].find(o => Number(o.value) === p.bph);
+    if (opt) { sel.value = p.bph; S.bph = p.bph; if (detector) detector.bph = p.bph; }
+  }
+  if (p.liftAngle && !uncertain.includes('liftAngle')) {
+    const la = document.getElementById('in-la');
+    if (la) { la.value = p.liftAngle; S.la = p.liftAngle; if (detector) detector.la = p.liftAngle; }
+  }
+
+  updateSuggestedQuestions(p);
+  updateWatchChip(p);
+
+  // Build profile bar
+  const confClass = { high: 'conf-high', medium: 'conf-medium', low: 'conf-low' }[p.confidence] ?? 'conf-medium';
+  const confLabel = { high: 'High confidence', medium: 'Medium confidence', low: 'Low confidence — check specs' }[p.confidence] ?? '';
+
+  const specVal = (val, field, unit = '') => {
+    if (val === null || val === undefined || uncertain.includes(field))
+      return `<span class="watch-profile-spec-val uncertain" title="Uncertain — edit manually">—</span>`;
+    return `<span class="watch-profile-spec-val">${val}${unit}</span>`;
+  };
+
+  const hasUncertain = uncertain.length > 0;
+  bar.innerHTML = `
+    <div class="watch-profile-name">
+      ${escHtml(p.watchName || p.movement || 'Unknown')}
+      ${p.movement ? `<span>${escHtml(p.movement)}</span>` : ''}
+    </div>
+    <div class="watch-profile-specs">
+      <div class="watch-profile-spec">
+        <div class="watch-profile-spec-label">BPH</div>
+        ${specVal(p.bph, 'bph')}
+      </div>
+      <div class="watch-profile-spec">
+        <div class="watch-profile-spec-label">Lift °</div>
+        ${specVal(p.liftAngle, 'liftAngle', '°')}
+      </div>
+      <div class="watch-profile-spec">
+        <div class="watch-profile-spec-label">Rate ±s/d</div>
+        ${specVal(p.rateToleranceSd, 'rateToleranceSd', ' s/d')}
+      </div>
+      <div class="watch-profile-spec">
+        <div class="watch-profile-spec-label">Amplitude</div>
+        ${(p.amplitudeMin && p.amplitudeMax && !uncertain.includes('amplitudeMin'))
+          ? `<span class="watch-profile-spec-val">${p.amplitudeMin}–${p.amplitudeMax}°</span>`
+          : `<span class="watch-profile-spec-val uncertain">—</span>`}
+      </div>
+      <div class="watch-profile-spec">
+        <div class="watch-profile-spec-label">Power reserve</div>
+        ${specVal(p.powerReserveHours, 'powerReserveHours', 'h')}
+      </div>
+    </div>
+    <span class="watch-profile-confidence ${confClass}">${confLabel}</span>
+    <button class="watch-clear-btn" onclick="clearWatchProfile()" title="Clear" aria-label="Clear watch profile">×</button>
+    ${hasUncertain ? `<div class="watch-profile-warning">⚠ Some specs couldn't be verified (${p.uncertain.join(', ')}). Fields shown as — can be set manually above.</div>` : ''}
+    ${p.notes ? `<div class="watch-profile-warning" style="background:var(--amber-bg);color:var(--amber);">ℹ ${escHtml(p.notes)}</div>` : ''}
+  `;
+  bar.className = 'watch-profile-bar visible';
+}
 
 // ── State ────────────────────────────────────────────────────
 const S = {
   bph: 21600, la: 52, cal: 0,
   traceShift: 0,
 };
+
+// Watch profile loaded from AI lookup
+let watchProfile = null;
+
+// ── Suggested questions ───────────────────────────────────────
+const DEFAULT_SUGGESTIONS = [
+  'Why is my amplitude low?',
+  'What does beat error mean?',
+  'When should I regulate?',
+  'Is my watch magnetised?',
+];
+
+function updateSuggestedQuestions(profile) {
+  const el = document.getElementById('ai-suggestions');
+  const name = profile.watchName || profile.movement || 'this watch';
+  const chips = [
+    `Is my ${name} running within spec?`,
+    `What amplitude should a ${name} show?`,
+    'Why is my amplitude low?',
+    'When should I regulate?',
+  ];
+  el.innerHTML = chips.map(c =>
+    `<button class="ai-suggestion-chip" onclick="askSuggestion(this)">${escHtml(c)}</button>`
+  ).join('');
+}
+
+function resetSuggestedQuestions() {
+  const el = document.getElementById('ai-suggestions');
+  el.innerHTML = DEFAULT_SUGGESTIONS.map(c =>
+    `<button class="ai-suggestion-chip" onclick="askSuggestion(this)">${escHtml(c)}</button>`
+  ).join('');
+}
+
+function askSuggestion(btn) {
+  const input = document.getElementById('ai-input');
+  input.value = btn.textContent;
+  sendAIMessage();
+}
+
+// ── Position testing state ───────────────────────────────────
+let currentPosition = 'Dial up';
+let stableMs = 0;
+let positionShown = false;
+
+function setPosition(pos, btn) {
+  currentPosition = pos;
+  document.querySelectorAll('.pos-chip').forEach(c => c.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  lastAutoSaveTs = 0; // bypass debounce — position change should always save
+  maybeAutoSave();
+}
 
 // ── Beat Detector ────────────────────────────────────────────
 class TGDetector {
@@ -1456,6 +1991,7 @@ async function startMeasuring() {
     // Show app screen
     document.getElementById('start-screen').style.display = 'none';
     document.getElementById('app-screen').style.display = 'block';
+    updateWatchChip(watchProfile); // carry watch profile across to app header
     requestAnimationFrame(() => initCanvases()); // wait for layout before measuring canvas widths
 
   } catch (err) {
@@ -1469,6 +2005,10 @@ async function startMeasuring() {
 }
 
 function stopMeasuring() {
+  saveCurrentReading();
+  stableMs = 0; positionShown = false;
+  const pp = document.getElementById('position-prompt');
+  if (pp) pp.style.display = 'none';
   clearInterval(analyzeTimer);
   if (stream) stream.getTracks().forEach(t => t.stop());
   if (audioCtx) audioCtx.close();
@@ -1481,6 +2021,7 @@ function stopMeasuring() {
 // ── Settings ────────────────────────────────────────────────
 document.getElementById('sel-bph').addEventListener('change', e => {
   S.bph = parseInt(e.target.value);
+  stableMs = 0; // reset position prompt timer on BPH change
   if (detector) { detector.bph = S.bph; detector.clearPaperstrip(); }
 });
 document.getElementById('in-la').addEventListener('change', e => {
@@ -1524,7 +2065,7 @@ function updateUI() {
   if (!detector) return;
   const d = detector;
 
-  // Signal bars
+  // Signal bars + quality label + noise warning
   const sigEl = document.getElementById('sig-bars');
   sigEl.innerHTML = '';
   const heights = [6, 10, 14, 18];
@@ -1535,9 +2076,26 @@ function updateUI() {
     b.style.cssText = `height:${heights[i]}px;width:5px;border-radius:2px 2px 0 0;background:${i < d.signal ? sc.sigOn : sc.sigOff}`;
     sigEl.appendChild(b);
   }
+  const sigLabels = ['No signal', 'Weak', 'Fair', 'Good', 'Strong'];
+  const sigLabelEl = document.getElementById('sig-label');
+  if (sigLabelEl) sigLabelEl.textContent = sigLabels[d.signal] ?? '';
+
+  // Noise floor warning
+  const noiseEl = document.getElementById('noise-warning');
+  if (noiseEl) {
+    if (d.signal === 0) {
+      noiseEl.style.display = 'block';
+      noiseEl.innerHTML = '⚠ <strong>No signal detected.</strong> Try holding your watch closer to your microphone, or use a quiet room. A clip-on contact mic (~$15) dramatically improves accuracy.';
+    } else if (d.signal === 1) {
+      noiseEl.style.display = 'block';
+      noiseEl.innerHTML = '⚠ <strong>Weak signal.</strong> Readings may be unreliable. Hold the watch face-down against a hard surface near the microphone, or reduce background noise.';
+    } else {
+      noiseEl.style.display = 'none';
+    }
+  }
 
   if (d.signal === 0) {
-    document.getElementById('health-bar').innerHTML = `<span class="listening-dots">Listening</span>`;
+    document.getElementById('health-bar').innerHTML = `<span class="listening-dots">Listening — hold your watch near the mic</span>`;
     return;
   }
 
@@ -1551,9 +2109,11 @@ function updateUI() {
   const rateWord = d.rate >= 0 ? 'fast' : 'slow';
   const rateSign = d.rate >= 0 ? '+' : '';
   document.getElementById('v-rate').textContent = rateSign + d.rate.toFixed(proMode ? 2 : 1);
-  const rCls = rateAbs <= 6 ? 'good' : rateAbs <= 15 ? 'ok' : 'bad';
+  const rateTol = watchProfile && watchProfile.rateToleranceSd && !(watchProfile.uncertain||[]).includes('rateToleranceSd')
+    ? watchProfile.rateToleranceSd : 15;
+  const rCls = rateAbs <= 6 ? 'good' : rateAbs <= rateTol ? 'ok' : 'bad';
   badge(document.getElementById('b-rate'),
-    rateAbs <= 6 ? 'Excellent' : rateAbs <= 15 ? 'Acceptable' : 'Needs regulation', rCls);
+    rateAbs <= 6 ? 'Excellent' : rateAbs <= rateTol ? 'Acceptable' : 'Needs regulation', rCls);
 
   // Beat error
   if (d.beatError !== null) {
@@ -1566,9 +2126,13 @@ function updateUI() {
   // Amplitude
   if (d.amplitude !== null) {
     document.getElementById('v-amp').textContent = proMode ? d.amplitude.toFixed(1) : Math.round(d.amplitude);
-    const aCls = d.amplitude >= 200 && d.amplitude <= 320 ? 'good' : d.amplitude >= 160 ? 'ok' : 'bad';
+    const ampMin = watchProfile && watchProfile.amplitudeMin && !(watchProfile.uncertain||[]).includes('amplitudeMin')
+      ? watchProfile.amplitudeMin : 200;
+    const ampMax = watchProfile && watchProfile.amplitudeMax && !(watchProfile.uncertain||[]).includes('amplitudeMax')
+      ? watchProfile.amplitudeMax : 320;
+    const aCls = d.amplitude >= ampMin && d.amplitude <= ampMax ? 'good' : d.amplitude >= ampMin - 40 ? 'ok' : 'bad';
     badge(document.getElementById('b-amp'),
-      d.amplitude >= 200 ? 'Healthy' : d.amplitude >= 160 ? 'Low — try winding' : 'Very low', aCls);
+      d.amplitude >= ampMin ? 'Healthy' : d.amplitude >= ampMin - 40 ? 'Low — try winding' : 'Very low', aCls);
   }
 
   // Detected BPH
@@ -1596,6 +2160,19 @@ function updateUI() {
   // Refresh AI diagnose button
   const diagBtn = document.getElementById('ai-diagnose-btn');
   if (diagBtn) diagBtn.disabled = aiStreaming;
+
+  // Position prompt + auto-save
+  if (d.rate !== null && d.signal >= 2) {
+    stableMs += 280;
+    if (stableMs >= 28000 && !positionShown) {
+      const pp = document.getElementById('position-prompt');
+      if (pp) pp.style.display = 'block';
+      positionShown = true;
+    }
+    if (stableMs >= 30000 && stableMs % 30000 < 280) maybeAutoSave();
+  } else {
+    stableMs = 0;
+  }
 }
 
 // ── Canvas drawing ──────────────────────────────────────────
@@ -1907,10 +2484,192 @@ function toggleTheme() {
   });
 })();
 
-// ── AI Watchmaker ────────────────────────────────────────────
+// specPill used by start-screen renderWatchResult
+function specPill(label, value, uncertain, field) {
+  const isUnknown = value === null || value === undefined || (field && uncertain?.includes(field));
+  return `<span class="spec-pill${isUnknown ? ' spec-pill-unknown' : ''}">${label}: ${isUnknown ? '—' : escHtml(String(value))}</span>`;
+}
+
+async function lookupWatch() {
+  if (!AI_ENDPOINT) {
+    const r = document.getElementById('watch-result');
+    r.style.display = 'block';
+    r.innerHTML = `<span class="watch-not-found">AI backend not configured — set AI_ENDPOINT first.</span>`;
+    return;
+  }
+  const input = document.getElementById('watch-input-start');
+  const btn   = document.getElementById('watch-search-btn');
+  const result = document.getElementById('watch-result');
+  const val = input.value.trim();
+  if (!val) { input.focus(); return; }
+
+  btn.disabled = true;
+  btn.textContent = 'Looking up…';
+  result.style.display = 'none';
+
+  try {
+    const res = await fetch(AI_ENDPOINT + '/watch-lookup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ watch: val }),
+    });
+    const data = await res.json();
+
+    if (!data.recognized) {
+      result.style.display = 'block';
+      result.innerHTML = `<span class="watch-not-found">Watch not recognised — please configure BPH and lift angle manually.</span>`;
+      return;
+    }
+
+    watchProfile = data;
+    applyWatchSpecs(data);
+    renderWatchResult(data);
+
+  } catch {
+    result.style.display = 'block';
+    result.innerHTML = `<span class="watch-not-found">Lookup failed — check your connection and try again.</span>`;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Look up';
+  }
+}
+
+function applyWatchSpecs(p) {
+  const uncertain = p.uncertain || [];
+  // BPH
+  if (p.bph && !uncertain.includes('bph')) {
+    const sel = document.getElementById('sel-bph');
+    if (sel) {
+      let closest = null, closestDiff = Infinity;
+      for (const opt of sel.options) {
+        const diff = Math.abs(parseInt(opt.value) - p.bph);
+        if (diff < closestDiff) { closestDiff = diff; closest = opt; }
+      }
+      if (closest) { closest.selected = true; S.bph = parseInt(sel.value); if (detector) detector.bph = S.bph; }
+    }
+  }
+  // Lift angle
+  if (p.liftAngle && !uncertain.includes('liftAngle')) {
+    const la = document.getElementById('in-la');
+    if (la) { la.value = p.liftAngle; S.la = p.liftAngle; if (detector) detector.la = S.la; }
+  }
+}
+
+function renderWatchResult(p) {
+  const result = document.getElementById('watch-result');
+  result.style.display = 'block';
+  const uncertain = p.uncertain || [];
+
+  const confColor  = p.confidence === 'high' ? 'var(--good)' : p.confidence === 'medium' ? 'var(--ok)' : 'var(--bad)';
+  const confLabel  = p.confidence === 'high' ? 'Verified' : p.confidence === 'medium' ? 'Estimated' : 'Low confidence';
+  const ampVal     = (p.amplitudeMin && p.amplitudeMax && !uncertain.includes('amplitudeMin'))
+    ? `${p.amplitudeMin}–${p.amplitudeMax}°` : null;
+  const rateVal    = (p.rateToleranceSd && !uncertain.includes('rateToleranceSd'))
+    ? `±${p.rateToleranceSd} s/d` : null;
+
+  const uncertainNote = uncertain.length > 0
+    ? `<div class="watch-uncertain-note">⚠ Uncertain specs for ${escHtml(uncertain.join(', '))} — verify these manually before relying on them.</div>`
+    : '';
+
+  result.innerHTML = `
+    <div class="watch-result-row">
+      <div class="watch-result-info">
+        <span class="watch-result-name">${escHtml(p.watchName || p.movement || 'Unknown')}</span>
+        <span class="watch-result-movement">${escHtml(p.movement || '')}</span>
+      </div>
+      <span class="watch-conf-badge" style="color:${confColor}">${confLabel}</span>
+    </div>
+    <div class="watch-specs-row">
+      ${specPill('BPH', p.bph, uncertain, 'bph')}
+      ${specPill('Lift', p.liftAngle ? p.liftAngle + '°' : null, uncertain, 'liftAngle')}
+      ${specPill('Rate', rateVal, uncertain, 'rateToleranceSd')}
+      ${specPill('Amp', ampVal, uncertain, 'amplitudeMin')}
+      ${p.powerReserveHours && !uncertain.includes('powerReserveHours') ? specPill('PR', p.powerReserveHours + 'h', uncertain, 'powerReserveHours') : ''}
+    </div>
+    ${uncertainNote}
+    ${p.notes ? `<div style="font-size:11px;color:var(--text3);margin-top:8px;line-height:1.5">${escHtml(p.notes)}</div>` : ''}
+  `;
+
+  updateWatchChip(p);
+}
+
+function updateWatchChip(p) {
+  const chip = document.getElementById('watch-chip');
+  const name = document.getElementById('watch-chip-name');
+  if (!chip) return;
+  if (!p) { chip.style.display = 'none'; return; }
+  chip.style.display = 'flex';
+  name.textContent = p.watchName || p.movement || 'Watch';
+}
+
+function clearWatchProfile() {
+  watchProfile = null;
+  const chip = document.getElementById('watch-chip');
+  if (chip) chip.style.display = 'none';
+  document.getElementById('watch-profile-bar').className = 'watch-profile-bar';
+  const appInput = document.getElementById('watch-model-input');
+  if (appInput) appInput.value = '';
+  resetSuggestedQuestions();
+}
+// ── App-screen watch lookup ───────────────────────────────────
+async function lookupWatchApp() {
+  if (!AI_ENDPOINT) {
+    const bar = document.getElementById('watch-profile-bar');
+    bar.innerHTML = `<span style="color:var(--text2);font-size:12px;">AI backend not configured.</span>`;
+    bar.className = 'watch-profile-bar visible';
+    return;
+  }
+  const input = document.getElementById('watch-model-input');
+  const btn   = document.getElementById('watch-search-btn-app');
+  const bar   = document.getElementById('watch-profile-bar');
+  const val   = input?.value.trim();
+  if (!val) { input?.focus(); return; }
+
+  if (btn) { btn.disabled = true; btn.textContent = 'Looking up…'; }
+  bar.className = 'watch-profile-bar';
+  bar.innerHTML = '';
+
+  try {
+    const res = await fetch(AI_ENDPOINT + '/watch-lookup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ watch: val }),
+    });
+    const data = await res.json();
+
+    if (!data.recognized) {
+      bar.innerHTML = `<span style="color:var(--text2);font-size:12px;">⚠ Watch not recognised — configure BPH and lift angle manually.</span>`;
+      bar.className = 'watch-profile-bar visible';
+      watchProfile = null;
+      return;
+    }
+
+    watchProfile = data;
+    applyWatchProfile(data);
+
+  } catch {
+    bar.innerHTML = `<span style="color:var(--bad);font-size:12px;">Lookup failed — check your connection.</span>`;
+    bar.className = 'watch-profile-bar visible';
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = 'Look up'; }
+  }
+}
+
+
+
+function sendChip(btn) {
+  const text = btn.textContent;
+  const input = document.getElementById('ai-input');
+  if (input) { input.value = text; sendAIMessage(); }
+  // Hide chips after first use so they don't clutter the chat
+  const chips = document.getElementById('ai-chips');
+  if (chips) chips.style.display = 'none';
+}
+
+// ── AI Watchmaker ─────────────────────────────────────────────
 // Set this to your Cloudflare Worker URL after deploying worker-gemini.js
 // e.g. 'https://retomb-ai.jameswu0431.workers.dev'
-const AI_ENDPOINT = 'https://timegrapher.jameswu0431.workers.dev/';
+const AI_ENDPOINT = '';
 
 // Security limits
 const AI_MAX_INPUT   = 800;   // chars per user message
@@ -1931,13 +2690,30 @@ function readingsSummary() {
   if (detector.amplitude !== null) lines.push(`Amplitude: ${Math.round(detector.amplitude)}°`);
   lines.push(`BPH: ${detector.bph.toLocaleString()}`);
   lines.push(`Signal quality: ${detector.signal}/4`);
+  if (watchProfile) {
+    lines.push(`Watch: ${watchProfile.watchName || watchProfile.movement || 'Unknown'}`);
+    if (watchProfile.movement) lines.push(`Movement: ${watchProfile.movement}`);
+    if (watchProfile.rateToleranceSd && !(watchProfile.uncertain || []).includes('rateToleranceSd'))
+      lines.push(`Expected rate tolerance: ±${watchProfile.rateToleranceSd} s/d`);
+    if (watchProfile.amplitudeMin && watchProfile.amplitudeMax && !(watchProfile.uncertain || []).includes('amplitudeMin'))
+      lines.push(`Expected amplitude range: ${watchProfile.amplitudeMin}–${watchProfile.amplitudeMax}°`);
+  }
   return lines.join('\n');
 }
 
 function diagnoseWatch() {
   const summary = readingsSummary();
   if (!summary || aiStreaming) return;
-  const prompt = `My current timegrapher readings:\n\n${summary}\n\nPlease diagnose my watch.`;
+  let watchLine = '';
+  if (watchProfile) {
+    const name = watchProfile.watchName || watchProfile.movement || 'my watch';
+    const specs = [];
+    if (watchProfile.bph)              specs.push(`BPH: ${watchProfile.bph}`);
+    if (watchProfile.rateToleranceSd)  specs.push(`target rate: ±${watchProfile.rateToleranceSd} s/d`);
+    if (watchProfile.amplitudeMin)     specs.push(`expected amplitude: ${watchProfile.amplitudeMin}–${watchProfile.amplitudeMax}°`);
+    watchLine = ` for my ${name}${specs.length ? ` (${specs.join(', ')})` : ''}`;
+  }
+  const prompt = `My current timegrapher readings:\n\n${summary}\n\nPlease diagnose my watch${watchLine}.`;
   runAI(prompt, 'Diagnose my watch');
 }
 
@@ -2089,11 +2865,257 @@ function setAINotice(html) {
   if (el) el.innerHTML = html;
 }
 
+
+// ── Copy readings ─────────────────────────────────────────────
+function copyReadings() {
+  if (!detector || detector.rate === null) return;
+  const d = detector;
+  const sign = d.rate >= 0 ? '+' : '';
+  const parts = [`Rate: ${sign}${d.rate.toFixed(1)} s/d`];
+  if (d.beatError !== null) parts.push(`Beat error: ${d.beatError.toFixed(2)} ms`);
+  if (d.amplitude !== null) parts.push(`Amplitude: ${Math.round(d.amplitude)}°`);
+  parts.push(`BPH: ${d.bph.toLocaleString()}`);
+  if (watchProfile?.watchName) parts.push(`Watch: ${watchProfile.watchName}`);
+  parts.push('timegrapher.ai');
+  const text = parts.join('  |  ');
+  const btn = document.getElementById('copy-btn');
+  const reset = () => { if (btn) { btn.classList.remove('copied'); btn.innerHTML = copyBtnInner; } };
+  const copyBtnInner = btn?.innerHTML || '';
+  navigator.clipboard?.writeText(text).then(() => {
+    if (btn) { btn.classList.add('copied'); btn.textContent = '✓ Copied'; setTimeout(reset, 2000); }
+  }).catch(() => {
+    const ta = Object.assign(document.createElement('textarea'), { value: text });
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+    if (btn) { btn.classList.add('copied'); btn.textContent = '✓ Copied'; setTimeout(reset, 2000); }
+  });
+}
+
+// ── Share card ────────────────────────────────────────────────
+function openShareCard() {
+  if (!detector || detector.rate === null) return;
+  document.getElementById('share-modal').classList.add('open');
+  renderShareCanvas();
+}
+
+function closeShareModal() {
+  document.getElementById('share-modal').classList.remove('open');
+}
+
+function renderShareCanvas() {
+  const cv = document.getElementById('share-canvas');
+  if (!cv || !detector) return;
+  const ctx = cv.getContext('2d');
+  const W = 480, H = 260;
+  cv.width = W; cv.height = H;
+  const dark = isDark();
+
+  // Background
+  ctx.fillStyle = dark ? '#1C1814' : '#F2EDE4';
+  ctx.fillRect(0, 0, W, H);
+
+  // Header band
+  ctx.fillStyle = dark ? '#26211A' : '#EDE8DF';
+  ctx.fillRect(0, 0, W, 52);
+
+  // Subtle border
+  ctx.strokeStyle = dark ? 'rgba(255,235,200,0.1)' : 'rgba(100,80,50,0.14)';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(0.5, 0.5, W - 1, H - 1);
+
+  // Logo text
+  ctx.fillStyle = dark ? '#EDE6D8' : '#26211A';
+  ctx.font = 'bold 13px monospace';
+  ctx.textAlign = 'left';
+  ctx.fillText('TIMEGRAPHER AI', 20, 32);
+
+  // Watch name or position
+  const watchLabel = watchProfile?.watchName || watchProfile?.movement || currentPosition;
+  ctx.fillStyle = dark ? '#A89678' : '#6B6258';
+  ctx.font = '11px sans-serif';
+  ctx.textAlign = 'right';
+  ctx.fillText(watchLabel, W - 20, 32);
+
+  // Dividers
+  ctx.strokeStyle = dark ? 'rgba(255,235,200,0.1)' : 'rgba(100,80,50,0.12)';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(0, 52); ctx.lineTo(W, 52); ctx.stroke();
+  for (let i = 1; i < 4; i++) {
+    const x = i * W / 4;
+    ctx.beginPath(); ctx.moveTo(x, 62); ctx.lineTo(x, H - 44); ctx.stroke();
+  }
+
+  // Metrics
+  const d = detector;
+  const sign = d.rate >= 0 ? '+' : '';
+  const metrics = [
+    { label: 'RATE', value: sign + d.rate.toFixed(1), unit: 's/d',
+      status: Math.abs(d.rate) <= 6 ? 'good' : Math.abs(d.rate) <= 15 ? 'ok' : 'bad' },
+    { label: 'BEAT ERROR', value: d.beatError !== null ? d.beatError.toFixed(2) : '—', unit: 'ms',
+      status: d.beatError === null ? null : d.beatError < 0.5 ? 'good' : d.beatError < 1.5 ? 'ok' : 'bad' },
+    { label: 'AMPLITUDE', value: d.amplitude !== null ? Math.round(d.amplitude).toString() : '—', unit: '°',
+      status: d.amplitude === null ? null : d.amplitude >= 220 && d.amplitude <= 310 ? 'good' : d.amplitude >= 180 ? 'ok' : 'bad' },
+    { label: 'BPH', value: d.bph.toLocaleString(), unit: 'bph', status: 'good' },
+  ];
+
+  const statusColors = {
+    good: dark ? '#3DAF64' : '#2C7A48',
+    ok:   dark ? '#C8920A' : '#8A5A0A',
+    bad:  dark ? '#E05252' : '#B53232',
+  };
+
+  const colW = W / 4;
+  metrics.forEach((m, i) => {
+    const cx = i * colW + colW / 2;
+    const yBase = 130;
+
+    // Label
+    ctx.fillStyle = dark ? '#907862' : '#A8A099';
+    ctx.font = '8px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(m.label, cx, yBase - 22);
+
+    // Value
+    ctx.fillStyle = m.status ? statusColors[m.status] : (dark ? '#EDE6D8' : '#26211A');
+    const fontSize = m.value.length > 5 ? 26 : 30;
+    ctx.font = `bold ${fontSize}px monospace`;
+    ctx.textAlign = 'center';
+    ctx.fillText(m.value, cx, yBase + 14);
+
+    // Unit
+    ctx.fillStyle = dark ? '#A89678' : '#6B6258';
+    ctx.font = '10px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(m.unit, cx, yBase + 32);
+  });
+
+  // Footer
+  ctx.fillStyle = dark ? '#26211A' : '#EDE8DF';
+  ctx.fillRect(0, H - 36, W, 36);
+  ctx.beginPath(); ctx.moveTo(0, H - 36); ctx.lineTo(W, H - 36); ctx.stroke();
+  ctx.fillStyle = dark ? '#907862' : '#A8A099';
+  ctx.font = '10px monospace';
+  ctx.textAlign = 'center';
+  ctx.fillText('timegrapher.ai — free mechanical watch timegrapher', W / 2, H - 14);
+}
+
+function downloadShareCard() {
+  const cv = document.getElementById('share-canvas');
+  const a = Object.assign(document.createElement('a'), {
+    download: 'timegrapher-reading.png',
+    href: cv.toDataURL('image/png'),
+  });
+  a.click();
+}
+
+// ── Session history ───────────────────────────────────────────
+const TG_HISTORY_KEY = 'tg-history';
+const TG_HISTORY_MAX = 20;
+let historyOpen = false;
+let lastAutoSaveTs = 0;
+
+function maybeAutoSave() {
+  const now = Date.now();
+  if (now - lastAutoSaveTs < 29000) return; // at most once per 29s
+  lastAutoSaveTs = now;
+  saveCurrentReading();
+}
+
+function saveCurrentReading() {
+  if (!detector || detector.rate === null || detector.signal < 2) return;
+  const entry = {
+    ts: Date.now(),
+    watch: watchProfile?.watchName || watchProfile?.movement || null,
+    position: currentPosition,
+    rate: parseFloat(detector.rate.toFixed(2)),
+    beatError: detector.beatError !== null ? parseFloat(detector.beatError.toFixed(3)) : null,
+    amplitude: detector.amplitude !== null ? Math.round(detector.amplitude) : null,
+    bph: detector.bph,
+  };
+  let hist = [];
+  try { hist = JSON.parse(localStorage.getItem(TG_HISTORY_KEY) || '[]'); } catch {}
+  // Avoid duplicate at same position within 5s
+  if (hist.length && Math.abs(hist[0].ts - entry.ts) < 5000 && hist[0].position === entry.position) return;
+  hist.unshift(entry);
+  if (hist.length > TG_HISTORY_MAX) hist = hist.slice(0, TG_HISTORY_MAX);
+  try { localStorage.setItem(TG_HISTORY_KEY, JSON.stringify(hist)); } catch {}
+  refreshHistoryUI();
+}
+
+function toggleHistory() {
+  historyOpen = !historyOpen;
+  const panel = document.getElementById('history-panel');
+  const toggle = document.getElementById('history-toggle');
+  panel.classList.toggle('open', historyOpen);
+  toggle.classList.toggle('open', historyOpen);
+  if (historyOpen) refreshHistoryUI();
+}
+
+function refreshHistoryUI() {
+  let hist = [];
+  try { hist = JSON.parse(localStorage.getItem(TG_HISTORY_KEY) || '[]'); } catch {}
+  const countEl = document.getElementById('history-count');
+  if (countEl) countEl.textContent = `${hist.length} reading${hist.length !== 1 ? 's' : ''}`;
+  if (!historyOpen) return;
+  const panel = document.getElementById('history-panel');
+  if (!panel) return;
+  if (hist.length === 0) {
+    panel.innerHTML = `<div class="history-empty">No readings saved yet — start measuring to build history.</div>`;
+    return;
+  }
+  const rows = hist.map(e => {
+    const d = new Date(e.ts);
+    const when = d.toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+    const rate = e.rate >= 0 ? `+${e.rate.toFixed(1)}` : e.rate.toFixed(1);
+    const be = e.beatError !== null ? e.beatError.toFixed(2) : '—';
+    const amp = e.amplitude !== null ? e.amplitude + '°' : '—';
+    return `<tr>
+      <td style="color:var(--text3);font-family:'DM Sans',sans-serif">${escHtml(when)}</td>
+      <td style="font-family:'DM Sans',sans-serif">${escHtml(e.watch || '—')}</td>
+      <td style="color:var(--text3);font-size:10px;font-family:'DM Sans',sans-serif">${escHtml(e.position || '—')}</td>
+      <td>${rate}</td><td>${be}</td><td>${amp}</td>
+      <td>${e.bph?.toLocaleString() || '—'}</td>
+    </tr>`;
+  }).join('');
+  panel.innerHTML = `
+    <div style="overflow-x:auto">
+    <table class="history-table">
+      <thead><tr>
+        <th>When</th><th>Watch</th><th>Position</th>
+        <th>Rate s/d</th><th>BE ms</th><th>Amp</th><th>BPH</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    </div>
+    <div style="padding:6px 12px;border-top:1px solid var(--border);display:flex;justify-content:flex-end">
+      <button class="history-clear-btn" onclick="clearHistory()">Clear history</button>
+    </div>`;
+}
+
+function clearHistory() {
+  if (!confirm('Clear all reading history?')) return;
+  localStorage.removeItem(TG_HISTORY_KEY);
+  refreshHistoryUI();
+}
+
 // Enter key sends message
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('ai-input')?.addEventListener('keydown', e => {
     if (e.key === 'Enter' && !e.shiftKey && !aiStreaming) { e.preventDefault(); sendAIMessage(); }
   });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      const m = document.getElementById('share-modal');
+      if (m?.classList.contains('open')) closeShareModal();
+    }
+  });
+  document.getElementById('watch-model-input')?.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); lookupWatchApp(); }
+  });
+  document.getElementById('watch-input-start')?.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); lookupWatch(); }
+  });
+  // Init history count
+  refreshHistoryUI();
   // Show setup notice if no endpoint configured
   if (!AI_ENDPOINT) setAINotice('Set <code>AI_ENDPOINT</code> after deploying <code>worker.js</code> — see README.');
 });
