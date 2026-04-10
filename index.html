@@ -863,7 +863,7 @@ details[open] .faq-q::after { transform: rotate(45deg); }
 }
 @keyframes dots { 0%,100%{content:'.'} 33%{content:'..'} 66%{content:'...'} }
 
-/* ── AI Watchmaker ─────────────────────────────────────────── */
+/* ── AI Diagnosis ─────────────────────────────────────────── */
 .ai-section {
   background: var(--bg4);
   box-shadow: var(--shadow-sm);
@@ -1081,6 +1081,73 @@ details[open] .faq-q::after { transform: rotate(45deg); }
   line-height: 1.55; display: none;
 }
 .noise-warning strong { font-weight: 500; }
+
+
+/* ── Pro mode advanced panels ──────────────────────────────── */
+.pro-panel {
+  background: var(--bg4); border: 1px solid var(--border2);
+  border-radius: var(--radius); margin-bottom: 10px; overflow: hidden;
+}
+.pro-panel-hdr {
+  padding: 7px 14px; background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  font-size: 10px; font-weight: 500; color: var(--text2);
+  text-transform: uppercase; letter-spacing: 0.09em;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.pro-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+@media(max-width:500px){ .pro-stats-grid { grid-template-columns: repeat(2,1fr); } }
+.pro-stat {
+  padding: 10px 14px;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.pro-stat:nth-child(3n){ border-right: none; }
+.pro-stat-label {
+  font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text3); font-weight: 500; margin-bottom: 4px;
+}
+.pro-stat-val {
+  font-family: 'DM Mono', monospace; font-size: 18px;
+  color: var(--text); line-height: 1;
+}
+.pro-stat-unit {
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  color: var(--text3); margin-top: 2px;
+}
+.pro-stat-good { color: var(--good); }
+.pro-stat-ok   { color: var(--ok);   }
+.pro-stat-bad  { color: var(--bad);  }
+.pro-trend {
+  padding: 10px 14px 12px;
+  border-top: 1px solid var(--border);
+}
+.pro-trend-label {
+  font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text3); margin-bottom: 6px; font-weight: 500;
+}
+#cv-rate-trend { display: block; width: 100%; border-radius: 4px; }
+
+/* Position comparison table */
+.pos-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.pos-table th {
+  padding: 6px 12px; text-align: left; color: var(--text3);
+  font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--border); font-size: 9px;
+  background: var(--bg2);
+}
+.pos-table td {
+  padding: 8px 12px; border-bottom: 1px solid var(--border);
+  font-family: 'DM Mono', monospace; color: var(--text2);
+}
+.pos-table tr:last-child td { border-bottom: none; }
+.pos-table .pos-name { font-family: 'DM Sans', sans-serif; color: var(--text); font-weight: 500; }
+.pos-table .pos-best { color: var(--good); }
+.pos-table .pos-worst { color: var(--bad); }
 
 /* ── Copy / Share action buttons ──────────────────────────── */
 .readings-actions {
@@ -1427,6 +1494,60 @@ details[open] .faq-q::after { transform: rotate(45deg); }
     </div>
   </div>
 
+
+  <!-- ── Pro mode: advanced stats ─────────────────────────── -->
+  <div class="pro-panel pro-only" id="pro-stats-panel">
+    <div class="pro-panel-hdr">
+      <span>Advanced stats</span>
+      <span id="pro-stability-badge" style="font-size:10px;padding:2px 8px;border-radius:20px"></span>
+    </div>
+    <div class="pro-stats-grid">
+      <div class="pro-stat">
+        <div class="pro-stat-label">Rate stability σ</div>
+        <div class="pro-stat-val" id="v-rate-sd">—</div>
+        <div class="pro-stat-unit">s/d std dev</div>
+      </div>
+      <div class="pro-stat">
+        <div class="pro-stat-label">Half period</div>
+        <div class="pro-stat-val" id="v-hp-ms">—</div>
+        <div class="pro-stat-unit">ms measured</div>
+      </div>
+      <div class="pro-stat">
+        <div class="pro-stat-label">Beats sampled</div>
+        <div class="pro-stat-val" id="v-beat-ct">—</div>
+        <div class="pro-stat-unit">per analysis</div>
+      </div>
+      <div class="pro-stat">
+        <div class="pro-stat-label">Tic interval</div>
+        <div class="pro-stat-val" id="v-tic-iv">—</div>
+        <div class="pro-stat-unit">ms</div>
+      </div>
+      <div class="pro-stat">
+        <div class="pro-stat-label">Toc interval</div>
+        <div class="pro-stat-val" id="v-toc-iv">—</div>
+        <div class="pro-stat-unit">ms</div>
+      </div>
+      <div class="pro-stat">
+        <div class="pro-stat-label">Tic / Toc ratio</div>
+        <div class="pro-stat-val" id="v-tt-ratio">—</div>
+        <div class="pro-stat-unit">ideal = 0.500</div>
+      </div>
+    </div>
+    <div class="pro-trend">
+      <div class="pro-trend-label">Rate trend — last <span id="trend-count">0</span> readings</div>
+      <canvas id="cv-rate-trend" height="64"></canvas>
+    </div>
+  </div>
+
+  <!-- ── Pro mode: position comparison ────────────────────── -->
+  <div class="pro-panel pro-only" id="pro-pos-panel">
+    <div class="pro-panel-hdr">
+      <span>Position comparison</span>
+      <span id="pro-pos-delta" style="font-size:10px;color:var(--text3)"></span>
+    </div>
+    <div id="pro-pos-table"><div class="history-empty" style="font-size:11px">Label readings using position chips to build your timing sheet.</div></div>
+  </div>
+
   <!-- Position testing prompt -->
   <div class="position-prompt" id="position-prompt" style="display:none">
     <div class="position-prompt-label">Compare across positions — label this reading</div>
@@ -1514,19 +1635,19 @@ details[open] .faq-q::after { transform: rotate(45deg); }
     </dl>
   </div>
 
-  <!-- ── AI Watchmaker ─────────────────────────────────────── -->
+  <!-- ── AI Diagnosis ─────────────────────────────────────── -->
   <div class="ai-section">
     <div class="ai-hdr">
       <div class="ai-hdr-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--text2)"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
       </div>
       <div>
-        <div class="ai-title">AI Watchmaker</div>
+        <div class="ai-title">AI Diagnosis</div>
         <div class="ai-sub">Expert diagnosis from your readings, instantly</div>
       </div>
     </div>
 
-    <div class="ai-messages" id="ai-messages" aria-live="polite" aria-label="AI Watchmaker conversation" role="log">
+    <div class="ai-messages" id="ai-messages" aria-live="polite" aria-label="AI Diagnosis conversation" role="log">
       <div class="ai-empty" id="ai-empty">
         Start measuring, then tap <strong style="color:var(--text)">Diagnose my watch</strong> for an instant expert read on your results.
       </div>
@@ -1750,6 +1871,14 @@ class TGDetector {
     this.detBPH = null;
     this.signal = 0;
     this.maxEnv = 0;
+
+    // Advanced pro stats
+    this.rateStdDev   = null;
+    this.halfPeriodMs = null;
+    this.ticIntervalMs= null;
+    this.tocIntervalMs= null;
+    this.beatCount    = 0;
+    this.rateHistory  = [];   // rolling 90 samples for trend graph
   }
 
   get halfPeriod() { return this.sr * 1800 / this.bph; }
@@ -1808,6 +1937,19 @@ class TGDetector {
     // Rate (s/d): deviation of measured period from expected
     this.rate = (medHP - hp) / hp * 86400 + S.cal;
 
+    // Advanced stats
+    this.halfPeriodMs = medHP / this.sr * 1000;
+    this.beatCount    = peaks.length;
+    this.rateHistory.push(this.rate);
+    if (this.rateHistory.length > 90) this.rateHistory.shift();
+    if (this.rateHistory.length >= 4) {
+      const _m = this.rateHistory.reduce((a,b)=>a+b,0) / this.rateHistory.length;
+      this.rateStdDev = Math.sqrt(
+        this.rateHistory.reduce((a,b)=>a+(b-_m)**2,0) / this.rateHistory.length
+      );
+    }
+
+
     // Detected BPH (snap to nearest preset if within 5%)
     const rawBPH = Math.round(this.sr * 1800 / medHP);
     const presets = [12000,14400,18000,19800,21600,25200,28800,36000,43200,72000];
@@ -1825,6 +1967,11 @@ class TGDetector {
     if (bePairs.length > 0) {
       // Beat error = half the alternating interval difference, in ms
       this.beatError = this.median(bePairs) / 2 / this.sr * 1000;
+      // Tic / Toc intervals: HP ± BE
+      if (this.halfPeriodMs !== null) {
+        this.ticIntervalMs = this.halfPeriodMs + this.beatError;
+        this.tocIntervalMs = this.halfPeriodMs - this.beatError;
+      }
     }
 
     // Amplitude via lift angle and pulse width
@@ -2157,6 +2304,52 @@ function updateUI() {
   document.getElementById('health-bar').innerHTML =
     `Your watch is running <strong style="color:${rateColor}">${rateAbs.toFixed(1)} seconds ${rateWord}</strong> per day${beText}${ampText}.`;
 
+
+  // ── Pro mode advanced stats ───────────────────────────────
+  if (proMode) {
+    // Rate stability
+    if (d.rateStdDev !== null) {
+      const sdEl = document.getElementById('v-rate-sd');
+      if (sdEl) {
+        sdEl.textContent = d.rateStdDev.toFixed(2);
+        const stab = d.rateStdDev < 0.5 ? 'good' : d.rateStdDev < 1.5 ? 'ok' : 'bad';
+        sdEl.className = 'pro-stat-val pro-stat-' + stab;
+      }
+      const badge = document.getElementById('pro-stability-badge');
+      if (badge) {
+        const sc3 = getStatusColors();
+        const stab = d.rateStdDev < 0.5 ? 'good' : d.rateStdDev < 1.5 ? 'ok' : 'bad';
+        badge.textContent = d.rateStdDev < 0.5 ? 'Stable' : d.rateStdDev < 1.5 ? 'Moderate variance' : 'High variance';
+        badge.style.background = sc3[stab].bg;
+        badge.style.color = sc3[stab].fg;
+      }
+    }
+    // Half period
+    const hpEl = document.getElementById('v-hp-ms');
+    if (hpEl && d.halfPeriodMs !== null) hpEl.textContent = d.halfPeriodMs.toFixed(3);
+    // Beat count
+    const bcEl = document.getElementById('v-beat-ct');
+    if (bcEl) bcEl.textContent = d.beatCount || '—';
+    // Tic/Toc intervals
+    const ticEl = document.getElementById('v-tic-iv');
+    const tocEl = document.getElementById('v-toc-iv');
+    const ratioEl = document.getElementById('v-tt-ratio');
+    if (ticEl && d.ticIntervalMs !== null) ticEl.textContent = d.ticIntervalMs.toFixed(3);
+    if (tocEl && d.tocIntervalMs !== null) tocEl.textContent = d.tocIntervalMs.toFixed(3);
+    if (ratioEl && d.ticIntervalMs !== null && d.tocIntervalMs !== null) {
+      const ratio = d.ticIntervalMs / (d.ticIntervalMs + d.tocIntervalMs);
+      ratioEl.textContent = ratio.toFixed(4);
+      const dev = Math.abs(ratio - 0.5);
+      ratioEl.className = 'pro-stat-val ' + (dev < 0.002 ? 'pro-stat-good' : dev < 0.006 ? 'pro-stat-ok' : 'pro-stat-bad');
+    }
+    // Rate trend
+    const trendCount = document.getElementById('trend-count');
+    if (trendCount) trendCount.textContent = d.rateHistory.length;
+    drawRateTrend();
+    // Position table
+    renderPositionTable();
+  }
+
   // Refresh AI diagnose button
   const diagBtn = document.getElementById('ai-diagnose-btn');
   if (diagBtn) diagBtn.disabled = aiStreaming;
@@ -2420,6 +2613,7 @@ function drawAllCanvases() {
 window.addEventListener('resize', () => {
   if (document.getElementById('app-screen').style.display !== 'none') {
     initCanvases();
+    if (proMode) drawRateTrend();
   }
 });
 
@@ -2666,7 +2860,7 @@ function sendChip(btn) {
   if (chips) chips.style.display = 'none';
 }
 
-// ── AI Watchmaker ─────────────────────────────────────────────
+// ── AI Diagnosis ─────────────────────────────────────────────
 // Set this to your Cloudflare Worker URL after deploying worker-gemini.js
 // e.g. 'https://retomb-ai.jameswu0431.workers.dev'
 const AI_ENDPOINT = 'https://timegrapher.jameswu0431.workers.dev';
@@ -2697,6 +2891,7 @@ function readingsSummary() {
       lines.push(`Expected rate tolerance: ±${watchProfile.rateToleranceSd} s/d`);
     if (watchProfile.amplitudeMin && watchProfile.amplitudeMax && !(watchProfile.uncertain || []).includes('amplitudeMin'))
       lines.push(`Expected amplitude range: ${watchProfile.amplitudeMin}–${watchProfile.amplitudeMax}°`);
+    if (watchProfile.notes) lines.push(`Known notes: ${watchProfile.notes}`);
   }
   return lines.join('\n');
 }
@@ -2746,7 +2941,7 @@ function runAI(apiPrompt, displayText) {
   hideAIEmpty();
   aiHistory.push({ role: 'user', content: apiPrompt });
   appendMsg('You', displayText, true);
-  const bodyEl = appendMsg('AI Watchmaker', '', false);
+  const bodyEl = appendMsg('AI Diagnosis', '', false);
   const cursor = Object.assign(document.createElement('span'), { className: 'ai-cursor' });
   bodyEl.appendChild(cursor);
   streamAI(bodyEl, cursor);
@@ -2865,6 +3060,112 @@ function setAINotice(html) {
   if (el) el.innerHTML = html;
 }
 
+
+
+// ── Rate trend canvas ─────────────────────────────────────────
+function drawRateTrend() {
+  const cv = document.getElementById('cv-rate-trend');
+  if (!cv || !detector || detector.rateHistory.length < 2) return;
+  const r = cv.parentElement.getBoundingClientRect();
+  cv.width = Math.max(200, Math.round(r.width - 28));
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+  const dark = isDark();
+  const hist = detector.rateHistory;
+
+  ctx.fillStyle = dark ? '#0E0C0A' : '#F5F0E8';
+  ctx.fillRect(0, 0, W, H);
+
+  // Find range
+  const minR = Math.min(...hist) - 1;
+  const maxR = Math.max(...hist) + 1;
+  const range = maxR - minR || 2;
+
+  // Zero line
+  const zeroY = H - ((0 - minR) / range) * H;
+  ctx.beginPath(); ctx.moveTo(0, zeroY); ctx.lineTo(W, zeroY);
+  ctx.strokeStyle = dark ? 'rgba(255,235,200,0.12)' : 'rgba(100,80,50,0.18)';
+  ctx.lineWidth = 1; ctx.setLineDash([4,4]); ctx.stroke(); ctx.setLineDash([]);
+
+  // COSC band (±6 s/d)
+  const top6  = H - ((6  - minR) / range) * H;
+  const bot6  = H - ((-6 - minR) / range) * H;
+  ctx.fillStyle = dark ? 'rgba(61,175,100,0.07)' : 'rgba(44,122,72,0.07)';
+  ctx.fillRect(0, top6, W, bot6 - top6);
+
+  // Rate line
+  ctx.beginPath();
+  hist.forEach((v, i) => {
+    const x = (i / (hist.length - 1)) * W;
+    const y = H - ((v - minR) / range) * H;
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  const sc = getStatusColors();
+  const lastRate = hist[hist.length - 1];
+  const lineColor = Math.abs(lastRate) <= 6 ? sc.good.fg : Math.abs(lastRate) <= 15 ? sc.ok.fg : sc.bad.fg;
+  ctx.strokeStyle = lineColor;
+  ctx.lineWidth = 1.5; ctx.lineJoin = 'round'; ctx.stroke();
+
+  // Axis labels
+  ctx.fillStyle = dark ? '#3A5248' : '#B0A898';
+  ctx.font = '9px monospace'; ctx.textAlign = 'left';
+  ctx.fillText(`${maxR > 0 ? '+' : ''}${Math.round(maxR)}`, 2, 10);
+  ctx.fillText(`${minR > 0 ? '+' : ''}${Math.round(minR)}`, 2, H - 3);
+  ctx.textAlign = 'right';
+  ctx.fillText('s/d', W - 2, 10);
+}
+
+// ── Position comparison table ─────────────────────────────────
+function renderPositionTable() {
+  const el = document.getElementById('pro-pos-table');
+  if (!el) return;
+  let hist = [];
+  try { hist = JSON.parse(localStorage.getItem(TG_HISTORY_KEY) || '[]'); } catch {}
+  if (!hist.length) return;
+
+  // Latest reading per position
+  const byPos = {};
+  hist.forEach(e => {
+    if (!byPos[e.position]) byPos[e.position] = e;
+  });
+  const rows = Object.values(byPos);
+  if (rows.length < 2) return;
+
+  // Find best/worst rate
+  const rates = rows.filter(r => r.rate !== null).map(r => Math.abs(r.rate));
+  const bestRate = Math.min(...rates);
+  const worstRate = Math.max(...rates);
+  const delta = worstRate - bestRate;
+
+  const deltaEl = document.getElementById('pro-pos-delta');
+  if (deltaEl) deltaEl.textContent = `Δ rate: ${delta.toFixed(1)} s/d across positions`;
+
+  const trs = rows.map(e => {
+    const rate = e.rate !== null ? (e.rate >= 0 ? '+' : '') + e.rate.toFixed(1) : '—';
+    const isBest  = e.rate !== null && Math.abs(e.rate) === bestRate;
+    const isWorst = e.rate !== null && Math.abs(e.rate) === worstRate && delta > 0;
+    const cls = isBest ? 'pos-best' : isWorst ? 'pos-worst' : '';
+    const be  = e.beatError !== null ? e.beatError.toFixed(2) : '—';
+    const amp = e.amplitude !== null ? e.amplitude + '°' : '—';
+    const d = new Date(e.ts);
+    const when = d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+    return `<tr>
+      <td class="pos-name">${escHtml(e.position || '—')}</td>
+      <td class="${cls}">${rate}</td>
+      <td>${be}</td>
+      <td>${amp}</td>
+      <td style="color:var(--text3);font-size:10px">${when}</td>
+    </tr>`;
+  }).join('');
+
+  el.innerHTML = `
+    <table class="pos-table">
+      <thead><tr>
+        <th>Position</th><th>Rate s/d</th><th>Beat err ms</th><th>Amplitude</th><th>Time</th>
+      </tr></thead>
+      <tbody>${trs}</tbody>
+    </table>`;
+}
 
 // ── Copy readings ─────────────────────────────────────────────
 function copyReadings() {
