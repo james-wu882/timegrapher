@@ -2424,133 +2424,163 @@ function initCanvases() {
   CV.toc   = document.getElementById('cv-toc');
   CV.per   = document.getElementById('cv-per');
 
-  // Set pixel widths from layout
+  const dpr = window.devicePixelRatio || 1;
+
+  // Scale each canvas for HiDPI — CSS size stays the same, pixel buffer is dpr× larger
   [CV.tic, CV.toc, CV.per].forEach(cv => {
     const r = cv.parentElement.getBoundingClientRect();
-    cv.width = Math.max(200, Math.round(r.width));
+    const cssW = Math.max(200, Math.round(r.width));
+    const cssH = parseInt(cv.getAttribute('height') || '110');
+    cv.width  = Math.round(cssW * dpr);
+    cv.height = Math.round(cssH * dpr);
+    cv.style.width  = cssW + 'px';
+    cv.style.height = cssH + 'px';
   });
   const sr = CV.strip.parentElement.getBoundingClientRect();
-  CV.strip.width = Math.max(100, Math.round(sr.width));
+  const stripCssW = Math.max(100, Math.round(sr.width));
+  const stripCssH = parseInt(CV.strip.getAttribute('height') || '400');
+  CV.strip.width  = Math.round(stripCssW * dpr);
+  CV.strip.height = Math.round(stripCssH * dpr);
+  CV.strip.style.width  = stripCssW + 'px';
+  CV.strip.style.height = stripCssH + 'px';
 }
 
-const BG  = '#0D0B09';
-const GM  = 'rgba(255,240,215,0.04)';
-const GJ  = 'rgba(255,240,215,0.10)';
-const WFC = '#C8923A';
-const BLC = 'rgba(140,190,240,0.80)';
-const SBC = 'rgba(215,190,150,0.22)';
-const DOT = '#C8923A';
-const AXT = 'rgba(210,185,148,0.38)';
+// Theme-aware canvas palette — computed fresh each draw call
+function cvPalette() {
+  const dark = isDark();
+  return {
+    BG:  dark ? '#0D0B09'                    : '#FFFFFF',
+    GM:  dark ? 'rgba(255,240,215,0.05)'     : 'rgba(0,0,0,0.05)',
+    GJ:  dark ? 'rgba(255,240,215,0.12)'     : 'rgba(0,0,0,0.10)',
+    GZ:  dark ? 'rgba(255,240,215,0.22)'     : 'rgba(0,0,0,0.20)',  // zero line
+    WFC: dark ? '#C8923A'                    : '#A0701E',
+    WFA: dark ? 'rgba(200,146,58,0.18)'      : 'rgba(160,112,30,0.12)', // fill alpha
+    BLC: dark ? 'rgba(100,160,230,0.90)'     : 'rgba(37,99,190,0.85)',
+    SBC: dark ? 'rgba(200,175,140,0.25)'     : 'rgba(80,60,30,0.20)',
+    DOT: dark ? '#C8923A'                    : '#A0701E',
+    AXT: dark ? 'rgba(200,180,148,0.45)'     : 'rgba(80,60,30,0.45)',
+    LBL: dark ? 'rgba(100,160,230,0.65)'     : 'rgba(37,99,190,0.70)',
+  };
+}
 
 function drawWaveformCanvas(cv, wfData, wfMax, label) {
   if (!cv || !cv.width) return;
+  const dpr = window.devicePixelRatio || 1;
   const ctx = cv.getContext('2d');
-  const w = cv.width, h = cv.height;
+  const W = cv.width, H = cv.height; // physical pixels
+  const p = cvPalette();
 
-  ctx.fillStyle = BG; ctx.fillRect(0, 0, w, h);
+  ctx.save();
+  ctx.scale(dpr, dpr);
+  const w = W / dpr, h = H / dpr; // logical pixels
+
+  ctx.fillStyle = p.BG;
+  ctx.fillRect(0, 0, w, h);
 
   const ML = 15, MR = 20, SPAN = ML + MR;
   const SH = wfData.length;
-  const SC = 0.42;
+  const SC = 0.40;
+  const midY = h / 2;
 
-  // Subtle grid — major lines only at 5ms intervals
-  ctx.lineWidth = 0.5;
+  // Grid — 5ms major, 1ms minor
   for (let ms = -ML; ms <= MR; ms++) {
-    if (ms % 5 !== 0) continue;
     const x = (ms + ML) * w / SPAN;
-    ctx.beginPath(); ctx.moveTo(x + .5, 0); ctx.lineTo(x + .5, h);
-    ctx.strokeStyle = ms === 0 ? 'rgba(255,240,215,0.18)' : GJ;
+    const isMajor = ms % 5 === 0;
+    if (!isMajor) continue; // skip minor for cleanliness
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h);
+    ctx.strokeStyle = ms === 0 ? p.GZ : p.GJ;
+    ctx.lineWidth = ms === 0 ? 0.75 : 0.5;
     ctx.stroke();
   }
   // Centreline
-  ctx.beginPath(); ctx.moveTo(0, h / 2 + .5); ctx.lineTo(w, h / 2 + .5);
-  ctx.strokeStyle = 'rgba(255,240,215,0.08)'; ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(0, midY); ctx.lineTo(w, midY);
+  ctx.strokeStyle = p.GM; ctx.lineWidth = 0.5; ctx.stroke();
 
   const maxV = wfMax || 1e-6;
   if (maxV > 1e-6) {
-    const pts = px => {
-      const v = Math.max(0, wfData[Math.min(Math.round(px / w * SH), SH - 1)] / maxV);
-      return v;
-    };
+    const pts = px => Math.max(0, wfData[Math.min(Math.round(px / w * SH), SH - 1)] / maxV);
 
-    // Gradient fill — bright top, fades to transparent at centre
-    const grad = ctx.createLinearGradient(0, h / 2 - h * SC, 0, h / 2);
-    grad.addColorStop(0,   'rgba(210,148,54,0.82)');
-    grad.addColorStop(0.6, 'rgba(210,148,54,0.38)');
-    grad.addColorStop(1,   'rgba(210,148,54,0.06)');
-
+    // Solid area fill (no gradient)
     ctx.beginPath();
     for (let px = 0; px < w; px++) {
-      const v = pts(px);
-      px === 0 ? ctx.moveTo(px, h / 2 - v * h * SC) : ctx.lineTo(px, h / 2 - v * h * SC);
-    }
-    for (let px = w - 1; px >= 0; px--) ctx.lineTo(px, h / 2 + pts(px) * h * SC);
-    ctx.closePath();
-    ctx.fillStyle = grad; ctx.fill();
-
-    // Crisp highlight line on upper edge
-    ctx.beginPath();
-    for (let px = 0; px < w; px++) {
-      const y = h / 2 - pts(px) * h * SC;
+      const y = midY - pts(px) * h * SC;
       px === 0 ? ctx.moveTo(px, y) : ctx.lineTo(px, y);
     }
-    ctx.strokeStyle = 'rgba(230,165,70,0.75)';
-    ctx.lineWidth = 1; ctx.lineJoin = 'round'; ctx.stroke();
+    for (let px = w - 1; px >= 0; px--) ctx.lineTo(px, midY + pts(px) * h * SC);
+    ctx.closePath();
+    ctx.fillStyle = p.WFA;
+    ctx.fill();
+
+    // Crisp stroke line — upper edge only
+    ctx.beginPath();
+    for (let px = 0; px < w; px++) {
+      const y = midY - pts(px) * h * SC;
+      px === 0 ? ctx.moveTo(px, y) : ctx.lineTo(px, y);
+    }
+    ctx.strokeStyle = p.WFC;
+    ctx.lineWidth = 1.5; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+    ctx.stroke();
   }
 
-  // Beat marker with subtle glow
-  const detector_WF_BEFORE = detector ? detector.WF_BEFORE : Math.round(44100 * 0.015);
-  const beatX = (detector_WF_BEFORE / SH) * w;
-  ctx.save();
-  ctx.shadowColor = 'rgba(140,190,240,0.45)';
-  ctx.shadowBlur = 5;
+  // Beat marker — clean, no glow
+  const wfBefore = detector ? detector.WF_BEFORE : Math.round(44100 * 0.015);
+  const beatX = (wfBefore / SH) * w;
   ctx.beginPath(); ctx.moveTo(beatX, 0); ctx.lineTo(beatX, h);
-  ctx.strokeStyle = BLC; ctx.lineWidth = 1; ctx.stroke();
-  ctx.restore();
+  ctx.strokeStyle = p.BLC; ctx.lineWidth = 1; ctx.setLineDash([3, 3]); ctx.stroke();
+  ctx.setLineDash([]);
 
   // Axis labels
-  ctx.fillStyle = AXT; ctx.font = '9px system-ui, sans-serif';
+  ctx.fillStyle = p.AXT; ctx.font = `${10 * 0.85}px system-ui, sans-serif`;
+  ctx.textBaseline = 'bottom';
   for (let ms = -ML; ms <= MR; ms += 5) {
     const x = (ms + ML) * w / SPAN;
-    ctx.fillText(ms === 0 ? '0' : ms.toString(), x + 2, h - 3);
+    ctx.fillText(ms === 0 ? '0' : ms.toString(), x + 2, h - 2);
   }
-  ctx.fillText('ms', w - 20, h - 3);
+  ctx.fillText('ms', w - 18, h - 2);
 
-  // Panel label — top left, refined
-  ctx.fillStyle = 'rgba(140,190,240,0.55)';
-  ctx.font = '10px system-ui, sans-serif';
-  ctx.fillText(label, 8, 13);
+  // Panel label
+  ctx.fillStyle = p.LBL; ctx.font = `${10 * 0.9}px system-ui, sans-serif`;
+  ctx.textBaseline = 'top';
+  ctx.fillText(label, 8, 6);
+
+  ctx.restore();
 }
 
 function drawPeriodCanvas() {
   const cv = CV.per;
   if (!cv || !cv.width || !detector) return;
+  const dpr = window.devicePixelRatio || 1;
   const ctx = cv.getContext('2d');
-  const w = cv.width, h = cv.height;
+  const W = cv.width, H = cv.height;
+  const p = cvPalette();
 
-  ctx.fillStyle = BG; ctx.fillRect(0, 0, w, h);
+  ctx.save();
+  ctx.scale(dpr, dpr);
+  const w = W / dpr, h = H / dpr;
+  const midY = h / 2;
+  const SC = 0.38;
 
-  // 16-division grid
+  ctx.fillStyle = p.BG; ctx.fillRect(0, 0, w, h);
+
+  // Clean 16-division grid
   for (let i = 1; i < 16; i++) {
     const x = i * w / 16;
-    ctx.beginPath(); ctx.moveTo(x + .5, 0); ctx.lineTo(x + .5, h);
-    ctx.strokeStyle = i % 4 === 0 ? GJ : GM;
-    ctx.lineWidth = .5; ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h);
+    ctx.strokeStyle = i % 4 === 0 ? p.GJ : p.GM;
+    ctx.lineWidth = i % 4 === 0 ? 0.75 : 0.5; ctx.stroke();
   }
+  ctx.beginPath(); ctx.moveTo(0, midY); ctx.lineTo(w, midY);
+  ctx.strokeStyle = p.GM; ctx.lineWidth = 0.5; ctx.stroke();
 
   const be = detector.beatError || 0;
   const periodMs = 3600000 / detector.bph;
   const ticFrac = 0.02;
   const tocFrac = 0.5 + (be / 2) / periodMs;
 
-  // Soft highlight regions
+  // Beat position bands — flat fill, no gradient
   [ticFrac, tocFrac].forEach(f => {
-    const hGrad = ctx.createLinearGradient((f-0.08)*w, 0, (f+0.08)*w, 0);
-    hGrad.addColorStop(0,   'rgba(140,190,240,0.00)');
-    hGrad.addColorStop(0.5, 'rgba(140,190,240,0.07)');
-    hGrad.addColorStop(1,   'rgba(140,190,240,0.00)');
-    ctx.fillStyle = hGrad;
-    ctx.fillRect((f - 0.08) * w, 0, 0.16 * w, h);
+    ctx.fillStyle = isDark() ? 'rgba(100,160,230,0.06)' : 'rgba(37,99,190,0.05)';
+    ctx.fillRect((f - 0.07) * w, 0, 0.14 * w, h);
   });
 
   // Combined waveform
@@ -2558,84 +2588,88 @@ function drawPeriodCanvas() {
   const ticMax = detector.ticWfMax || 1e-6;
   const tocMax = detector.tocWfMax || 1e-6;
   const WF = detector.WF;
-  const SC = 0.38;
 
   const getV = px => {
     const t = px / w;
-    const tI = Math.min(Math.round(Math.abs(t-ticFrac)*WF), WF-1);
-    const cI = Math.min(Math.round(Math.abs(t-tocFrac)*WF), WF-1);
-    return (ticWf[tI]/ticMax + tocWf[cI]/tocMax) * 0.5;
+    const tI = Math.min(Math.round(Math.abs(t - ticFrac) * WF), WF - 1);
+    const cI = Math.min(Math.round(Math.abs(t - tocFrac) * WF), WF - 1);
+    return (ticWf[tI] / ticMax + tocWf[cI] / tocMax) * 0.5;
   };
 
-  // Gradient fill
-  const pGrad = ctx.createLinearGradient(0, h/2 - h*SC, 0, h/2);
-  pGrad.addColorStop(0,   'rgba(210,148,54,0.80)');
-  pGrad.addColorStop(0.6, 'rgba(210,148,54,0.35)');
-  pGrad.addColorStop(1,   'rgba(210,148,54,0.05)');
-
+  // Solid area fill
   ctx.beginPath();
   for (let px = 0; px < w; px++) {
-    const v = getV(px);
-    px === 0 ? ctx.moveTo(px, h/2 - v*h*SC) : ctx.lineTo(px, h/2 - v*h*SC);
+    const y = midY - getV(px) * h * SC;
+    px === 0 ? ctx.moveTo(px, y) : ctx.lineTo(px, y);
   }
-  for (let px = w-1; px >= 0; px--) ctx.lineTo(px, h/2 + getV(px)*h*SC);
-  ctx.closePath(); ctx.fillStyle = pGrad; ctx.fill();
+  for (let px = w - 1; px >= 0; px--) ctx.lineTo(px, midY + getV(px) * h * SC);
+  ctx.closePath();
+  ctx.fillStyle = p.WFA; ctx.fill();
 
-  // Highlight edge line
+  // Crisp upper stroke
   ctx.beginPath();
   for (let px = 0; px < w; px++) {
-    const y = h/2 - getV(px)*h*SC;
-    px === 0 ? ctx.moveTo(px,y) : ctx.lineTo(px,y);
+    const y = midY - getV(px) * h * SC;
+    px === 0 ? ctx.moveTo(px, y) : ctx.lineTo(px, y);
   }
-  ctx.strokeStyle = 'rgba(230,165,70,0.6)'; ctx.lineWidth = 1; ctx.stroke();
+  ctx.strokeStyle = p.WFC; ctx.lineWidth = 1.5; ctx.lineJoin = 'round'; ctx.stroke();
 
-  // Beat markers with glow
-  ctx.save();
-  ctx.shadowColor = 'rgba(140,190,240,0.45)'; ctx.shadowBlur = 5;
+  // Beat markers — dashed, no glow
   [ticFrac, tocFrac].forEach(f => {
-    ctx.beginPath(); ctx.moveTo(f*w, 0); ctx.lineTo(f*w, h);
-    ctx.strokeStyle = BLC; ctx.lineWidth = 1; ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(f * w, 0); ctx.lineTo(f * w, h);
+    ctx.strokeStyle = p.BLC; ctx.lineWidth = 1;
+    ctx.setLineDash([3, 3]); ctx.stroke(); ctx.setLineDash([]);
   });
-  ctx.restore();
 
-  ctx.fillStyle = AXT; ctx.font = '9px system-ui, sans-serif';
-  ctx.fillText('tic', ticFrac * w + 4, h - 3);
-  ctx.fillText('toc', tocFrac * w + 4, h - 3);
-  ctx.fillStyle = 'rgba(140,190,240,0.55)'; ctx.font = '10px system-ui, sans-serif';
-  ctx.fillText('Full period', 8, 13);
+  ctx.fillStyle = p.AXT; ctx.font = '8.5px system-ui, sans-serif';
+  ctx.textBaseline = 'bottom';
+  ctx.fillText('tic', ticFrac * w + 4, h - 2);
+  ctx.fillText('toc', tocFrac * w + 4, h - 2);
+  ctx.fillStyle = p.LBL; ctx.font = '9px system-ui, sans-serif';
+  ctx.textBaseline = 'top';
+  ctx.fillText('Full period', 8, 6);
+
+  ctx.restore();
 }
 
 function drawPaperstrip() {
   const cv = CV.strip;
   if (!cv || !cv.width || !detector) return;
+  const dpr = window.devicePixelRatio || 1;
   const ctx = cv.getContext('2d');
-  const w = cv.width, h = cv.height;
+  const W = cv.width, H = cv.height;
+  const p = cvPalette();
 
-  ctx.fillStyle = BG; ctx.fillRect(0, 0, w, h);
+  ctx.save();
+  ctx.scale(dpr, dpr);
+  const w = W / dpr, h = H / dpr;
 
-  const mL = Math.round(w * 0.14);
-  const mR = w - Math.round(w * 0.14);
+  ctx.fillStyle = p.BG; ctx.fillRect(0, 0, w, h);
+
+  const mL = Math.round(w * 0.12);
+  const mR = w - Math.round(w * 0.12);
   const sW = mR - mL;
   const rowH = 10;
 
   // Grid
   for (let y = rowH; y < h; y += rowH) {
     ctx.beginPath(); ctx.moveTo(0, y + .5); ctx.lineTo(w, y + .5);
-    ctx.strokeStyle = y % (rowH * 6) === 0 ? GJ : GM;
-    ctx.lineWidth = .5; ctx.stroke();
+    ctx.strokeStyle = y % (rowH * 6) === 0 ? p.GJ : p.GM;
+    ctx.lineWidth = 0.5; ctx.stroke();
   }
 
   // Strip borders
   [mL, mR].forEach(x => {
     ctx.beginPath(); ctx.moveTo(x + .5, 0); ctx.lineTo(x + .5, h);
-    ctx.strokeStyle = SBC; ctx.lineWidth = 0.75; ctx.stroke();
+    ctx.strokeStyle = p.SBC; ctx.lineWidth = 0.75; ctx.stroke();
   });
 
   if (detector.psCount === 0) {
-    ctx.fillStyle = AXT; ctx.font = '11px system-ui, sans-serif';
+    ctx.fillStyle = p.AXT; ctx.font = '11px system-ui, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('Waiting for beats…', w / 2, h / 2);
     ctx.textAlign = 'left';
+    ctx.restore();
     return;
   }
 
@@ -2670,17 +2704,21 @@ function drawPaperstrip() {
       // Circular dot, recent ones brighter
       const ageFrac = Math.min(age / maxAge, 1);
       const alpha = 0.95 - ageFrac * 0.55;
-      ctx.fillStyle = `rgba(200,145,58,${alpha.toFixed(2)})`;
+      const col = isDark()
+        ? `rgba(200,146,58,${alpha.toFixed(2)})`
+        : `rgba(140,90,20,${alpha.toFixed(2)})`;
+      ctx.fillStyle = col;
       ctx.beginPath();
-      ctx.arc(Math.round(x) + 0.5, Math.round(y) + 1.5, 1.2, 0, Math.PI * 2);
+      ctx.arc(x + 0.5, y + 1.5, 1.5, 0, Math.PI * 2);
       ctx.fill();
     }
   }
 
   // Scale label
   const scaleMs = (periodSamples / detector.sr / zoom * 1000).toFixed(1);
-  ctx.fillStyle = AXT; ctx.font = '9px system-ui, sans-serif';
+  ctx.fillStyle = p.AXT; ctx.font = '9px system-ui, sans-serif';
   ctx.fillText(`${scaleMs} ms/div`, mL + 4, h - 4);
+  ctx.restore();
 }
 
 function drawAllCanvases() {
@@ -3128,53 +3166,89 @@ function setAINotice(html) {
 function drawRateTrend() {
   const cv = document.getElementById('cv-rate-trend');
   if (!cv || !detector || detector.rateHistory.length < 2) return;
+  const dpr = window.devicePixelRatio || 1;
   const r = cv.parentElement.getBoundingClientRect();
-  cv.width = Math.max(200, Math.round(r.width - 28));
+  const cssW = Math.max(200, Math.round(r.width - 28));
+  const cssH = 64;
+  cv.width  = Math.round(cssW * dpr);
+  cv.height = Math.round(cssH * dpr);
+  cv.style.width  = cssW + 'px';
+  cv.style.height = cssH + 'px';
+
   const ctx = cv.getContext('2d');
-  const W = cv.width, H = cv.height;
-  const dark = isDark();
+  const p = cvPalette();
+  const sc = getStatusColors();
+  ctx.save();
+  ctx.scale(dpr, dpr);
+  const w = cssW, h = cssH;
   const hist = detector.rateHistory;
 
-  ctx.fillStyle = dark ? '#0E0C0A' : '#F5F0E8';
-  ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = p.BG; ctx.fillRect(0, 0, w, h);
 
-  // Find range
   const minR = Math.min(...hist) - 1;
   const maxR = Math.max(...hist) + 1;
   const range = maxR - minR || 2;
+  const yOf = v => h - ((v - minR) / range) * h;
+
+  // COSC ±6 band
+  ctx.fillStyle = isDark() ? 'rgba(61,175,100,0.08)' : 'rgba(44,122,72,0.08)';
+  ctx.fillRect(0, yOf(6), w, yOf(-6) - yOf(6));
 
   // Zero line
-  const zeroY = H - ((0 - minR) / range) * H;
-  ctx.beginPath(); ctx.moveTo(0, zeroY); ctx.lineTo(W, zeroY);
-  ctx.strokeStyle = dark ? 'rgba(255,235,200,0.12)' : 'rgba(100,80,50,0.18)';
-  ctx.lineWidth = 1; ctx.setLineDash([4,4]); ctx.stroke(); ctx.setLineDash([]);
+  ctx.beginPath(); ctx.moveTo(0, yOf(0)); ctx.lineTo(w, yOf(0));
+  ctx.strokeStyle = p.GJ; ctx.lineWidth = 0.75;
+  ctx.setLineDash([4, 4]); ctx.stroke(); ctx.setLineDash([]);
 
-  // COSC band (±6 s/d)
-  const top6  = H - ((6  - minR) / range) * H;
-  const bot6  = H - ((-6 - minR) / range) * H;
-  ctx.fillStyle = dark ? 'rgba(61,175,100,0.07)' : 'rgba(44,122,72,0.07)';
-  ctx.fillRect(0, top6, W, bot6 - top6);
-
-  // Rate line
-  ctx.beginPath();
-  hist.forEach((v, i) => {
-    const x = (i / (hist.length - 1)) * W;
-    const y = H - ((v - minR) / range) * H;
-    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  // Grid horizontals
+  [-15, 15].forEach(v => {
+    if (v < minR || v > maxR) return;
+    ctx.beginPath(); ctx.moveTo(0, yOf(v)); ctx.lineTo(w, yOf(v));
+    ctx.strokeStyle = p.GM; ctx.lineWidth = 0.5; ctx.stroke();
   });
-  const sc = getStatusColors();
+
+  // Rate area fill — solid, no gradient
   const lastRate = hist[hist.length - 1];
   const lineColor = Math.abs(lastRate) <= 6 ? sc.good.fg : Math.abs(lastRate) <= 15 ? sc.ok.fg : sc.bad.fg;
-  ctx.strokeStyle = lineColor;
-  ctx.lineWidth = 1.5; ctx.lineJoin = 'round'; ctx.stroke();
+  const fillColor = Math.abs(lastRate) <= 6
+    ? (isDark() ? 'rgba(61,175,100,0.10)' : 'rgba(44,122,72,0.08)')
+    : Math.abs(lastRate) <= 15
+      ? (isDark() ? 'rgba(200,146,10,0.10)' : 'rgba(138,90,10,0.08)')
+      : (isDark() ? 'rgba(224,82,82,0.10)' : 'rgba(181,50,50,0.08)');
 
-  // Axis labels
-  ctx.fillStyle = dark ? '#3A5248' : '#B0A898';
-  ctx.font = '9px monospace'; ctx.textAlign = 'left';
-  ctx.fillText(`${maxR > 0 ? '+' : ''}${Math.round(maxR)}`, 2, 10);
-  ctx.fillText(`${minR > 0 ? '+' : ''}${Math.round(minR)}`, 2, H - 3);
-  ctx.textAlign = 'right';
-  ctx.fillText('s/d', W - 2, 10);
+  const zeroClamp = yOf(0);
+  ctx.beginPath();
+  hist.forEach((v, i) => {
+    const x = (i / (hist.length - 1)) * w;
+    i === 0 ? ctx.moveTo(x, yOf(v)) : ctx.lineTo(x, yOf(v));
+  });
+  ctx.lineTo(w, zeroClamp); ctx.lineTo(0, zeroClamp);
+  ctx.closePath(); ctx.fillStyle = fillColor; ctx.fill();
+
+  // Line
+  ctx.beginPath();
+  hist.forEach((v, i) => {
+    const x = (i / (hist.length - 1)) * w;
+    const y = yOf(v);
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.strokeStyle = lineColor;
+  ctx.lineWidth = 1.5; ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.stroke();
+
+  // Last value dot
+  const lastX = w, lastY = yOf(lastRate);
+  ctx.beginPath(); ctx.arc(lastX - 2, lastY, 3, 0, Math.PI * 2);
+  ctx.fillStyle = lineColor; ctx.fill();
+
+  // Labels
+  ctx.fillStyle = p.AXT; ctx.font = '8.5px system-ui, sans-serif';
+  ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+  ctx.fillText(`+${Math.round(maxR)}`, 3, 2);
+  ctx.textBaseline = 'bottom';
+  ctx.fillText(`${Math.round(minR)}`, 3, h - 1);
+  ctx.textAlign = 'right'; ctx.textBaseline = 'top';
+  ctx.fillText('s/d', w - 2, 2);
+
+  ctx.restore();
 }
 
 // ── Position comparison table ─────────────────────────────────
