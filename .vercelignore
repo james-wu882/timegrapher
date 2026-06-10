@@ -1,0 +1,13 @@
+# Cloudflare Pages hosting config — superseded by vercel.json
+_headers
+
+# Cloudflare Worker (AI backend) — deployed separately via wrangler, not hosted here
+worker.js
+worker-gemini.js
+worker-cfai.js
+wrangler.toml
+wrangler-cfai.toml
+
+# Repo docs / agent scratch — not part of the deployed site
+README.md
+.context

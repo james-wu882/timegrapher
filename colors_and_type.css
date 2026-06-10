@@ -1,0 +1,134 @@
+/* ============================================================
+   Timegrapher.ai — Colors & Typography  (v3 — Refined SaaS)
+   Porcelain paper · champagne brass · readable grotesk ·
+   rounded corners · soft warm elevation. Tech product, done
+   with taste.
+   ============================================================ */
+
+/* -- Fonts: Schibsted Grotesk (display + UI) · Fragment Mono - */
+@import url('https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&family=Fragment+Mono:ital@0;1&display=swap');
+
+:root {
+  /* --- Surfaces (light-first · porcelain) --- */
+  --bg:        #F5F1E9;   /* porcelain page                     */
+  --bg2:       #EFEAE0;   /* recessed band / alt section        */
+  --bg3:       #E9E3D6;   /* pressed / hover surface            */
+  --bg4:       #FCFAF6;   /* card / raised panel                */
+  --ink-well:  #171411;   /* dark canvas inset (dial aperture)  */
+
+  /* --- Borders --- */
+  --rule:      rgba(23, 20, 17, 0.10);   /* hairline            */
+  --rule-2:    rgba(23, 20, 17, 0.22);   /* emphasis            */
+  --rule-ink:  #171411;                  /* full-strength       */
+  --border:    var(--rule);
+  --border2:   var(--rule-2);
+
+  /* --- Ink --- */
+  --text:      #171411;
+  --text2:     #5A5345;
+  --text3:     #98917F;
+  --accent:    #171411;
+
+  /* --- Brass / semantic --- */
+  --brass:     #8F6F36;   --brass-2: #B49253;
+  --brass-bg:  rgba(143, 111, 54, 0.10);
+  --amber:     var(--brass);  --amber-bg: var(--brass-bg);
+  --good:      #3D6B50;   --good-bg: rgba(61, 107, 80, 0.10);
+  --ok:        #8A6A1F;   --ok-bg:   rgba(138, 106, 31, 0.10);
+  --bad:       #93392E;   --bad-bg:  rgba(147, 57, 46, 0.10);
+  --blue:      #44607E;
+
+  /* --- Shape: rounded, calm --- */
+  --radius-lg: 20px;   /* hero cards, modals                    */
+  --radius:    14px;   /* cards, panels                         */
+  --radius-sm: 10px;   /* buttons, inputs                       */
+  --radius-pill: 100px;
+  --shadow-sm: 0 1px 2px rgba(60, 48, 30, 0.05), 0 0 0 1px rgba(23, 20, 17, 0.05);
+  --shadow:    0 1px 3px rgba(60, 48, 30, 0.06), 0 8px 24px -12px rgba(60, 48, 30, 0.18), 0 0 0 1px rgba(23, 20, 17, 0.05);
+  --shadow-lg: 0 2px 6px rgba(60, 48, 30, 0.07), 0 24px 56px -20px rgba(60, 48, 30, 0.28), 0 0 0 1px rgba(23, 20, 17, 0.05);
+
+  /* --- Type families --- */
+  --font-display: 'Schibsted Grotesk', system-ui, sans-serif;
+  --font-sans:    'Schibsted Grotesk', system-ui, sans-serif;
+  --font-mono:    'Fragment Mono', ui-monospace, Menlo, monospace;
+
+  /* --- Type ramp --- */
+  --fs-hero:     clamp(44px, 6vw, 92px);    /* @kind font */
+  --fs-display:  clamp(32px, 4vw, 56px);    /* @kind font */
+  --fs-metric:   38px;
+  --fs-h1:       21px;
+  --fs-body:     15px;
+  --fs-label:    13px;
+  --fs-meta:     12px;
+  --fs-caption:  11px;
+  --fs-micro:    10px;
+
+  --tracking-micro: 0.14em;   /* small caps labels              */
+  --tracking-wide:  0.22em;   /* masthead                       */
+}
+
+[data-theme="dark"] {
+  --bg:        #131110;
+  --bg2:       #181512;
+  --bg3:       #201C17;
+  --bg4:       #1B1814;
+  --ink-well:  #0D0B09;
+  --rule:      rgba(240, 234, 222, 0.10);
+  --rule-2:    rgba(240, 234, 222, 0.24);
+  --rule-ink:  #F0EADE;
+  --border:    var(--rule);
+  --border2:   var(--rule-2);
+  --text:      #F0EADE;
+  --text2:     #B5AA92;
+  --text3:     #857C69;
+  --accent:    #F0EADE;
+  --brass:     #C9A45C;   --brass-2: #A98A4D;
+  --brass-bg:  rgba(201, 164, 92, 0.13);
+  --amber:     var(--brass);  --amber-bg: var(--brass-bg);
+  --good:      #6F9D82;   --good-bg: rgba(111, 157, 130, 0.14);
+  --ok:        #C0A050;   --ok-bg:   rgba(192, 160, 80, 0.13);
+  --bad:       #C26A5E;   --bad-bg:  rgba(194, 106, 94, 0.13);
+  --blue:      #7E97B0;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.4), 0 0 0 1px rgba(240,234,222,0.07);
+  --shadow:    0 2px 8px rgba(0,0,0,0.5), 0 0 0 1px rgba(240,234,222,0.07);
+  --shadow-lg: 0 2px 8px rgba(0,0,0,0.5), 0 28px 64px -24px rgba(0,0,0,0.7), 0 0 0 1px rgba(240,234,222,0.08);
+}
+
+/* -- Base resets -------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Semantic type helpers ---------------------------------- */
+.ds-display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.04;
+  color: var(--text);
+}
+.ds-numeral {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.ds-smallcaps {
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-micro);
+  color: var(--text3);
+}
+.ds-mono { font-family: var(--font-mono); font-size: var(--fs-caption); letter-spacing: 0.02em; }
+.ds-body { font-size: var(--fs-body); color: var(--text2); line-height: 1.65; }
+.ds-rule { border: none; border-top: 1px solid var(--rule); }
