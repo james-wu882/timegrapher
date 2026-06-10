@@ -109,6 +109,42 @@
         nodes[i].textContent = authed ? 'Account' : 'Sign up';
         nodes[i].setAttribute('href', '/account');
       }
+    },
+
+    /* A currently-valid access token, refreshing it if it's about to expire. */
+    token: async function () {
+      const s = load();
+      if (!s || !s.access_token) return null;
+      const now = Math.floor(Date.now() / 1000);
+      if (s.expires_at && s.expires_at - 60 <= now) {
+        const r = await this.refresh();
+        return r ? r.access_token : null;
+      }
+      return s.access_token;
+    },
+
+    /* Saved readings — stored per user in Supabase, protected by RLS so a
+       signed-in user can only ever see or write their own rows. */
+    readings: {
+      _base: SUPABASE_URL + '/rest/v1/readings',
+      async _req(method, query, body) {
+        const token = await Auth.token();
+        if (!token) throw new Error('Please sign in first.');
+        const headers = { apikey: PUBLISHABLE_KEY, Authorization: 'Bearer ' + token };
+        if (body) headers['Content-Type'] = 'application/json';
+        if (method === 'POST') headers['Prefer'] = 'return=representation';
+        const res = await fetch(this._base + (query || ''), {
+          method: method, headers: headers, body: body ? JSON.stringify(body) : undefined
+        });
+        if (!res.ok) {
+          let e = null; try { e = await res.json(); } catch (x) {}
+          throw new Error((e && (e.message || e.hint)) || ('Request failed (' + res.status + ')'));
+        }
+        return method === 'DELETE' ? true : res.json();
+      },
+      list: function () { return this._req('GET', '?select=*&order=created_at.desc'); },
+      save: function (r) { return this._req('POST', '', r); },
+      remove: function (id) { return this._req('DELETE', '?id=eq.' + encodeURIComponent(id)); }
     }
   };
 

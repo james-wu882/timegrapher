@@ -1758,7 +1758,7 @@ body.pro-mode .pro-only { display: block; }
   .mode-btn { grid-row: 2; grid-column: 1 / 3; justify-self: start; }
   .signal-quality { grid-row: 2; grid-column: 3; justify-self: end; margin-left: 0; }
   .settings { grid-row: 3; grid-column: 1 / -1; gap: 8px; }
-  .theme-toggle, .stop-btn { grid-row: 1; }
+  .theme-toggle, .stop-btn, #account-btn { grid-row: 1; }
   .field { flex: 1; justify-content: space-between; padding: 0 14px; min-height: 44px; }
   .field select { width: 72px; }
   .field select, .field input[type=number] { padding: 14px 0; }
@@ -1778,6 +1778,199 @@ body.pro-mode .pro-only { display: block; }
   .start-card { padding: 36px 24px 32px; }
 }
 
+/* ============================================================
+   ACCOUNT — header button, sign-in modal, saved-readings sheet
+   Ported from the app design kit; token-based, light + dark.
+   ============================================================ */
+.icon-btn {
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  border: none; border-radius: 50%;
+  background: var(--bg4);
+  box-shadow: var(--shadow-sm);
+  color: var(--text2);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  flex-shrink: 0;
+}
+.icon-btn:hover { color: var(--text); box-shadow: var(--shadow); }
+.icon-btn svg { pointer-events: none; }
+
+/* Verdict-style action pill (reused for Save reading / Sign out) */
+.vaction {
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--bg3);
+  border: none;
+  border-radius: var(--radius-pill);
+  color: var(--text2);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  padding: 7px 15px;
+  white-space: nowrap;
+  transition: all 0.18s ease;
+}
+.vaction:hover { background: var(--bg2); color: var(--text); }
+.vaction.copied {
+  color: var(--good);
+  background: var(--good-bg);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--good) 35%, transparent);
+}
+
+/* Overlay scaffold */
+.ov { position: fixed; inset: 0; z-index: 1100; }
+.ov[hidden] { display: none; }
+.ov-bg {
+  position: absolute; inset: 0;
+  background: color-mix(in srgb, #171411 42%, transparent);
+  backdrop-filter: blur(5px);
+}
+
+/* Sign-in card */
+.auth-card {
+  position: absolute;
+  background: var(--bg4);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  display: flex;
+}
+.ov.v-center .auth-card {
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(430px, calc(100vw - 32px));
+  border-radius: var(--radius-lg);
+}
+.auth-body { flex: 1; padding: 28px 30px 24px; position: relative; min-width: 0; }
+.ov-x {
+  position: absolute; top: 14px; right: 14px;
+  width: 34px; height: 34px;
+  border-radius: 50%; border: none;
+  background: var(--bg3); color: var(--text2);
+  font-size: 17px; line-height: 1; cursor: pointer;
+  transition: all 0.18s ease;
+}
+.ov-x:hover { background: var(--bg2); color: var(--text); }
+.auth-title {
+  font-size: 24px; font-weight: 600;
+  letter-spacing: -0.02em;
+  padding-right: 36px;
+  color: var(--text);
+}
+.auth-sub { margin-top: 8px; font-size: 13.5px; line-height: 1.6; color: var(--text2); }
+.auth-input {
+  display: block; width: 100%; box-sizing: border-box;
+  padding: 12px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--rule-2);
+  background: var(--bg);
+  font-family: var(--font-sans);
+  font-size: 14px; color: var(--text);
+  margin-bottom: 8px;
+}
+.auth-input::placeholder { color: var(--text3); }
+.auth-input:focus { outline: none; border-color: var(--brass); box-shadow: 0 0 0 3px var(--brass-bg); }
+.auth-primary {
+  width: 100%; padding: 13px;
+  border: none; border-radius: var(--radius-pill);
+  background: var(--rule-ink); color: var(--bg);
+  font-family: var(--font-sans);
+  font-size: 14px; font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  margin-top: 2px;
+}
+.auth-primary:hover { opacity: 0.9; }
+.auth-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+.auth-error {
+  margin-top: 10px;
+  font-size: 12.5px;
+  color: var(--bad);
+  line-height: 1.5;
+}
+.auth-error[hidden] { display: none; }
+.auth-fine {
+  margin-top: 12px;
+  font-family: var(--font-mono);
+  font-size: 10px; color: var(--text3);
+  line-height: 1.7;
+}
+.auth-sent { text-align: center; padding: 22px 0 10px; }
+.auth-sent[hidden] { display: none; }
+#auth-form[hidden] { display: none; }
+.auth-sent-dot {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: var(--good-bg); color: var(--good);
+  font-size: 18px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 14px;
+}
+.auth-sent .big { font-size: 17px; font-weight: 600; color: var(--text); }
+.auth-sent p { margin-top: 8px; font-size: 13px; color: var(--text2); line-height: 1.6; }
+.auth-sent p b { color: var(--text); }
+
+/* Saved-readings sheet */
+.saved-sheet {
+  position: absolute; top: 0; right: 0; bottom: 0;
+  width: min(460px, 100vw);
+  background: var(--bg);
+  box-shadow: var(--shadow-lg);
+  display: flex; flex-direction: column;
+}
+.saved-hd {
+  display: flex; align-items: center; gap: 10px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--rule);
+}
+.saved-hd h2 { font-size: 17px; font-weight: 600; letter-spacing: -0.015em; flex: 1; color: var(--text); }
+.saved-user {
+  font-family: var(--font-mono); font-size: 10px; color: var(--text3);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  max-width: 130px;
+}
+.saved-hd .ov-x { position: static; flex-shrink: 0; }
+.saved-list {
+  flex: 1; overflow-y: auto;
+  padding: 16px 18px 24px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.sw-card {
+  background: var(--bg4);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 14px 16px 8px;
+}
+.sw-name { font-size: 14px; font-weight: 600; padding-bottom: 6px; color: var(--text); }
+.sw-name span { font-family: var(--font-mono); font-size: 10px; color: var(--text3); margin-left: 8px; font-weight: 400; }
+.sw-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 12px; padding: 10px 0;
+  border-top: 1px solid var(--rule);
+}
+.sw-when { font-size: 12.5px; font-weight: 500; color: var(--text); white-space: nowrap; }
+.sw-vals { font-family: var(--font-mono); font-size: 11px; color: var(--text2); white-space: nowrap; }
+.saved-empty {
+  text-align: center;
+  color: var(--text3);
+  font-size: 13px;
+  line-height: 1.6;
+  padding: 40px 12px;
+}
+.saved-note {
+  font-family: var(--font-mono);
+  font-size: 10px; color: var(--text3);
+  line-height: 1.7; padding: 0 2px;
+}
+
+@media (max-width: 640px) {
+  .icon-btn { width: 44px; height: 44px; }
+  .ov.v-center .auth-card { left: 12px; right: 12px; width: auto; transform: translate(0, -50%); }
+  .auth-body { padding: 24px 20px 20px; }
+  .saved-user { display: none; }
+}
+
+
+  /* dedupe: hide engine local save */ #save-btn { display: none !important; }
 </style>
 </head>
 <body>
@@ -1820,88 +2013,6 @@ body.pro-mode .pro-only { display: block; }
       <p id="start-error" class="start-error"></p>
       <p class="start-note">No account. No hardware. Nothing leaves your device — Chrome, Firefox, or Safari 14.5+.</p>
     </div>
-    <p class="start-scroll-hint" aria-hidden="true">scroll to learn more ↓</p>
-  </div>
-
-  <!-- Below the fold: SEO/AEO landing content -->
-  <div class="landing">
-    <section class="landing-metrics" aria-labelledby="what-we-measure">
-      <h2 id="what-we-measure">Four numbers that tell the whole story</h2>
-      <div class="landing-grid">
-        <article class="landing-card">
-          <strong>Rate (s/d)</strong>
-          <p>How many seconds per day your watch gains or loses. COSC standard is ±4–6 s/d. The number most people actually care about.</p>
-        </article>
-        <article class="landing-card">
-          <strong>Beat error (ms)</strong>
-          <p>The timing gap between tick and tock. Under 0.5 ms is excellent. Over 2.5 ms and your watch may stop — needs adjustment.</p>
-        </article>
-        <article class="landing-card">
-          <strong>Amplitude (°)</strong>
-          <p>How far the balance wheel swings each beat. 220–310° is healthy. Below 200° usually means the mainspring needs winding or the movement needs a service.</p>
-        </article>
-        <article class="landing-card">
-          <strong>BPH</strong>
-          <p>The heartbeat of your movement. Set this to match your calibre — common values are 18,000, 21,600, and 28,800. Timegrapher AI auto-detects it for you.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="landing-faq" aria-labelledby="faq-heading">
-      <h2 id="faq-heading">Everything you need to know</h2>
-      <div class="faq-list">
-
-        <details class="faq-item">
-          <summary class="faq-q">What is a timegrapher?</summary>
-          <p class="faq-a">A timegrapher is an instrument that measures the performance of a mechanical watch by listening to its tick sounds. It calculates rate (seconds gained or lost per day), beat error (the timing difference between tick and tock in milliseconds), amplitude (balance wheel swing arc in degrees), and BPH (beats per hour — the movement’s frequency).</p>
-        </details>
-
-        <details class="faq-item">
-          <summary class="faq-q">What is beat error in a watch?</summary>
-          <p class="faq-a">Beat error is the timing difference between the tick and tock of a mechanical watch’s escapement, measured in milliseconds. Under 0.5 ms is excellent, under 1.5 ms is acceptable, and over 2.5 ms can cause the watch to stop. It is corrected by adjusting the pallet fork’s position relative to the balance wheel — usually a job for a watchmaker.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary class="faq-q">What causes a mechanical watch to run fast or slow?</summary>
-          <p class="faq-a">A fast rate is most commonly caused by magnetisation of the movement (especially the hairspring), hairspring coils sticking together, or a regulator set too far toward the “fast” side. A slow rate is often caused by a dirty or dry movement, a weak mainspring, or friction in the gear train. Demagnetising is the easiest and safest first step for a fast watch.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary class="faq-q">Is a browser-based timegrapher as accurate as a hardware unit?</summary>
-          <p class="faq-a">For rate and beat error, yes — the algorithm is the same. The key difference is the microphone. Hardware timegraphers use a contact microphone clipped to the watch case for a cleaner signal. A laptop’s built-in mic works well in a quiet room. For the best results, use a dedicated clip-on contact microphone (~$15) connected to your computer.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary class="faq-q">What is amplitude and why does it matter?</summary>
-          <p class="faq-a">Amplitude is the arc in degrees through which the balance wheel swings on each beat. A healthy watch shows 220–310° when fully wound. Low amplitude (below 200°) means the mainspring may need winding, or the movement may need cleaning and lubrication. Very low amplitude (below 180°) can cause the watch to stop and usually requires professional servicing.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary class="faq-q">What BPH should I set for my watch?</summary>
-          <p class="faq-a">Check your movement’s datasheet or calibre specification. Most modern ETA and Sellita movements run at 28,800 BPH. Vintage movements typically run at 18,000 or 21,600 BPH. If unsure, Timegrapher AI will auto-detect the BPH from the tick sounds and confirm it in the Detected BPH card.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary class="faq-q">What is lift angle and why does it matter?</summary>
-          <p class="faq-a">The lift angle is a fixed mechanical property of a specific watch movement — the arc through which the pallet fork lifts the balance wheel on each beat. Common values are 49–53°. The timegrapher uses it to convert pulse timing into amplitude in degrees. Rate and beat error are unaffected by the lift angle setting.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary class="faq-q">How do I improve my watch’s rate accuracy?</summary>
-          <p class="faq-a">First, demagnetise the watch — magnetisation is the most common cause of a suddenly fast rate and takes 30 seconds to fix. If the rate is still off, the regulator index (a small lever on the balance cock) can be adjusted to speed up or slow down the movement. Small adjustments move the rate by roughly 5–10 s/d. Beyond basic regulation, positional errors (the rate varying between crown-up and dial-up) usually require a watchmaker to poise the balance.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary class="faq-q">What’s the difference between rate and beat error?</summary>
-          <p class="faq-a">Rate is how many seconds per day the watch gains or loses overall — it’s about the speed of the movement. Beat error is about the symmetry of each individual tick and tock — whether they are equally spaced in time. A watch can have a perfect rate of 0 s/d but a poor beat error, or vice versa. Both matter: high beat error stresses the movement and can cause erratic timekeeping.</p>
-        </details>
-
-      </div>
-    </section>
-
-    <footer class="landing-footer">
-      <p>© 2026 Timegrapher.ai — free, private, open to everyone. Audio stays on your device. AI requests go only to our secure backend.</p>
-    </footer>
   </div>
 </div>
 
@@ -1943,6 +2054,7 @@ body.pro-mode .pro-only { display: block; }
       <span class="signal-quality-label" id="sig-label"></span>
     </div>
     <button class="mode-btn" id="mode-btn" onclick="toggleProMode()" aria-label="Toggle pro mode" title="Switch between Simple and Pro display">Simple</button>
+    <button class="icon-btn" id="account-btn" onclick="tgOpenAccount()" aria-label="Account" title="Account &amp; saved readings"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c1.5-3.6 4.5-5.2 8-5.2s6.5 1.6 8 5.2"></path></svg></button>
     <button class="theme-toggle" id="toggle-app" onclick="toggleTheme()" aria-label="Toggle dark mode"></button>
     <button class="stop-btn" onclick="stopMeasuring()">Stop</button>
   </header>
@@ -1968,6 +2080,7 @@ body.pro-mode .pro-only { display: block; }
   </div>
   <div class="noise-warning" id="noise-warning">⚠ <strong>No signal detected.</strong> Try holding your watch closer to your microphone, or use a quiet room. A clip-on contact mic ($15) dramatically improves accuracy.</div>
   <div class="readings-actions" id="readings-actions">
+    <button class="vaction" id="tg-cloud-save-btn" onclick="tgSaveReading()" title="Save reading to your account">Save reading</button>
     <button class="action-btn" id="save-btn" onclick="saveReading()" title="Save reading to history">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
       Save reading
@@ -2221,6 +2334,45 @@ body.pro-mode .pro-only { display: block; }
       <button class="share-close-btn" onclick="closeShareModal()">Close</button>
     </div>
   </div>
+</div>
+
+<!-- ── Account: sign-in (magic-link only) ─────────────── -->
+<div class="ov v-center" id="auth-ov" hidden>
+  <div class="ov-bg" onclick="tgCloseOv(this)"></div>
+  <div class="auth-card" role="dialog" aria-modal="true" aria-label="Sign in or create account">
+    <div class="auth-body">
+      <button class="ov-x" onclick="tgCloseOv(this)" aria-label="Close">×</button>
+      <form id="auth-form" onsubmit="tgAuthSubmit(event)">
+        <h2 class="auth-title">Keep every reading.</h2>
+        <p class="auth-sub">No account needed to measure — create one to save readings and chart your watches over time.</p>
+        <input class="auth-input" id="auth-email" type="email" placeholder="you@example.com" autocomplete="email" required style="margin-top:18px">
+        <button class="auth-primary" id="auth-primary" type="submit">Email me a sign-in link</button>
+        <p class="auth-error" id="auth-error" hidden></p>
+        <p class="auth-fine">No passwords — we email you a one-time link. Your email only keeps your readings together; audio never leaves your device.</p>
+      </form>
+      <div class="auth-sent" id="auth-sent" hidden>
+        <div class="auth-sent-dot">✓</div>
+        <div class="big">Check your inbox</div>
+        <p>We sent a sign-in link to <b id="auth-sent-email"></b>. It works once and expires shortly — open it on this device to land back here signed in.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Account: saved readings ───────────────────────── -->
+<div class="ov" id="saved-ov" hidden>
+  <div class="ov-bg" onclick="tgCloseOv(this)"></div>
+  <aside class="saved-sheet" role="dialog" aria-modal="true" aria-label="Saved readings">
+    <div class="saved-hd">
+      <h2>Saved readings</h2>
+      <span class="saved-user" id="saved-user"></span>
+      <button class="vaction" onclick="tgSignOut()">Sign out</button>
+      <button class="ov-x" onclick="tgCloseOv(this)" aria-label="Close">×</button>
+    </div>
+    <div class="saved-list" id="saved-list">
+      <p class="saved-note">Loading…</p>
+    </div>
+  </aside>
 </div>
 
 <script>
@@ -4124,6 +4276,264 @@ document.addEventListener('DOMContentLoaded', () => {
   // Show setup notice if no endpoint configured
   if (!AI_ENDPOINT) setAINotice('Set <code>AI_ENDPOINT</code> after deploying <code>worker.js</code> — see README.');
 });
+</script>
+
+<!-- ── Account system (real Supabase via TGAuth) ─────────────── -->
+<script src="auth.js"></script>
+<script>
+'use strict';
+/* Account UI wiring — separate from the engine script above.
+   Talks to window.TGAuth (auth.js). Magic-link only. */
+(function () {
+  function $(id) { return document.getElementById(id); }
+  function authReady() { return typeof window.TGAuth !== 'undefined'; }
+
+  // ── Overlay open/close ───────────────────────────────────────
+  function tgCloseOv(el) {
+    var ov = el.closest ? el.closest('.ov') : null;
+    if (ov) ov.hidden = true;
+  }
+  function tgOpenAuth() {
+    var f = $('auth-form'), sent = $('auth-sent'), err = $('auth-error');
+    if (f) f.hidden = false;
+    if (sent) sent.hidden = true;
+    if (err) { err.hidden = true; err.textContent = ''; }
+    $('saved-ov').hidden = true;
+    $('auth-ov').hidden = false;
+    var email = $('auth-email'); if (email) setTimeout(function () { email.focus(); }, 30);
+  }
+  function tgOpenSaved() {
+    $('auth-ov').hidden = true;
+    var ov = $('saved-ov');
+    ov.hidden = false;
+    var u = (authReady() && TGAuth.user()) || null;
+    var userEl = $('saved-user');
+    if (userEl) userEl.textContent = (u && u.email) || '';
+    tgRenderSaved();
+  }
+  // Public entry point used by the header account button.
+  function tgOpenAccount() {
+    if (authReady() && TGAuth.isAuthed()) tgOpenSaved();
+    else tgOpenAuth();
+  }
+
+  // ── Magic-link form submit ───────────────────────────────────
+  function tgAuthSubmit(e) {
+    e.preventDefault();
+    if (!authReady()) return;
+    var emailEl = $('auth-email');
+    var email = (emailEl && emailEl.value || '').trim();
+    if (!email) return;
+    var btn = $('auth-primary'), err = $('auth-error');
+    if (err) { err.hidden = true; err.textContent = ''; }
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+    TGAuth.sendMagicLink(email, location.origin + '/app').then(function () {
+      var sentEmail = $('auth-sent-email');
+      if (sentEmail) sentEmail.textContent = email;
+      $('auth-form').hidden = true;
+      $('auth-sent').hidden = false;
+    }).catch(function (ex) {
+      if (err) { err.hidden = false; err.textContent = (ex && ex.message) || 'Could not send the link. Please try again.'; }
+    }).finally(function () {
+      if (btn) { btn.disabled = false; btn.textContent = 'Email me a sign-in link'; }
+    });
+  }
+
+  function tgSignOut() {
+    if (!authReady()) { location.reload(); return; }
+    TGAuth.signOut().finally(function () { location.reload(); });
+  }
+
+  // ── Relative date for saved rows ─────────────────────────────
+  function relDate(iso) {
+    var t = Date.parse(iso);
+    if (isNaN(t)) return '';
+    var diff = Date.now() - t;
+    var day = 86400000;
+    if (diff < 60000) return 'Just now';
+    if (diff < 3600000) { var m = Math.round(diff / 60000); return m + ' min ago'; }
+    if (diff < day) { var h = Math.round(diff / 3600000); return h + ' hr ago'; }
+    if (diff < 7 * day) { var d = Math.round(diff / day); return d + ' day' + (d !== 1 ? 's' : '') + ' ago'; }
+    var dt = new Date(t);
+    var now = new Date();
+    var opts = { month: 'short', day: 'numeric' };
+    if (dt.getFullYear() !== now.getFullYear()) opts.year = 'numeric';
+    return dt.toLocaleDateString([], opts);
+  }
+
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  // Format one saved row's value string, e.g. "+8.2 s/d · 0.3 ms · 214°"
+  function valsLine(r) {
+    var parts = [];
+    if (r.rate !== null && r.rate !== undefined && r.rate !== '') {
+      var rn = Number(r.rate);
+      if (!isNaN(rn)) parts.push((rn >= 0 ? '+' : '') + rn.toFixed(1) + ' s/d');
+    }
+    if (r.beat_error !== null && r.beat_error !== undefined && r.beat_error !== '') {
+      var bn = Number(r.beat_error);
+      if (!isNaN(bn)) parts.push(bn.toFixed(1) + ' ms');
+    }
+    if (r.amplitude !== null && r.amplitude !== undefined && r.amplitude !== '') {
+      var an = Number(r.amplitude);
+      if (!isNaN(an)) parts.push(Math.round(an) + '°');
+    }
+    return parts.join(' · ');
+  }
+
+  // ── Render saved readings, grouped by watch (newest first) ───
+  function tgRenderSaved() {
+    var list = $('saved-list');
+    if (!list) return;
+    if (!authReady() || !TGAuth.isAuthed()) {
+      list.innerHTML = '<p class="saved-empty">Sign in to see your saved readings.</p>';
+      return;
+    }
+    list.innerHTML = '<p class="saved-note">Loading…</p>';
+    TGAuth.readings.list().then(function (rows) {
+      rows = rows || [];
+      if (!rows.length) {
+        list.innerHTML = '<p class="saved-empty">No saved readings yet.<br>Measure a watch, then tap <b>Save reading</b>.</p>';
+        return;
+      }
+      // Group by watch_name, preserving newest-first order (list() is desc).
+      var order = [];
+      var groups = {};
+      rows.forEach(function (r) {
+        var key = (r.watch_name || 'Untitled watch');
+        if (!groups[key]) { groups[key] = { name: key, movement: r.movement || '', rows: [] }; order.push(key); }
+        if (!groups[key].movement && r.movement) groups[key].movement = r.movement;
+        groups[key].rows.push(r);
+      });
+      var html = order.map(function (key) {
+        var g = groups[key];
+        var rowsHtml = g.rows.map(function (r) {
+          var when = relDate(r.created_at);
+          var pos = r.position ? (' · ' + esc(r.position)) : '';
+          return '<div class="sw-row"><span class="sw-when">' + esc(when) + pos +
+            '</span><span class="sw-vals">' + esc(valsLine(r)) + '</span></div>';
+        }).join('');
+        var mv = g.movement ? '<span>' + esc(g.movement) + '</span>' : '';
+        return '<div class="sw-card"><div class="sw-name">' + esc(g.name) + mv + '</div>' + rowsHtml + '</div>';
+      }).join('');
+      list.innerHTML = html +
+        '<p class="saved-note">Readings are saved per watch and position, so you can chart drift between services.</p>';
+    }).catch(function (ex) {
+      list.innerHTML = '<p class="saved-empty">Could not load your readings.<br><span style="font-size:11px">' +
+        esc((ex && ex.message) || '') + '</span></p>';
+    });
+  }
+
+  // ── Read the current on-screen reading from the DOM ──────────
+  function num(id, opts) {
+    opts = opts || {};
+    var el = $(id);
+    if (!el) return null;
+    var t = (el.textContent || '').trim();
+    if (!t || t === '—' || t === '–') return null;
+    // strip leading +, thin spaces, normal spaces, and thousands commas
+    t = t.replace(/\+/g, '').replace(/[  ,\s]/g, '');
+    var n = Number(t);
+    return isNaN(n) ? null : n;
+  }
+
+  function currentWatchName() {
+    var chip = $('watch-chip-name');
+    if (chip && chip.textContent.trim()) return chip.textContent.trim();
+    var bar = $('watch-profile-bar');
+    if (bar && bar.classList.contains('visible')) {
+      var nameEl = bar.querySelector('.watch-profile-name');
+      if (nameEl) {
+        // First text node only (movement is in a nested <span>)
+        var txt = '';
+        for (var i = 0; i < nameEl.childNodes.length; i++) {
+          var n = nameEl.childNodes[i];
+          if (n.nodeType === 3) txt += n.textContent;
+        }
+        txt = txt.trim();
+        if (txt) return txt;
+      }
+    }
+    return 'Untitled watch';
+  }
+
+  function currentMovement() {
+    var bar = $('watch-profile-bar');
+    if (bar && bar.classList.contains('visible')) {
+      var span = bar.querySelector('.watch-profile-name span');
+      if (span && span.textContent.trim()) return span.textContent.trim();
+    }
+    return null;
+  }
+
+  function currentPosition() {
+    var active = document.querySelector('.pos-chip.active');
+    if (active && active.textContent.trim()) return active.textContent.trim();
+    return null;
+  }
+
+  // ── Save the current reading to the user's account ───────────
+  function tgSaveReading() {
+    if (!authReady() || !TGAuth.isAuthed()) { tgOpenAccount(); return; }
+    var rate = num('v-rate');
+    var be = num('v-be');
+    var amp = num('v-amp');
+    var bph = num('v-bph');
+    if (rate === null && be === null && amp === null) {
+      // Nothing meaningful to save yet.
+      return;
+    }
+    var payload = {
+      watch_name: currentWatchName(),
+      movement: currentMovement(),
+      position: currentPosition(),
+      rate: rate,
+      beat_error: be,
+      amplitude: amp,
+      bph: bph
+    };
+    var btn = $('tg-cloud-save-btn');
+    var orig = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = 'Saving…'; }
+    TGAuth.readings.save(payload).then(function () {
+      if (btn) { btn.classList.add('copied'); btn.textContent = '✓ Saved'; }
+      tgOpenSaved();
+      setTimeout(function () {
+        if (btn) { btn.classList.remove('copied'); btn.textContent = orig || 'Save reading'; btn.disabled = false; }
+      }, 2000);
+    }).catch(function (ex) {
+      if (btn) { btn.textContent = 'Save failed'; }
+      setTimeout(function () {
+        if (btn) { btn.textContent = orig || 'Save reading'; btn.disabled = false; }
+      }, 2200);
+      console.warn('Save reading failed:', ex);
+    });
+  }
+
+  // ── Esc closes any open overlay ──────────────────────────────
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      var open = document.querySelectorAll('.ov:not([hidden])');
+      for (var i = 0; i < open.length; i++) open[i].hidden = true;
+    }
+  });
+
+  // Expose handlers used by inline markup.
+  window.tgOpenAccount = tgOpenAccount;
+  window.tgCloseOv = tgCloseOv;
+  window.tgAuthSubmit = tgAuthSubmit;
+  window.tgSignOut = tgSignOut;
+  window.tgSaveReading = tgSaveReading;
+
+  // If the user returns via a magic link, land them signed-in and
+  // reflect that in the header (no-op visually, but keeps state fresh).
+  if (authReady() && TGAuth.ready && typeof TGAuth.ready.then === 'function') {
+    TGAuth.ready.then(function () { /* session hydrated; nothing to repaint here */ });
+  }
+})();
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
