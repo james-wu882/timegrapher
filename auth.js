@@ -106,7 +106,7 @@
       const authed = this.isAuthed();
       const nodes = document.querySelectorAll('[data-auth="signin"]');
       for (let i = 0; i < nodes.length; i++) {
-        nodes[i].textContent = authed ? 'Account' : 'Sign in';
+        nodes[i].textContent = authed ? 'Account' : 'Sign up';
         nodes[i].setAttribute('href', '/account');
       }
     }
