@@ -33,7 +33,7 @@
 
 <!-- Performance: font origins -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="icon" type="image/svg+xml" href="assets/logo-small.svg">
+<link rel="icon" type="image/svg+xml" id="favicon" href="assets/favicon-light.svg">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <!-- Structured data: WebApplication + WebSite + FAQPage -->
@@ -119,10 +119,26 @@
   body { overflow-x: hidden; }
   ::selection { background: var(--brass); color: var(--bg); }
 
+  /* ── Theme cross-fade (class added briefly on theme change) ─ */
+  html.theme-fade body, html.theme-fade body * { transition: background-color 0.45s ease, color 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease, fill 0.45s ease, stroke 0.45s ease !important; }
+
+  /* ── Heading accent styles (Tweaks → Heading accent) ───── */
+  body[data-acc="ink"] .hero h1 em, body[data-acc="ink"] .chapter-title em, body[data-acc="ink"] .strip-card h2 em, body[data-acc="ink"] .cta-card h2 em { color: inherit; }
+  body[data-acc="underline"] .hero h1 em, body[data-acc="underline"] .chapter-title em, body[data-acc="underline"] .strip-card h2 em, body[data-acc="underline"] .cta-card h2 em { color: inherit; text-decoration: underline; text-decoration-color: var(--brass); text-decoration-thickness: 2.5px; text-underline-offset: 0.12em; }
+  body[data-acc="plain"] .hero h1 em, body[data-acc="plain"] .chapter-title em, body[data-acc="plain"] .strip-card h2 em, body[data-acc="plain"] .cta-card h2 em { color: inherit; font-style: normal; }
+  body[data-acc="hero-only"] .chapter-title em, body[data-acc="hero-only"] .strip-card h2 em, body[data-acc="hero-only"] .cta-card h2 em { color: inherit; }
+  /* hero-only variants: what the OTHER headings' em words do */
+  .hstop { font-style: normal; }
+  body[data-acc="hero-plain"] .chapter-title em, body[data-acc="hero-plain"] .strip-card h2 em, body[data-acc="hero-plain"] .cta-card h2 em { color: inherit; font-style: normal; }
+  body[data-acc="hero-light"] .chapter-title em, body[data-acc="hero-light"] .strip-card h2 em, body[data-acc="hero-light"] .cta-card h2 em { color: inherit; font-style: normal; font-weight: 400; }
+  body[data-acc="hero-bold"] .chapter-title em, body[data-acc="hero-bold"] .strip-card h2 em, body[data-acc="hero-bold"] .cta-card h2 em { color: inherit; font-style: normal; font-weight: 750; }
+  body[data-acc="hero-stop"] .chapter-title em, body[data-acc="hero-stop"] .strip-card h2 em, body[data-acc="hero-stop"] .cta-card h2 em { color: inherit; font-style: normal; }
+  body[data-acc="hero-stop"] .chapter-title .hstop, body[data-acc="hero-stop"] .strip-card h2 .hstop, body[data-acc="hero-stop"] .cta-card h2 .hstop { color: var(--brass); }
+
   /* ── Page loader: orbiting logo ──────────────────── */
   .loader { position: fixed; inset: 0; z-index: 999; background: var(--bg); display: flex; align-items: center; justify-content: center; transition: opacity 0.45s ease; }
   .loader.hide { opacity: 0; pointer-events: none; }
-  .loader-mark { position: relative; width: 56px; height: 56px; }
+  .loader-mark { position: relative; width: 76px; height: 76px; }
   .loader-svg { display: block; }
   .loader-svg .orbit { transform-box: view-box; transform-origin: 50% 50%; animation: loader-orbit linear infinite; }
   .loader-svg .o1 { animation-duration: 1.6s; }
@@ -149,17 +165,18 @@
   /* ── Masthead ─────────────────────────────────────────── */
   .masthead {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
     padding: 16px 44px;
     background: color-mix(in srgb, var(--bg) 82%, transparent);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--rule);
   }
+  .mast-inner { max-width: 1240px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
   .mast-left { display: flex; align-items: center; gap: 9px; }
   .mast-left img { width: 28px; height: 28px; border-radius: 8px; }
   .mast-brand { font-size: 16px; font-weight: 600; letter-spacing: -0.02em; color: var(--text); }
   .mast-brand i { font-style: normal; color: var(--brass); }
-  .mast-right { display: flex; align-items: center; gap: 22px; }
+  .mast-right { display: flex; align-items: center; gap: 24px; }
+  .mast-cta { display: flex; align-items: center; gap: 10px; }
   .mast-link { font-size: 14px; font-weight: 500; color: var(--text2); text-decoration: none; white-space: nowrap; padding: 11px 2px; /* ≥44px tap target */ }
   .mast-link:hover { color: var(--text); }
   .btn {
@@ -218,12 +235,6 @@
 
   /* back layer — switchable hero graphic (drawn by hero-graphics.js) */
   .hg { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .stage-caption {
-    position: absolute; right: 4%; top: 12%;
-    font-family: var(--font-mono); font-size: 11px; color: var(--text3); letter-spacing: 0.05em;
-    display: inline-flex; align-items: center; gap: 8px;
-  }
-  .stage-caption::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--brass); }
   @media (max-width: 980px) { .stage { opacity: 0.85; } }
 
   /* front layer — floating verdict chip */
@@ -241,7 +252,14 @@
 
   /* ── Chapters ─────────────────────────────────────────── */
   .section { padding: 110px 44px 40px; max-width: 1240px; margin: 0 auto; }
-  .chapter-no { font-family: var(--font-mono); font-size: 11px; color: var(--brass); letter-spacing: 0.08em; margin-bottom: 16px; }
+  /* ── Section headers (Tweaks → Section headers) ──────── */
+  .sec-hd { display: grid; grid-template-columns: auto 1fr; grid-template-areas: "kick kick" "title title" "sub sub"; }
+  .sec-hd h2 { grid-area: title; }
+  .sec-hd .chapter-sub { grid-area: sub; }
+  /* default: chapter kicker (current) */
+  .sec-hd::before { content: "Chapter " attr(data-num) " · " attr(data-label); grid-area: kick; font-family: var(--font-mono); font-size: 11px; color: var(--brass); letter-spacing: 0.08em; margin-bottom: 16px; }
+  .strip-card .sec-hd::before { color: #C9A45C; }
+
   .chapter-title { font-size: var(--fs-display); font-weight: 600; line-height: 1.06; letter-spacing: -0.025em; max-width: 15em; }
   .chapter-title em { font-style: italic; font-weight: 600; color: var(--brass); }
   .chapter-sub { margin-top: 16px; max-width: 480px; font-size: 15px; color: var(--text2); line-height: 1.65; }
@@ -270,7 +288,6 @@
     padding: 84px 64px; color: #F0EADE; box-shadow: var(--shadow-lg);
   }
   @media (max-width: 800px) { .strip-card { padding: 56px 32px; } }
-  .strip-card .chapter-no { color: #C9A45C; }
   .strip-card h2 { font-size: var(--fs-display); font-weight: 600; letter-spacing: -0.025em; line-height: 1.06; max-width: 12em; }
   .strip-card h2 em { font-style: italic; font-weight: 600; color: #C9A45C; }
   .strip-copy { margin-top: 20px; max-width: 430px; font-size: 15px; line-height: 1.65; color: #B5AA92; position: relative; z-index: 2; }
@@ -359,7 +376,6 @@
     .mcard { padding: 26px 24px 28px; }
     .stage { height: 300px; }
     .float-chip { right: 0; bottom: 4%; max-width: 230px; }
-    .stage-caption { right: 0; top: 6%; }
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -368,7 +384,7 @@
   }
 </style>
 </head>
-<body data-theme="light">
+<body data-theme="light" data-acc="hero-plain">
 
 <script>
 /* theme: light / dark / system — applied before paint to avoid flash */
@@ -382,14 +398,22 @@
     document.querySelectorAll('img[data-logo]').forEach(function (img) {
       img.src = t === 'dark' ? img.getAttribute('data-logo-dark') : img.getAttribute('data-logo-light');
     });
+    var fav = document.getElementById('favicon');
+    if (fav) fav.href = t === 'dark' ? 'assets/favicon-dark.svg' : 'assets/favicon-light.svg';
     document.querySelectorAll('.theme-seg button, .theme-pop-menu button').forEach(function (b) {
       b.classList.toggle('active', b.getAttribute('data-mode') === mode);
     });
     document.querySelectorAll('.theme-pop-btn').forEach(function (b) { b.setAttribute('data-mode', mode); });
   };
-  window.setThemeMode = function (m) { localStorage.setItem(KEY, m); window.applyTheme(); };
+  window.setThemeMode = function (m) { localStorage.setItem(KEY, m); themeFade(); window.applyTheme(); };
+  function themeFade() {
+    var h = document.documentElement;
+    h.classList.add('theme-fade');
+    clearTimeout(themeFade._t);
+    themeFade._t = setTimeout(function () { h.classList.remove('theme-fade'); }, 520);
+  }
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
-    if ((localStorage.getItem(KEY) || 'system') === 'system') window.applyTheme();
+    if ((localStorage.getItem(KEY) || 'system') === 'system') { themeFade(); window.applyTheme(); }
   });
   window.applyTheme();
   document.addEventListener('DOMContentLoaded', window.applyTheme);
@@ -399,8 +423,7 @@
 <!-- page loader: the mark itself, orbits running like watch hands -->
 <div class="loader" id="loader" aria-hidden="true">
   <div class="loader-mark">
-    <svg class="loader-svg" viewBox="0 0 64 64" width="56" height="56" aria-hidden="true">
-      <rect width="64" height="64" rx="14" fill="var(--bg4)"></rect>
+    <svg class="loader-svg" viewBox="0 0 64 64" width="76" height="76" aria-hidden="true">
       <g fill="none" stroke-linecap="round">
         <circle cx="32" cy="32" r="8" stroke="var(--text)" stroke-width="1.5" opacity="0.35"></circle>
         <circle cx="32" cy="32" r="15" stroke="var(--text)" stroke-width="1.5" opacity="0.35"></circle>
@@ -424,6 +447,7 @@
 </script>
 
 <header class="masthead">
+  <div class="mast-inner">
   <div class="mast-left">
     <img data-logo data-logo-light="assets/logo-small.svg" data-logo-dark="assets/logo-small-dark.svg" src="assets/logo-small.svg" alt="">
     <div class="mast-brand">timegrapher<i>.ai</i></div>
@@ -448,9 +472,12 @@
         <button data-mode="system" onclick="setThemeMode('system'); document.getElementById('theme-pop').classList.remove('open')" title="System" aria-label="Follow system theme"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"></path></svg></button>
       </div>
     </div>
+    <div class="mast-cta">
     <a class="btn small ghost mast-signup" data-auth="signin" href="/account">Sign up</a>
-    <a class="btn small" href="/app">Begin</a>
+    <a class="btn small" href="/app">Scan</a>
+    </div>
   </nav>
+  </div>
 </header>
 
 <!-- ── Hero ─────────────────────────────────────────────── -->
@@ -460,7 +487,7 @@
     <h1 class="rv rv-d1">Every watch has a <em>heartbeat.</em></h1>
     <p class="hero-sub rv rv-d2">Six times a second, your watch confesses everything: its rate, its balance, its health. Timegrapher listens through your microphone and writes it all down. No hardware — and no account needed to measure.</p>
     <div class="hero-actions rv rv-d3">
-      <a class="btn" href="/app">Allow microphone &amp; begin</a>
+      <a class="btn" href="/app">Allow microphone &amp; scan</a>
       <a class="btn ghost" href="#method">How it works</a>
     </div>
     <div class="hero-trust rv rv-d3">free forever · audio never leaves your device · chrome, firefox, safari</div>
@@ -469,7 +496,6 @@
   <div class="stage" id="stage" aria-hidden="true">
     <!-- balance-wheel hero graphic: the watch's heartbeat (drawn by hero-graphics.js) -->
     <canvas class="hg" id="hg-balance"></canvas>
-    <div class="stage-caption" id="stage-caption">balance · 271° amplitude</div>
 
     <!-- front: verdict chip -->
     <div class="layer float-chip">
@@ -483,9 +509,10 @@
 
 <!-- ── Four numbers ─────────────────────────────────────── -->
 <section class="section" id="numbers">
-  <div class="chapter-no rv">Chapter I · The reading</div>
-  <h2 class="chapter-title rv rv-d1">Four numbers tell <em>the whole story.</em></h2>
-  <p class="chapter-sub rv rv-d2">A timegrapher distills everything a watchmaker needs to know into four readings, taken live from the sound of the escapement.</p>
+  <header class="sec-hd rv" data-num="I" data-label="The reading">
+    <h2 class="chapter-title rv rv-d1">Four numbers tell <em>the whole story</em><i class="hstop">.</i></h2>
+    <p class="chapter-sub rv rv-d2">A timegrapher distills everything a watchmaker needs to know into four readings, taken live from the sound of the escapement.</p>
+  </header>
   <div class="metric-grid">
     <div class="mcard rv">
       <div class="mcard-label"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="7" cy="7" r="5.5"></circle><line x1="7" y1="7" x2="9.6" y2="4.4"></line></svg>Rate</div>
@@ -515,8 +542,9 @@
   <div class="strip-card rv">
     <canvas class="strip-canvas" id="strip-canvas"></canvas>
     <div style="position:relative;z-index:2">
-      <div class="chapter-no">Chapter II · The trace</div>
-      <h2>The paperstrip <em>never lies.</em></h2>
+      <header class="sec-hd" data-num="II" data-label="The trace">
+        <h2>The paperstrip <em>never lies</em><i class="hstop">.</i></h2>
+      </header>
       <p class="strip-copy">Every tick becomes a dot; every dot takes its place in the column. One glance shows the whole diagnosis.</p>
       <div class="strip-legend">
         <span class="sleg"><b>Vertical</b>well regulated</span>
@@ -530,8 +558,9 @@
 
 <!-- ── Method ───────────────────────────────────────────── -->
 <section class="section" id="method">
-  <div class="chapter-no rv">Chapter III · The method</div>
-  <h2 class="chapter-title rv rv-d1">From whisper <em>to verdict.</em></h2>
+  <header class="sec-hd rv" data-num="III" data-label="The method">
+    <h2 class="chapter-title rv rv-d1">From whisper <em>to verdict</em><i class="hstop">.</i></h2>
+  </header>
   <div class="method-grid">
     <div class="step rv">
       <div class="step-no">1</div>
@@ -563,8 +592,9 @@
 <!-- FAQ -->
 <section class="faq" id="faq" aria-labelledby="faq-title">
   <div class="faq-inner">
-    <div class="chapter-no rv">Chapter IV · Questions</div>
-    <h2 class="chapter-title rv rv-d1" id="faq-title">Everything you'd <em>ask a watchmaker.</em></h2>
+    <header class="sec-hd rv" data-num="IV" data-label="Questions">
+      <h2 class="chapter-title rv rv-d1" id="faq-title">Everything you'd <em>ask a watchmaker</em><i class="hstop">.</i></h2>
+    </header>
     <div class="faq-list rv rv-d2">
       <details class="faq-item">
         <summary class="faq-q">What is a timegrapher?</summary>
@@ -601,9 +631,9 @@
 <!-- ── CTA ──────────────────────────────────────────────── -->
 <section class="cta" id="begin">
   <div class="cta-card rv">
-    <h2>Now, <em>listen.</em></h2>
+    <h2>Now, <em>listen</em><i class="hstop">.</i></h2>
     <p class="cta-sub">Your watch has been keeping notes. It takes a minute to read them.</p>
-    <a class="btn" href="/app">Allow microphone &amp; begin</a>
+    <a class="btn" href="/app">Allow microphone &amp; scan</a>
     <div class="cta-quiet">free forever · no account needed to measure · audio never leaves your device</div>
   </div>
 </section>
@@ -614,9 +644,36 @@
   <span>© 2026 · free, private, open to everyone</span>
 </footer>
 
+<script>
+/* eased anchor scrolling — longer, softer glide than native smooth scroll */
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var target = document.querySelector(a.getAttribute('href'));
+    if (!target) return;
+    e.preventDefault();
+    var startY = window.scrollY;
+    var endY = Math.min(target.getBoundingClientRect().top + startY - 76, document.documentElement.scrollHeight - window.innerHeight);
+    var dur = Math.min(1500, 600 + Math.abs(endY - startY) * 0.3);
+    var t0 = null;
+    function step(ts) {
+      if (t0 === null) t0 = ts;
+      var p = Math.min(1, (ts - t0) / dur);
+      window.scrollTo({ top: startY + (endY - startY) * ease(p), behavior: 'instant' });
+      if (p < 1) requestAnimationFrame(step);
+      else history.replaceState(null, '', a.getAttribute('href'));
+    }
+    requestAnimationFrame(step);
+  });
+})();
+</script>
 <script src="landing/landing.js"></script>
 <script src="landing/hero-graphics.js"></script>
 <script src="auth.js"></script>
 
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
