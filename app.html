@@ -1971,6 +1971,27 @@ body.pro-mode .pro-only { display: block; }
 
 
   /* dedupe: hide engine local save */ #save-btn { display: none !important; }
+
+  /* ── Mobile overflow fixes (appended last to win the cascade) ── */
+  @media (max-width: 640px) {
+    html, body { overflow-x: hidden; max-width: 100%; }
+    #app, #app-screen, #start-screen { max-width: 100%; overflow-x: hidden; }
+    /* settings row: let the pills shrink and wrap instead of overflowing */
+    .settings { flex-wrap: wrap; min-width: 0; width: 100%; }
+    .field { min-width: 0; flex: 1 1 30%; }
+    .field select, .field input[type=number] { min-width: 0; width: auto; flex: 1; }
+    /* grids: minmax(0,1fr) so wide content cannot push tracks past the viewport */
+    .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .pro-stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .panels { grid-template-columns: 1fr; }
+    /* contain every card/panel + the canvases */
+    .panel, .card, .pro-panel, .ai-section, .watch-search-section, .verdict-card,
+    .legend, .history-section, .position-prompt, .readings-actions, .watch-profile-bar,
+    .watch-search-row, .pos-line, .cards, .panels, .pro-stats-grid { min-width: 0; max-width: 100%; }
+    canvas { max-width: 100%; }
+    /* chips/buttons wrap rather than run off the edge */
+    .ai-suggestions, .pos-chips, .readings-actions, .watch-specs-row, .pos-line, .strip-btns { flex-wrap: wrap; }
+  }
 </style>
 </head>
 <body>
@@ -2037,11 +2058,11 @@ body.pro-mode .pro-only { display: block; }
         </select>
       </div>
       <div class="field">
-        <label>Lift angle °</label>
+        <label>Lift °</label>
         <input type="number" id="in-la" value="52" min="45" max="60" step="0.5" title="Common range: 49–53°. Values outside 45–60° are unusual.">
       </div>
       <div class="field">
-        <label>Cal. offset s/d</label>
+        <label>Offset</label>
         <input type="number" id="in-cal" value="0" min="-100" max="100" step="0.1">
       </div>
     </div>
@@ -2344,16 +2365,16 @@ body.pro-mode .pro-only { display: block; }
       <button class="ov-x" onclick="tgCloseOv(this)" aria-label="Close">×</button>
       <form id="auth-form" onsubmit="tgAuthSubmit(event)">
         <h2 class="auth-title">Keep every reading.</h2>
-        <p class="auth-sub">No account needed to measure — create one to save readings and chart your watches over time.</p>
+        <p class="auth-sub">No account needed to measure — continue below and we'll sign you in, or create your account if you're new.</p>
         <input class="auth-input" id="auth-email" type="email" placeholder="you@example.com" autocomplete="email" required style="margin-top:18px">
-        <button class="auth-primary" id="auth-primary" type="submit">Email me a sign-in link</button>
+        <button class="auth-primary" id="auth-primary" type="submit">Continue with email</button>
         <p class="auth-error" id="auth-error" hidden></p>
-        <p class="auth-fine">No passwords — we email you a one-time link. Your email only keeps your readings together; audio never leaves your device.</p>
+        <p class="auth-fine">We email you a one-time link — it signs you in, or creates your account if you're new. No passwords. Your email only keeps your readings together; audio never leaves your device.</p>
       </form>
       <div class="auth-sent" id="auth-sent" hidden>
         <div class="auth-sent-dot">✓</div>
         <div class="big">Check your inbox</div>
-        <p>We sent a sign-in link to <b id="auth-sent-email"></b>. It works once and expires shortly — open it on this device to land back here signed in.</p>
+        <p>We sent a magic link to <b id="auth-sent-email"></b>. Open it on this device and you're in — it works once and expires in 15 minutes.</p>
       </div>
     </div>
   </div>
@@ -4335,7 +4356,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }).catch(function (ex) {
       if (err) { err.hidden = false; err.textContent = (ex && ex.message) || 'Could not send the link. Please try again.'; }
     }).finally(function () {
-      if (btn) { btn.disabled = false; btn.textContent = 'Email me a sign-in link'; }
+      if (btn) { btn.disabled = false; btn.textContent = 'Continue with email'; }
     });
   }
 
