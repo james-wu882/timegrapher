@@ -59,6 +59,13 @@
       return true;
     },
 
+    /* Google OAuth via Supabase — full-page redirect; the callback returns
+       tokens in the URL hash, which hydrateFromHash() consumes on load. */
+    signInWithGoogle: function (redirectTo) {
+      const rt = redirectTo || (location.origin + '/app');
+      location.href = AUTH + '/authorize?provider=google&redirect_to=' + encodeURIComponent(rt);
+    },
+
     refresh: async function () {
       const s = load();
       if (!s || !s.refresh_token) return null;

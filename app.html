@@ -1992,6 +1992,13 @@ body.pro-mode .pro-only { display: block; }
     /* chips/buttons wrap rather than run off the edge */
     .ai-suggestions, .pos-chips, .readings-actions, .watch-specs-row, .pos-line, .strip-btns { flex-wrap: wrap; }
   }
+
+  /* kit: oauth button + divider (sign-in modal) */
+  .oauth-btn { display: block; width: 100%; box-sizing: border-box; padding: 12px; border-radius: var(--radius-pill); border: 1px solid var(--rule-2); background: transparent; font-family: var(--font-sans); font-size: 13px; font-weight: 600; color: var(--text); cursor: pointer; transition: all 0.18s ease; }
+  .oauth-btn:hover { border-color: var(--rule-ink); }
+  .auth-or { display: flex; align-items: center; gap: 12px; margin: 14px 0; color: var(--text3); font-family: var(--font-mono); font-size: 10px; white-space: nowrap; }
+  .auth-or::before, .auth-or::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+
 </style>
 </head>
 <body>
@@ -2366,7 +2373,9 @@ body.pro-mode .pro-only { display: block; }
       <form id="auth-form" onsubmit="tgAuthSubmit(event)">
         <h2 class="auth-title">Keep every reading.</h2>
         <p class="auth-sub">No account needed to measure — continue below and we'll sign you in, or create your account if you're new.</p>
-        <input class="auth-input" id="auth-email" type="email" placeholder="you@example.com" autocomplete="email" required style="margin-top:18px">
+        <button type="button" class="oauth-btn" onclick="TGAuth.signInWithGoogle(location.origin + '/app')">Continue with Google</button>
+        <div class="auth-or"><span>or with a magic link</span></div>
+        <input class="auth-input" id="auth-email" type="email" placeholder="you@example.com" autocomplete="email" required>
         <button class="auth-primary" id="auth-primary" type="submit">Continue with email</button>
         <p class="auth-error" id="auth-error" hidden></p>
         <p class="auth-fine">We email you a one-time link — it signs you in, or creates your account if you're new. No passwords. Your email only keeps your readings together; audio never leaves your device.</p>
@@ -4557,5 +4566,6 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
 </body>
 </html>

@@ -11,3 +11,8 @@ wrangler-cfai.toml
 # Repo docs / agent scratch — not part of the deployed site
 README.md
 .context
+
+# local tooling
+node_modules
+package.json
+package-lock.json

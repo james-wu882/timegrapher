@@ -94,6 +94,8 @@
     <h1>Save your <em>watches.</em></h1>
     <p class="lede">Optional — keep your watches and their readings in one place. No password: we email you a secure sign-in link. The timegrapher itself is always free, with no account needed.</p>
 
+    <button id="google-btn" class="btn ghost" type="button" style="margin-top:26px" onclick="TGAuth.signInWithGoogle(location.origin + '/account')">Continue with Google</button>
+    <div style="display:flex;align-items:center;gap:12px;margin:14px 0 -12px;color:var(--text3);font-family:var(--font-mono);font-size:10px;white-space:nowrap"><span style="flex:1;height:1px;background:var(--rule)"></span>or with a magic link<span style="flex:1;height:1px;background:var(--rule)"></span></div>
     <form id="magic-form" novalidate>
       <div class="field">
         <label for="email">Email</label>
@@ -173,5 +175,6 @@
 })();
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
 </body>
 </html>
